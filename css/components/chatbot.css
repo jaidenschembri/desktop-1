@@ -1,0 +1,103 @@
+#chatbot.window {
+  width: 520px;
+  height: 480px;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.chatbot-box {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(6px);
+  border-radius: 16px;
+  padding: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  font-family: 'VT323', monospace;
+  color: #333;
+  overflow: hidden;
+}
+
+/* ==== Message Area ==== */
+.chat-display {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-radius: 12px;
+  background: rgba(240, 240, 255, 0.5);
+  box-shadow: inset 0 0 0 2px rgba(200, 200, 255, 0.2);
+  backdrop-filter: blur(4px);
+}
+
+/* Chat bubbles */
+.chat-display .user {
+  align-self: flex-end;
+  background: #ffd6fa;
+  color: #333;
+  padding: 8px 12px;
+  border-radius: 18px 18px 4px 18px;
+  max-width: 70%;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+.chat-display .bot {
+  align-self: flex-start;
+  background: #d6faff;
+  color: #333;
+  padding: 8px 12px;
+  border-radius: 18px 18px 18px 4px;
+  max-width: 70%;
+  font-size: 14px;
+  line-height: 1.4;
+}
+
+/* ==== Input Area ==== */
+.chat-controls {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+  background: transparent;
+}
+
+.chat-controls input[type="text"] {
+  flex: 1;
+  border-radius: 12px;
+  border: none;
+  padding: 10px 14px;
+  font-size: 14px;
+  font-family: 'VT323', monospace;
+  background: rgba(255, 255, 255, 0.7);
+  color: #333;
+  box-shadow: inset 0 0 4px rgba(0,0,0,0.1);
+  outline: none;
+}
+
+.chat-controls button {
+  border: none;
+  border-radius: 12px;
+  padding: 10px 16px;
+  background: linear-gradient(to right, #ffd6fa, #d6faff);
+  color: #333;
+  font-family: 'VT323', monospace;
+  font-size: 14px;
+  cursor: pointer;
+  transition: transform 0.1s ease, background 0.2s ease;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.chat-controls button:hover {
+  transform: scale(1.05);
+  background: linear-gradient(to right, #ffe2ff, #dffcff);
+}
+
+.chatbot-box {
+  background: rgba(255, 255, 255, 0.55);
+  backdrop-filter: blur(10px);
+  border: 2px solid rgba(255,255,255,0.25);
+}
+
