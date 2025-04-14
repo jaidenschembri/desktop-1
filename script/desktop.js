@@ -40,6 +40,7 @@ function openWindow(id) {
   el.classList.remove('hidden');
   el.style.visibility = 'hidden';
   el.style.display = 'block';
+  
 
 // 🔁 Swap to open icon
 const iconEl = document.querySelector(`.icon[data-window-id="${id}"] img`);
@@ -59,14 +60,29 @@ if (iconEl && apps[id]?.openIcon) {
     el.style.left = `${centeredLeft}px`;
     el.style.top = '100px';
   } else {
-    el.style.left = `${100 + Math.floor(Math.random() * 60)}px`;
-    el.style.top = `${100 + Math.floor(Math.random() * 60)}px`;
+    if (window.innerWidth > 768) {
+      // ✅ Desktop: random offset
+      el.style.left = `${100 + Math.floor(Math.random() * 60)}px`;
+      el.style.top = `${100 + Math.floor(Math.random() * 60)}px`;
+    } else {
+      // 📱 Mobile: no positioning
+      el.style.left = '';
+      el.style.top = '';
+    }
   }
+
 
   el.style.visibility = '';
   el.style.display = '';
 
+  // 🔧 Clean up inline styles on mobile
+  if (window.innerWidth <= 768) {
+    el.style.removeProperty('left');
+    el.style.removeProperty('top');
+  }
+
   el.classList.add('restoring');
+
   bringToFront(el);
   bindDrag(el);
 
@@ -471,16 +487,19 @@ const startBtn = document.getElementById('start-btn');
 const startMenu = document.getElementById('start-menu');
 
 startBtn.addEventListener('click', (e) => {
-  e.stopPropagation(); // prevent body click from instantly closing it
+  e.stopPropagation(); // prevent body click from closing
+  const isOpen = !startMenu.classList.contains('hidden');
   startMenu.classList.toggle('hidden');
+  startBtn.classList.toggle('active', !isOpen); // ✅ toggle active class
 });
 
-// Close menu if you click outside of it
 document.addEventListener('click', (e) => {
   if (!startMenu.contains(e.target) && !startBtn.contains(e.target)) {
     startMenu.classList.add('hidden');
+    startBtn.classList.remove('active'); // ✅ close the button state
   }
 });
+
 
 function setTheme(mode) {
   document.body.classList.remove('theme-classic', 'theme-mono', 'theme-cyber');

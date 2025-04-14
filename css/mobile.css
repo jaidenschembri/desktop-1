@@ -1,13 +1,16 @@
 /* 📱 Base mobile layout — no transform */
 body {
-    width: 100vw;
-    min-height: 100vh;
-    overflow-x: hidden;
-    overflow-y: auto;
-    background-size: cover;
-    padding-bottom: 60px; /* make room for fixed taskbar */
-  }
-  
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background-size: cover;
+  padding-bottom: 60px; /* makes space for fixed taskbar */
+  font-family: 'Press Start 2P', monospace;
+}
+
   /* ✅ Taskbar pinned to real bottom */
   footer.taskbar {
     position: fixed;
@@ -34,13 +37,16 @@ body {
   /* 🪟 Windows flow down naturally */
   .window {
     position: static !important;
-    width: 100% !important;
-    max-width: 100%;
+    width: 94% !important;
+    max-width: 540px;
+    margin: 16px auto;
     height: auto !important;
-    margin: 12px 0;
-    box-shadow: none;
-    border: 1px solid #444;
+    box-shadow: none !important;
+    border: 2px solid #444;
+    border-radius: 6px;
+    margin-inline:auto;
   }
+  
   
   /* 🧰 Desktop icons become horizontal rows */
   .desktop-icons {
@@ -51,4 +57,67 @@ body {
     padding: 10px;
   }
   
+  .desktop-area {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    position: relative;
+    z-index: 1;
+  }
   
+  .desktop-icons {
+    display: none !important;
+  }
+  
+  .taskbar-apps {
+    display: none !important;
+  }
+  
+  #tip,
+#chatbot,
+#numerology,
+#window-portfolio,
+#window-shop,
+#guestbook,
+#gifypet,
+#yume {
+  width: 94% !important;
+  max-width: 540px;
+  margin: 16px auto;
+  height: auto !important;
+}
+
+/* 🔇 Hide scrollbar visuals but keep scrolling behavior */
+body::-webkit-scrollbar,
+.window::-webkit-scrollbar {
+  width: 0px;
+  background: transparent;
+}
+
+body {
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* IE/Edge */
+}
+
+body::-webkit-scrollbar {
+  display: none;               /* Chrome/Safari/Opera */
+}
+
+/* 💣 Global scrollbar nuke for mobile */
+
+html, body {
+  scrollbar-width: none;           /* Firefox */
+  -ms-overflow-style: none;        /* IE/Edge */
+  overflow-y: scroll;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.window::-webkit-scrollbar,
+.desktop-wrapper::-webkit-scrollbar,
+.window-stack::-webkit-scrollbar {
+  display: none;                   /* Chrome, Safari, Opera */
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
