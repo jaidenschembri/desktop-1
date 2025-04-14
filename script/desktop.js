@@ -507,3 +507,28 @@ function setTheme(mode) {
   startMenu.classList.add('hidden');
 }
 
+function initIpodToggle() {
+  const ipodToggleBtn = document.getElementById('ipod-toggle-btn');
+  const ipodEl = document.getElementById('fixed-ipod');
+
+  if (ipodToggleBtn && ipodEl) {
+    ipodToggleBtn.addEventListener('click', () => {
+      const isMobile = window.innerWidth <= 768;
+
+      if (isMobile) {
+        ipodEl.classList.toggle('visible');  // mobile logic
+      } else {
+        ipodEl.classList.toggle('hidden');   // desktop logic
+      }
+
+      console.log('🎧 iPod toggled');
+    });
+  } else {
+    console.warn('⚠️ iPod toggle elements not ready, retrying...');
+    setTimeout(initIpodToggle, 100);
+  }
+}
+
+window.addEventListener('DOMContentLoaded', initIpodToggle);
+
+

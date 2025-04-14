@@ -556,3 +556,8 @@ footer.taskbar {
   flex: 1;
   min-width: 0;
 }
+
+#fixed-ipod.hidden {
+  display: none !important;
+}
+

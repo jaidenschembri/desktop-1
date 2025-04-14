@@ -121,3 +121,10 @@ body::-webkit-scrollbar,
   height: 0 !important;
   background: transparent !important;
 }
+
+@media (max-width: 768px) {
+  #fixed-ipod:not(.visible) {
+    display: none !important;
+  }
+}
+
