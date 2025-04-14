@@ -85,7 +85,6 @@ hr {
     max-width: none;
     max-height: none;
     background: linear-gradient(135deg, #d0f0ff, #f0fff4);
-    border: 2px solid #a5d8ff;
     box-shadow: 0 0 12px #8cf;
   }
 
@@ -95,19 +94,6 @@ hr {
     flex-direction: column;
     overflow: hidden;
   }
-  
-  /* 🧠 Active guestbook header */
-#guestbook.window.active-window .window-header {
-  background: linear-gradient(to bottom, #79c2ff, #579fd6);
-  color: white;
-}
-
-/* 🌫️ Inactive guestbook header */
-#guestbook .window-header {
-  background: linear-gradient(to bottom, #b5d8f3, #a6cce8);
-  color: #eee;
-}
-
 
   .guestbook-form {
     display: flex;

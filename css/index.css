@@ -70,17 +70,24 @@ body {
 }
 
 .window-header {
-  background: linear-gradient(to bottom, #6e90c3, #3c4e6d); /* deep blue fade */
-  border-bottom: 2px solid #1a1a1a;
-  padding: 4px 6px;
+  background: #c0c0c0;
+  padding: 6px 10px;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 11px;
+  border-bottom: 1px solid #666;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: 'DOSVGA', monospace;
-  font-size: 12px;
-  color: #fff;
-  text-shadow: 1px 1px 0 #000; /* reverse emboss */
-  box-shadow: inset -1px -1px 0 #fff, inset 1px 1px 0 #000;
+  position: relative;
+  top: 0;
+  z-index: 10;
+  pointer-events: auto;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
+  box-shadow:
+  inset -1px -1px 0 #fff, 
+  inset 1px 1px 0 #000,
+  0 1px 2px rgba(0, 0, 0, 0.5); /* slight outer shadow */
+
 }
 
 .window.active-window .window-header {
@@ -488,6 +495,68 @@ footer.taskbar {
   flex-shrink: 0;
   display: block;
 }
+
+.start-menu {
+  position: fixed;
+  bottom: 40px;
+  left: 12px;
+  width: 190px;
+  background: #dcdcdc;
+  border: 2px solid #000;
+  box-shadow: inset -1px -1px 0 #fff, inset 1px 1px 0 #666;
+  font-family: 'DOSVGA', monospace;
+  font-size: 14px;
+  color: #000;
+  padding: 4px 0;
+  z-index: 9999;
+}
+
+.start-menu ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.start-menu li {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  cursor: pointer;
+  transition: background 0.1s ease;
+}
+
+.start-menu li:hover {
+  background: #bfbfbf;
+}
+
+.hidden {
+  display: none !important;
+}
+
+
+/* Default Classic (already active) */
+.theme-classic .window-header {
+  background: linear-gradient(to bottom, #6e90c3, #3c4e6d);
+  color: #fff;
+}
+
+/* Mono Mode */
+.theme-mono .window-header {
+  background: #111;
+  color: #0f0;
+  text-shadow: none;
+  font-family: monospace;
+}
+
+/* Cyber Mode */
+.theme-cyber .window-header {
+  background: linear-gradient(to right, #8e2de2, #4a00e0);
+  color: #fff;
+  text-shadow: 0 0 2px #0ff;
+  font-family: 'Orbitron', sans-serif;
+}
+
 
 .taskbar-left {
   display: flex;

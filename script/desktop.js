@@ -2,17 +2,18 @@
 const taskbar = document.getElementById('taskbar-apps');
 
 const apps = {
-  chatbot: { title: 'Chatbot', icon: 'pixelated/icons/computer2.png' },
-  oscillator: { title: 'Oscillator', icon: 'pixelated/icons/oscillator.png' },
-  ipod: { title: 'iPod', icon: 'pixelated/ipod.gif' },
-  gifypet: { title: 'Gifypet', icon: 'pixelated/icons/dino2.gif' },
-  numerology: { title: 'Numerology', icon: 'pixelated/icons/space.png' },
-  tip: { title: 'Tip Jar', icon: 'pixelated/icons/cash.png' },
-  guestbook: { title: 'Guestbook', icon: 'pixelated/icons/city.png' },
-  'window-shop': { title: 'Shop', icon: 'pixelated/icons/sun.png' },
-  'window-portfolio': { title: 'Portfolio', icon: 'pixelated/icons/halo.png' },
-  yume: { title: 'Yume', icon: 'pixelated/folder-icon.png' } // ✅ added here
+  chatbot: { title: 'Chatbot', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
+  oscillator: { title: 'Oscillator', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
+  ipod: { title: 'iPod', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
+  gifypet: { title: 'Gifypet', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
+  numerology: { title: 'Numerology', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
+  tip: { title: 'Tip Jar', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
+  guestbook: { title: 'Guestbook', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
+  'window-shop': { title: 'Shop', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
+  'window-portfolio': { title: 'Portfolio', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
+  yume: { title: 'Yume', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' }
 };
+
 
 let zCounter = 100;
 
@@ -40,6 +41,12 @@ function openWindow(id) {
   el.classList.remove('hidden');
   el.style.visibility = 'hidden';
   el.style.display = 'block';
+
+// 🔁 Swap to open icon
+const iconEl = document.querySelector(`.icon[data-window-id="${id}"] img`);
+if (iconEl && apps[id]?.openIcon) {
+  iconEl.src = apps[id].openIcon;
+}
 
   if (id === 'gifypet') {
     el.style.width = '310px';
@@ -84,11 +91,18 @@ function minimizeWindow(id) {
 
 function closeWindow(id) {
   const el = document.getElementById(id);
-  if (el) {
-    el.classList.add('hidden');
-    removeFromTaskbar(id);
+  if (!el) return;
+
+  el.classList.add('hidden');
+  removeFromTaskbar(id);
+
+  // 🔁 Revert to closed icon
+  const iconEl = document.querySelector(`.icon[data-window-id="${id}"] img`);
+  if (iconEl && apps[id]?.icon) {
+    iconEl.src = apps[id].icon;
   }
 }
+
 
 function addToTaskbar(id) {
   if (document.querySelector(`[data-app="${id}"]`)) return;
@@ -453,3 +467,25 @@ function updateTaskbarButtons() {
 
 // Auto update on resize
 window.addEventListener('resize', updateTaskbarButtons);
+
+const startBtn = document.getElementById('start-btn');
+const startMenu = document.getElementById('start-menu');
+
+startBtn.addEventListener('click', (e) => {
+  e.stopPropagation(); // prevent body click from instantly closing it
+  startMenu.classList.toggle('hidden');
+});
+
+// Close menu if you click outside of it
+document.addEventListener('click', (e) => {
+  if (!startMenu.contains(e.target) && !startBtn.contains(e.target)) {
+    startMenu.classList.add('hidden');
+  }
+});
+
+function setTheme(mode) {
+  document.body.classList.remove('theme-classic', 'theme-mono', 'theme-cyber');
+  document.body.classList.add(`theme-${mode}`);
+  startMenu.classList.add('hidden');
+}
+
