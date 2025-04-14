@@ -14,7 +14,6 @@ const apps = {
   yume: { title: 'Yume', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' }
 };
 
-
 let zCounter = 100;
 
 function bringToFront(el) {

@@ -566,3 +566,14 @@ footer.taskbar {
   min-width: 0;
 }
 
+.desktop-wrapper {
+  padding-bottom: 60px; /* match or exceed taskbar height */
+  min-height: 100vh;
+  box-sizing: border-box;
+  overflow-x: hidden;
+  overflow-y: auto;
+  position: relative;
+  z-index: 1;
+}
+
+

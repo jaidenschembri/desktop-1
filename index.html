@@ -17,6 +17,8 @@
   <link rel="stylesheet" href="css/components/numerology.css" />
   <link rel="stylesheet" href="css/components/oscillator.css" />
   <link rel="stylesheet" href="css/components/yume.css" />
+  <link rel="stylesheet" href="css/mobile.css" media="(max-width: 768px)" />
+
 </head>
 <body class="desktop-theme">
 
@@ -69,8 +71,6 @@
   
 </div>
 
-
-  
  <!-- 🪟 Windows -->
   <!-- 🎵 Fixed iPod Nano -->
 <div id="fixed-ipod" class="fixed-ipod">
@@ -332,9 +332,6 @@
   </div>
 </div>
 
-<canvas id="vrm-canvas" style="position: fixed; bottom: 0; right: 20px; width: 300px; height: 400px; pointer-events: none; z-index: 1;"></canvas>
-
-
 <!-- 🌐 Iframe Windows -->
 <div class="window hidden" id="window-shop">
   <div class="window-header">
@@ -350,19 +347,20 @@
 </div>
 
 <!-- 🧭 Bottom Taskbar -->
+<!-- 🧱 Taskbar stays fixed at bottom -->
 <footer class="taskbar">
   <div class="taskbar-left">
-    <!-- Start Button -->
+    <!-- ⏯ Start Button -->
     <div class="start-button" id="start-btn">
       <img src="pixelated/icons/windows.png" alt="Start Icon" />
       <span>Start</span>
     </div>
 
-    <!-- App Buttons Auto-injected -->
+    <!-- ⬛ Dynamically injected app buttons -->
     <div class="taskbar-apps" id="taskbar-apps"></div>
   </div>
 
-  <!-- Right-side Tray -->
+  <!-- 🛠 Right-side Tray -->
   <div class="taskbar-right-box">
     <div class="taskbar-icons">
       <a href="https://x.com/jaiddog28" target="_blank" class="taskbar-icon">
@@ -380,7 +378,7 @@
   </div>
 </footer>
 
-<!-- 📂 Global Start Menu -->
+<!-- 📂 Start Menu Dropdown -->
 <div id="start-menu" class="start-menu hidden">
   <ul>
     <li onclick="setTheme('classic')">🖥 Classic Mode</li>
@@ -388,7 +386,6 @@
     <li onclick="setTheme('cyber')">🌐 Cyber Mode</li>
   </ul>
 </div>
-
 
   <!-- Scripts -->
   <script src="script/desktop.js"></script>
