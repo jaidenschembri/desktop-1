@@ -50,7 +50,6 @@ body {
   pointer-events: none; /* optional: let clicks pass through */
 }
 
-
 /* ==== WINDOWS ==== */
 .window {
   position: absolute;
@@ -135,7 +134,6 @@ body {
   border: 2px inset #dcdcdc;
   box-shadow: inset 1px 1px 0 #fff;
 }
-
 
 /* ==== UTILS ==== */
 .hidden {
@@ -233,7 +231,6 @@ footer.taskbar {
   filter: grayscale(0) brightness(1.1);
 }
 
-
 /* ==== TASKBAR SOCIAL/RIGHT ==== */
 .taskbar-right-box {
   display: flex;
@@ -289,7 +286,6 @@ footer.taskbar {
   margin: 0 4px;
   flex-shrink: 0;
 }
-
 
 .taskbar-clock {
   font-family: 'DOSVGA', monospace;
@@ -364,7 +360,6 @@ footer.taskbar {
   background: #aaa;
   color: #000;
 }
-
 
 /* ==== ANIMATIONS ==== */
 @keyframes minimize {
@@ -478,8 +473,6 @@ footer.taskbar {
   color: #fff;
 }
 
-
-
 .start-button:hover {
   background: #c8c8c8;
   border-color: #888;
@@ -534,7 +527,6 @@ footer.taskbar {
   display: none !important;
 }
 
-
 /* Default Classic (already active) */
 .theme-classic .window-header {
   background: linear-gradient(to bottom, #6e90c3, #3c4e6d);
@@ -557,7 +549,6 @@ footer.taskbar {
   font-family: 'Orbitron', sans-serif;
 }
 
-
 .taskbar-left {
   display: flex;
   align-items: center;
@@ -565,15 +556,3 @@ footer.taskbar {
   flex: 1;
   min-width: 0;
 }
-
-.desktop-wrapper {
-  padding-bottom: 60px; /* match or exceed taskbar height */
-  min-height: 100vh;
-  box-sizing: border-box;
-  overflow-x: hidden;
-  overflow-y: auto;
-  position: relative;
-  z-index: 1;
-}
-
-
