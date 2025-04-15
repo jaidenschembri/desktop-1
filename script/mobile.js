@@ -1,18 +1,18 @@
 // Only run this if we're on mobile
 if (window.innerWidth <= 768) {
     const startMenu = document.getElementById('start-menu');
-    const apps = {
-      chatbot: 'Chatbot',
+    const apps = {    
+      tip: 'Tip Jar', 
       oscillator: 'Oscillator',
-      numerology: 'Numerology',
-      tip: 'Tip Jar',
+      numerology: 'Numerology',     
       guestbook: 'Guestbook',
       'window-shop': 'Shop',
-      'window-portfolio': 'Portfolio',
       gifypet: 'Gifypet',
-      yume: 'Yume'
+      yume: 'Yume',
+      chatbot: 'Chatbot',
+      'window-portfolio': 'Portfolio',
     };
-  
+    
     const ul = startMenu.querySelector('ul');
   
     // Optional: Add a separator line

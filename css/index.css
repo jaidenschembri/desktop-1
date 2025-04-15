@@ -561,3 +561,20 @@ footer.taskbar {
   display: none !important;
 }
 
+@keyframes ipod-glow {
+  0% {
+    filter: drop-shadow(0 0 1px #ffd6fa);
+  }
+  50% {
+    filter: drop-shadow(0 0 4px #ffd6fa) drop-shadow(0 0 8px #ffb3f1);
+  }
+  100% {
+    filter: drop-shadow(0 0 1px #ffd6fa);
+  }
+}
+
+.ipod-glow {
+  animation: ipod-glow 2.2s infinite ease-in-out;
+}
+
+

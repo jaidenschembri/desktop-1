@@ -48,11 +48,15 @@ if (iconEl && apps[id]?.openIcon) {
   iconEl.src = apps[id].openIcon;
 }
 
-  if (id === 'gifypet') {
+if (id === 'gifypet') {
+  if (window.innerWidth > 768) {
     el.style.width = '310px';
     el.style.height = '360px';
+  } else {
+    el.style.width = '';
+    el.style.height = '';
   }
-  
+}
 
   // Positioning
   if (id === 'window-portfolio') {
@@ -93,16 +97,46 @@ if (iconEl && apps[id]?.openIcon) {
   addToTaskbar(id);
 }
 
+function closeWindow(id) {
+  const el = document.getElementById(id);
+  if (!el) return;
+
+  if (window.innerWidth <= 768) {
+    el.classList.add('closing');
+    setTimeout(() => {
+      el.classList.remove('closing');
+      el.classList.add('hidden');
+    }, 200);
+  } else {
+    el.classList.add('hidden');
+  }
+
+  removeFromTaskbar(id);
+}
+
 function minimizeWindow(id) {
   const el = document.getElementById(id);
   if (!el) return;
 
+  // On mobile, mimic close behavior
+  if (window.innerWidth <= 768) {
+    el.classList.add('closing');
+    setTimeout(() => {
+      el.classList.remove('closing');
+      el.classList.add('hidden');
+    }, 200);
+    return;
+  }
+
+  // On desktop, minimize with animation
   el.classList.add('minimizing');
   setTimeout(() => {
     el.classList.remove('minimizing');
     el.classList.add('hidden');
   }, 300);
 }
+
+
 
 function closeWindow(id) {
   const el = document.getElementById(id);
@@ -117,7 +151,6 @@ function closeWindow(id) {
     iconEl.src = apps[id].icon;
   }
 }
-
 
 function addToTaskbar(id) {
   if (document.querySelector(`[data-app="${id}"]`)) return;
@@ -208,7 +241,6 @@ function bindDrag(win) {
   document.addEventListener('mouseup', onMouseUp);
 }
 
-
 // ===== Desktop Icon Logic =====
 function bindIconDrag(iconEl) {
   let isDragging = false;
@@ -262,7 +294,6 @@ function bindIconDrag(iconEl) {
   });
 }
 
-
 function positionIcons() {
   const iconSpacing = 108;
   const columnSpacing = 120;
@@ -312,8 +343,6 @@ function positionIcons() {
     }
   });
 }
-
-
 
 // Run on load
 window.addEventListener('DOMContentLoaded', () => {
@@ -403,7 +432,6 @@ function ensureMoreButtonExists() {
 
   return moreButton;
 }
-
 
 function updateTaskbarButtons() {
   const appsContainer = document.getElementById('taskbar-apps');
@@ -499,7 +527,6 @@ document.addEventListener('click', (e) => {
     startBtn.classList.remove('active'); // ✅ close the button state
   }
 });
-
 
 function setTheme(mode) {
   document.body.classList.remove('theme-classic', 'theme-mono', 'theme-cyber');

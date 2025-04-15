@@ -174,12 +174,13 @@
   
   .fixed-ipod {
     position: fixed;
-    top: 12px;
-    right: 12px;
+    bottom: 52px; /* just above your 48px taskbar */
+    right: 4px;
     z-index: 999;
     cursor: grab;
   }
   
+
   .fixed-ipod:active {
     cursor: grabbing;
   }

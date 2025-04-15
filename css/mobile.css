@@ -39,7 +39,7 @@ body {
     position: static !important;
     width: 94% !important;
     max-width: 540px;
-    margin: 16px auto;
+    margin: 6px auto;
     height: auto !important;
     box-shadow: none !important;
     border: 2px solid #444;
@@ -83,7 +83,7 @@ body {
 #yume {
   width: 94% !important;
   max-width: 540px;
-  margin: 16px auto;
+  margin: 6px auto;
   height: auto !important;
 }
 
@@ -121,10 +121,173 @@ body::-webkit-scrollbar,
   height: 0 !important;
   background: transparent !important;
 }
-
+ /* ipod window */
 @media (max-width: 768px) {
   #fixed-ipod:not(.visible) {
     display: none !important;
   }
 }
 
+@media (max-width: 768px) {
+  #fixed-ipod {
+    transform: scale(0.8);
+    transform-origin: bottom right;
+  }
+}
+
+
+/* oscillator window */
+@media (max-width: 768px) {
+  #oscillator {
+    max-height: 270px;
+  }
+
+  #oscillator .window-content {
+    max-height: 230px;
+    overflow: hidden;
+  }
+
+  #oscilloscope {
+    width: 100% !important;
+    height: 50px !important;
+  }
+}
+
+/* numerology */ 
+@media (max-width: 768px) {
+  #numerology {
+    max-height: 400px;
+  }
+
+  #numerology .window-content {
+    max-height: 360px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  /* Target the result area */
+  #numerology-output {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 4px; /* avoids scrollbar overlap */
+    margin-top: 10px;
+  }
+
+  /* Optional: make sure input/button stay compact */
+  #numerology .form-row {
+    display: flex;
+    gap: 8px;
+    flex-shrink: 0;
+  }
+}
+
+/*chatbot */ 
+
+@media (max-width: 768px) {
+  #chatbot {
+    max-height: 400px;
+  }
+
+  #chatbot .window-content {
+    max-height: 360px;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .chat-display {
+    flex: 1;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+
+  .chat-controls {
+    flex-shrink: 0;
+    margin-top: 8px;
+  }
+}
+
+/* window */
+
+@media (max-width: 768px) {
+  #window-portfolio {
+    max-height: 400px;
+  }
+
+  #window-portfolio .window-content {
+    max-height: 360px;
+    overflow-y: auto;
+    padding-right: 4px;
+  }
+}
+
+@media (max-width: 768px) {
+  #gifypet {
+    width: 240px !important;
+    height: 360px !important;
+    max-height: 90vh;
+  }
+
+  #gifypet .window-content {
+    height: 100%;
+    overflow: hidden;
+    padding: 0 !important;
+  }
+
+  #gifypet iframe {
+    width: 100% !important;
+    height: 100% !important;
+    display: block;
+    border: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .window {
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .window.hidden {
+    opacity: 0;
+    transform: scale(0.98);
+    pointer-events: none;
+  }
+}
+
+@media (max-width: 768px) {
+  .window.restoring {
+    animation: windowPop 0.25s ease-out;
+  }
+
+  @keyframes windowPop {
+    from {
+      opacity: 0;
+      transform: scale(0.95);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .window {
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .window.closing {
+    opacity: 0;
+    transform: scale(0.96);
+    pointer-events: none;
+  }
+
+  .window.hidden {
+    display: none !important;
+  }
+}
