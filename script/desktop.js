@@ -40,6 +40,15 @@ function openWindow(id) {
   el.classList.remove('hidden');
   el.style.visibility = 'hidden';
   el.style.display = 'block';
+
+  // 📱 On mobile, move newly opened window to the top of <body>
+if (window.innerWidth <= 768) {
+  const body = document.body;
+  if (el.parentNode === body) {
+    body.insertBefore(el, body.querySelector('.window')); // insert before first window
+  }
+}
+
   
 
 // 🔁 Swap to open icon
@@ -64,17 +73,32 @@ if (id === 'gifypet') {
     el.style.left = `${centeredLeft}px`;
     el.style.top = '100px';
   } else {
+
     if (window.innerWidth > 768) {
-      // ✅ Desktop: random offset
-      el.style.left = `${100 + Math.floor(Math.random() * 60)}px`;
-      el.style.top = `${100 + Math.floor(Math.random() * 60)}px`;
-    } else {
+      // 🎯 Custom default desktop positions
+      const defaultPositions = {
+        chatbot: { left: 120, top: 100 },
+        yume: { left: 970, top: 20 },
+        guestbook: { left: 1450, top:20 }
+      };
+  
+      if (defaultPositions[id]) {
+        const pos = defaultPositions[id];
+        el.style.left = `${pos.left}px`;
+        el.style.top = `${pos.top}px`;
+      } else {
+        // Fallback: random offset
+        el.style.left = `${100 + Math.floor(Math.random() * 60)}px`;
+        el.style.top = `${100 + Math.floor(Math.random() * 60)}px`;
+      }
+    }
+    
+    else {
       // 📱 Mobile: no positioning
       el.style.left = '';
       el.style.top = '';
     }
   }
-
 
   el.style.visibility = '';
   el.style.display = '';
@@ -127,7 +151,6 @@ function minimizeWindow(id) {
     }, 200);
     return;
   }
-
   // On desktop, minimize with animation
   el.classList.add('minimizing');
   setTimeout(() => {
@@ -135,8 +158,6 @@ function minimizeWindow(id) {
     el.classList.add('hidden');
   }, 300);
 }
-
-
 
 function closeWindow(id) {
   const el = document.getElementById(id);
@@ -344,12 +365,21 @@ function positionIcons() {
   });
 }
 
-// Run on load
 window.addEventListener('DOMContentLoaded', () => {
   positionIcons();
-  // re-bind drag on load
   document.querySelectorAll('.icon').forEach(bindIconDrag);
+  initIpodToggle(); // ✅ already being called
+
+  // 🪟 Auto-open these windows on load
+  const windowsToOpen = [
+    'guestbook',
+    'yume',
+    // add any others like 'oscillator', 'window-portfolio', etc.
+  ];
+
+  windowsToOpen.forEach(id => openWindow(id));
 });
+
 
 // Re-run on resize
 window.addEventListener('resize', () => {
@@ -535,6 +565,13 @@ function setTheme(mode) {
 }
 
 function initIpodToggle() {
+  if (window.innerWidth <= 768) {
+    const ipod = document.getElementById('fixed-ipod');
+    if (ipod && !ipod.classList.contains('visible')) {
+      ipod.classList.add('visible');
+    }
+  }
+  
   const ipodToggleBtn = document.getElementById('ipod-toggle-btn');
   const ipodEl = document.getElementById('fixed-ipod');
 
@@ -555,7 +592,3 @@ function initIpodToggle() {
     setTimeout(initIpodToggle, 100);
   }
 }
-
-window.addEventListener('DOMContentLoaded', initIpodToggle);
-
-

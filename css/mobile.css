@@ -291,3 +291,23 @@ body::-webkit-scrollbar,
     display: none !important;
   }
 }
+
+@media (max-width: 768px) {
+  #guestbook {
+    max-height: 360px !important;
+  }
+
+  #guestbook .window-content {
+    max-height: 320px;
+    overflow-y: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  /* Force all window headers to look active — except Yume */
+  .window:not(#yume) .window-header {
+    background: linear-gradient(to bottom, #a3b1c4, #6f7f94) !important;
+    color: #fff !important;
+    text-shadow: none !important;
+  }
+}

@@ -29,7 +29,7 @@
   color: #003350;
   padding: 6px;
   border: none;
-  font-family: 'Orbitron', sans-serif;
+  font-family: 'press start 2p', monospace;
   font-size: 12px;
   font-weight: bold;
   text-transform: uppercase;
@@ -80,12 +80,11 @@ hr {
 }
 
   #guestbook {
-    width: 500px;
+    width: 450px;
     height: 400px;
     max-width: none;
     max-height: none;
     background: linear-gradient(135deg, #d0f0ff, #f0fff4);
-    box-shadow: 0 0 12px #8cf;
   }
 
   #guestbook .window-content {

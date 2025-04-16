@@ -10,9 +10,7 @@ const yumeMessages = {
     images: [
       "pixelated/swtchblade.gif",
       "pixelated/pills.jpg",
-      "images/yume3.gif",
-      "https://i.imgur.com/7tNjQuU.png",
-      "https://i.imgur.com/YOUR_THIRD_IMAGE.png"
+      "pixelated/randoms/thighholster.png",
     ],
     headerBgs: [
       "#a660c2",
