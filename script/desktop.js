@@ -542,7 +542,7 @@ function updateTaskbarButtons() {
 window.addEventListener('resize', updateTaskbarButtons);
 
 const startBtn = document.getElementById('start-btn');
-const startMenu = document.getElementById('start-menu');
+const startMenu = document.getElementById('start-menu');            
 
 startBtn.addEventListener('click', (e) => {
   e.stopPropagation(); // prevent body click from closing
