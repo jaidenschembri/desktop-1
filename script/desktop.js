@@ -144,7 +144,6 @@ function closeWindow(id) {
   }
 }
 
-
 function minimizeWindow(id) {
   const el = document.getElementById(id);
   if (!el) return;
@@ -168,7 +167,6 @@ function minimizeWindow(id) {
 
   // ✅ Note: do NOT remove from taskbar — minimized apps stay
 }
-
 
 function addToTaskbar(id) {
   if (document.querySelector(`[data-app="${id}"]`)) return;
@@ -375,7 +373,6 @@ window.addEventListener('DOMContentLoaded', () => {
   windowsToOpen.forEach(id => openWindow(id));
 });
 
-
 // Re-run on resize
 window.addEventListener('resize', () => {
   positionIcons();
@@ -460,9 +457,6 @@ function ensureMoreButtonExists() {
 function updateTaskbarButtons() {
   // 💤 Function disabled but still exists to prevent errors
 }
-
-// Auto update on resize
-window.addEventListener('resize', updateTaskbarButtons);
 
 const startBtn = document.getElementById('start-btn');
 const startMenu = document.getElementById('start-menu');            
