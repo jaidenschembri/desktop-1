@@ -136,13 +136,20 @@ function closeWindow(id) {
   }
 
   removeFromTaskbar(id);
+
+  // 🔁 Revert to closed icon (copy from second one)
+  const iconEl = document.querySelector(`.icon[data-window-id="${id}"] img`);
+  if (iconEl && apps[id]?.icon) {
+    iconEl.src = apps[id].icon;
+  }
 }
+
 
 function minimizeWindow(id) {
   const el = document.getElementById(id);
   if (!el) return;
 
-  // On mobile, mimic close behavior
+  // 📱 On mobile: animate out, then hide
   if (window.innerWidth <= 768) {
     el.classList.add('closing');
     setTimeout(() => {
@@ -151,27 +158,17 @@ function minimizeWindow(id) {
     }, 200);
     return;
   }
-  // On desktop, minimize with animation
+
+  // 🖥 On desktop: minimize with classic animation
   el.classList.add('minimizing');
   setTimeout(() => {
     el.classList.remove('minimizing');
     el.classList.add('hidden');
   }, 300);
+
+  // ✅ Note: do NOT remove from taskbar — minimized apps stay
 }
 
-function closeWindow(id) {
-  const el = document.getElementById(id);
-  if (!el) return;
-
-  el.classList.add('hidden');
-  removeFromTaskbar(id);
-
-  // 🔁 Revert to closed icon
-  const iconEl = document.querySelector(`.icon[data-window-id="${id}"] img`);
-  if (iconEl && apps[id]?.icon) {
-    iconEl.src = apps[id].icon;
-  }
-}
 
 function addToTaskbar(id) {
   if (document.querySelector(`[data-app="${id}"]`)) return;
@@ -206,13 +203,11 @@ function addToTaskbar(id) {
   };
 
   taskbar.appendChild(button);
-  updateTaskbarButtons(); // 🔁 update after adding
 }
 
 function removeFromTaskbar(id) {
   const btn = document.querySelector(`[data-app="${id}"]`);
   if (btn) btn.remove();
-  updateTaskbarButtons(); // 🔁 update after removing
 }
 
 function highlightTaskbar(id) {
@@ -448,94 +443,22 @@ document.querySelectorAll('.gallery-grid img').forEach(img => {
 });
 
 function ensureMoreButtonExists() {
-  const appsContainer = document.getElementById('taskbar-apps');
-  let moreButton = appsContainer.querySelector('.more-dropdown');
+  // 👻 Create a hidden placeholder to keep layout intact
+  let moreButton = document.querySelector('.more-dropdown');
 
   if (!moreButton) {
     moreButton = document.createElement('div');
     moreButton.className = 'taskbar-button more-dropdown';
-    moreButton.innerHTML = 'More ▾<div class="more-menu"></div>';
-
-    // 👉 Always append at the end
-    appsContainer.appendChild(moreButton);
+    moreButton.style.display = 'none'; // <- never shown
+    moreButton.innerHTML = '<div class="more-menu"></div>';
+    document.getElementById('taskbar-apps').appendChild(moreButton);
   }
 
   return moreButton;
 }
 
 function updateTaskbarButtons() {
-  const appsContainer = document.getElementById('taskbar-apps');
-  const allButtons = Array.from(appsContainer.querySelectorAll('.taskbar-button:not(.more-dropdown)'));
-  const moreButton = ensureMoreButtonExists();
-  const moreMenu = moreButton.querySelector('.more-menu');
-
-  // Reset state
-  moreMenu.innerHTML = '';
-  allButtons.forEach(btn => btn.style.display = 'flex');
-  moreButton.style.display = 'none';
-
-  const containerWidth = appsContainer.offsetWidth;
-  const gapSize = 4;
-  let usedWidth = 0;
-  const visibleButtons = [];
-
-  // Measure buttons that can fit
-  for (const btn of allButtons) {
-    const btnWidth = btn.offsetWidth + gapSize;
-    if (usedWidth + btnWidth + moreButton.offsetWidth > containerWidth) break;
-
-    usedWidth += btnWidth;
-    visibleButtons.push(btn);
-  }
-
-  const overflowed = allButtons.filter(btn => !visibleButtons.includes(btn));
-
-  // Build the dropdown
-  if (overflowed.length > 0) {
-    moreButton.style.display = 'flex';
-
-    overflowed.forEach(btn => {
-      btn.style.display = 'none';
-
-      const appId = btn.getAttribute('data-app');
-      const appInfo = apps[appId];
-      if (!appInfo) return;
-
-      const clone = document.createElement('div');
-      clone.className = 'taskbar-button';
-      clone.setAttribute('data-app', appId);
-      clone.style.display = 'flex';
-      clone.style.alignItems = 'center';
-      clone.style.gap = '4px';
-      clone.style.height = '28px';
-      clone.style.boxSizing = 'border-box';
-
-      // Icon
-      if (appInfo.icon) {
-        const img = document.createElement('img');
-        img.src = appInfo.icon;
-        img.alt = `${appInfo.title} icon`;
-        img.className = 'taskbar-icon-img';
-        clone.appendChild(img);
-      }
-
-      // Title
-      const span = document.createElement('span');
-      span.textContent = appInfo.title;
-      span.style.overflow = 'hidden';
-      span.style.whiteSpace = 'nowrap';
-      span.style.textOverflow = 'ellipsis';
-      span.style.flex = '1';
-      clone.appendChild(span);
-
-      // Click behavior — reopen or focus the actual window
-      clone.onclick = () => {
-        openWindow(appId); // ✅ this handles restoring + focusing
-      };
-
-      moreMenu.appendChild(clone);
-    });
-  }
+  // 💤 Function disabled but still exists to prevent errors
 }
 
 // Auto update on resize

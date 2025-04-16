@@ -81,7 +81,6 @@ body {
   top: 0;
   z-index: 10;
   pointer-events: auto;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.15);
   box-shadow:
   inset -1px -1px 0 #fff, 
   inset 1px 1px 0 #000,
@@ -140,18 +139,6 @@ body {
   display: none !important;
 }
 
-/* ==== RESPONSIVE ==== */
-@media (max-width: 768px) {
-  .desktop-icons {
-    justify-content: center;
-  }
-
-  .window {
-    width: 90%;
-    left: 5%;
-  }
-}
-
 /* ==== TASKBAR BASE ==== */
 footer.taskbar {
   position: fixed;
@@ -175,13 +162,11 @@ footer.taskbar {
   display: flex;
   align-items: center;
   gap: 8px;
-  overflow-x: hidden;
   flex: 1;
-  min-width: 0;
   padding-right: 10px;
-  flex-shrink: 1;
-  overflow: hidden !important;
+  overflow: hidden;
 }
+
 
 /* ==== TASKBAR WINDOW ENTRIES (OPENED WINDOWS) ==== */
 .taskbar-button {
@@ -291,76 +276,13 @@ footer.taskbar {
   font-family: 'DOSVGA', monospace;
   font-size: 14px;
   line-height: 1;
-  padding: 2 2px;
+  padding: 2px;
   color: #000;
   white-space: nowrap;
   user-select: none;
   letter-spacing: 0;
   margin-top: 4px;
 }
-
-.more-dropdown {
-  position: relative;
-  user-select: none;
-  height: 28px;
-  min-width: 100px;
-  max-width: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: #dcdcdc;
-  border: 1px solid #999;
-  border-radius: 2px;
-  font-family: 'perfect DOS VGA 437 Win', monospace;
-  font-size: 12px;
-  cursor: pointer;
-  transition: background 0.2s, border 0.2s;
-  box-sizing: border-box;
-}
-
-.more-dropdown:hover {
-  background: #aaa;
-}
-
-.more-dropdown .more-menu {
-  position: absolute;
-  bottom: 100%;
-  left: 0;
-  margin-bottom: 2px;
-  background: #dcdcdc;
-  border: 1px solid #999;
-  border-radius: 2px;
-  box-shadow: inset 1px 1px 0 #fff, inset -1px -1px 0 #888;
-  display: none;
-  flex-direction: column;
-  min-width: 100px;
-  z-index: 1000;
-}
-
-.more-dropdown:hover .more-menu {
-  display: flex;
-}
-
-.more-menu .taskbar-button {
-  all: unset;
-  display: block;
-  padding: 6px 8px;
-  font-family: 'perfect DOS VGA 437 Win', monospace;
-  font-size: 12px;
-  white-space: nowrap;
-  border-bottom: 1px solid #aaa;
-  background: #dcdcdc;
-  color: #000;
-  cursor: pointer;
-  box-sizing: border-box;
-  text-align: left;
-}
-
-.more-menu .taskbar-button:hover {
-  background: #aaa;
-  color: #000;
-}
-
 /* ==== ANIMATIONS ==== */
 @keyframes minimize {
   0% { opacity: 1; transform: scale(1); }

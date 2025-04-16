@@ -47,7 +47,6 @@ body {
     margin-inline:auto;
   }
   
-  
   /* 🧰 Desktop icons become horizontal rows */
   .desktop-icons {
     display: flex;
@@ -70,22 +69,23 @@ body {
   }
   
   .taskbar-apps {
-    display: none !important;
+    opacity: 0;
+    pointer-events: none;
   }
   
   #tip,
-#chatbot,
-#numerology,
-#window-portfolio,
-#window-shop,
-#guestbook,
-#gifypet,
-#yume {
-  width: 94% !important;
-  max-width: 540px;
-  margin: 6px auto;
-  height: auto !important;
-}
+  #chatbot,
+  #numerology,
+  #window-portfolio,
+  #window-shop,
+  #guestbook,
+  #gifypet,
+  #yume {
+    width: 94% !important;
+    max-width: 540px;
+    margin: 6px auto;
+    height: auto !important;
+  }
 
 /* 🔇 Hide scrollbar visuals but keep scrolling behavior */
 body::-webkit-scrollbar,
@@ -244,51 +244,11 @@ body::-webkit-scrollbar,
 }
 
 @media (max-width: 768px) {
-  .window {
-    transition: opacity 0.25s ease, transform 0.25s ease;
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  .window.hidden {
-    opacity: 0;
-    transform: scale(0.98);
-    pointer-events: none;
-  }
-}
-
-@media (max-width: 768px) {
-  .window.restoring {
-    animation: windowPop 0.25s ease-out;
-  }
-
-  @keyframes windowPop {
-    from {
-      opacity: 0;
-      transform: scale(0.95);
-    }
-    to {
-      opacity: 1;
-      transform: scale(1);
-    }
-  }
-}
-
-@media (max-width: 768px) {
-  .window {
-    transition: opacity 0.2s ease, transform 0.2s ease;
-    opacity: 1;
-    transform: scale(1);
-  }
 
   .window.closing {
     opacity: 0;
     transform: scale(0.96);
     pointer-events: none;
-  }
-
-  .window.hidden {
-    display: none !important;
   }
 }
 
@@ -300,6 +260,24 @@ body::-webkit-scrollbar,
   #guestbook .window-content {
     max-height: 320px;
     overflow-y: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .window {
+    transition: opacity 0.25s ease, transform 0.25s ease;
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .window.closing {
+    opacity: 0;
+    transform: scale(0.96);
+    pointer-events: none;
+  }
+
+  .window.restoring {
+    animation: restore 0.25s ease-out forwards;
   }
 }
 
