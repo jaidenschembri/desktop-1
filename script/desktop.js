@@ -11,7 +11,6 @@ const apps = {
   guestbook: { title: 'Guestbook', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
   'window-shop': { title: 'Shop', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
   'window-portfolio': { title: 'Portfolio', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
-  
 };
 
 let zCounter = 100;
@@ -534,7 +533,40 @@ function triggerVHSOverlay(duration = 1000) {
 }
 
 setInterval(() => {
-  if (Math.random() < 0.50) {
+  if (Math.random() < 0.25) {
     triggerVHSOverlay(1800);
   }
 }, 8000); // runs every 8 seconds
+
+function spawnFloatingSymbol() {
+  const s = document.createElement('div');
+  s.className = 'floating-symbol';
+
+  // choose a symbol
+  const symbols = ['★', '☠', '⌘', '✞', '∞', '⚠', '𓆩𓆪', '█'];
+  s.textContent = symbols[Math.floor(Math.random() * symbols.length)];
+
+  // random position + animation timing
+  s.style.left = `${Math.random() * 100}vw`;
+  s.style.animationDuration = `${6 + Math.random() * 6}s`;
+
+  document.body.appendChild(s);
+
+  // clean up after it floats off-screen
+  setTimeout(() => {
+    s.remove();
+  }, 12000);
+
+  const colors = ['#00ffff', '#ff77cc', '#39ff14', '#ff003c', '#ffffff'];
+const chosen = colors[Math.floor(Math.random() * colors.length)];
+s.style.color = chosen;
+s.style.textShadow = `0 0 4px ${chosen}, 0 0 8px ${chosen}`;
+
+}
+
+setInterval(() => {
+  if (Math.random() < 0.7) spawnFloatingSymbol(); // 70% chance every time
+}, 5000); // every 4 seconds
+
+
+
