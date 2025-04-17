@@ -67,38 +67,40 @@ if (id === 'gifypet') {
   }
 }
 
-  // Positioning
-  if (id === 'window-portfolio') {
-    const centeredLeft = (window.innerWidth - el.offsetWidth) / 2;
-    el.style.left = `${centeredLeft}px`;
-    el.style.top = '100px';
-  } else {
-
-    if (window.innerWidth > 768) {
-      // 🎯 Custom default desktop positions
-      const defaultPositions = {
-        chatbot: { left: 120, top: 100 },
-        yume: { left: 970, top: 20 },
-        guestbook: { left: 1450, top:20 }
-      };
-  
-      if (defaultPositions[id]) {
-        const pos = defaultPositions[id];
-        el.style.left = `${pos.left}px`;
-        el.style.top = `${pos.top}px`;
-      } else {
-        // Fallback: random offset
+// Positioning
+if (id === 'window-portfolio') {
+  const centeredLeft = (window.innerWidth - el.offsetWidth) / 2;
+  el.style.left = `${centeredLeft}px`;
+  el.style.top = '100px';
+} else {
+  if (window.innerWidth > 768) {
+    // 🎯 Smart default positions based on screen size
+    switch (id) {
+      case 'yume':
+        el.style.left = `${window.innerWidth * 0.75}px`;
+        el.style.top = `445px`;
+        break;
+      case 'guestbook':
+        el.style.left = `${window.innerWidth - el.offsetWidth - 20}px`; //
+        el.style.top = `20px`;
+        break;
+      case 'window-shop':
+        el.style.left = `${window.innerWidth * 0.48}px`;
+        el.style.top = `${window.innerHeight * 0.02}px`;
+        break;
+      default:
         el.style.left = `${100 + Math.floor(Math.random() * 60)}px`;
         el.style.top = `${100 + Math.floor(Math.random() * 60)}px`;
-      }
+        break;
     }
     
-    else {
-      // 📱 Mobile: no positioning
-      el.style.left = '';
-      el.style.top = '';
-    }
+  } else {
+    // 📱 Mobile: no positioning
+    el.style.left = '';
+    el.style.top = '';
   }
+}
+
 
   el.style.visibility = '';
   el.style.display = '';
@@ -364,6 +366,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   // 🪟 Auto-open these windows on load
   const windowsToOpen = [
+    'window-shop',
     'guestbook',
     'yume',
     // add any others like 'oscillator', 'window-portfolio', etc.
