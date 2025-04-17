@@ -31,7 +31,7 @@ function openWindow(id) {
   const el = document.getElementById(id);
   if (!el) return;
 
-  // Only reset size for non-portfolio windows
+  // Reset styles if needed
   if (id !== 'window-portfolio') {
     el.style.width = '';
     el.style.height = '';
@@ -41,136 +41,141 @@ function openWindow(id) {
   el.style.visibility = 'hidden';
   el.style.display = 'block';
 
-  // 📱 On mobile, move newly opened window to the top of <body>
-if (window.innerWidth <= 768) {
-  const body = document.body;
-  if (el.parentNode === body) {
-    body.insertBefore(el, body.querySelector('.window')); // insert before first window
+  // On mobile: move it up top
+  if (window.innerWidth <= 768) {
+    const body = document.body;
+    if (el.parentNode === body) {
+      body.insertBefore(el, body.querySelector('.window'));
+    }
   }
-}
 
-  
-
-// 🔁 Swap to open icon
-const iconEl = document.querySelector(`.icon[data-window-id="${id}"] img`);
-if (iconEl && apps[id]?.openIcon) {
-  iconEl.src = apps[id].openIcon;
-}
-
-if (id === 'gifypet') {
-  if (window.innerWidth > 768) {
-    el.style.width = '310px';
-    el.style.height = '360px';
-  } else {
-    el.style.width = '';
-    el.style.height = '';
+  // 🔁 Icon swap
+  const iconEl = document.querySelector(`.icon[data-window-id="${id}"] img`);
+  if (iconEl && apps[id]?.openIcon) {
+    iconEl.src = apps[id].openIcon;
   }
-}
 
-// Positioning
-if (id === 'window-portfolio') {
-  const centeredLeft = (window.innerWidth - el.offsetWidth) / 2;
-  el.style.left = `${centeredLeft}px`;
-  el.style.top = '100px';
-} else {
+  // Set dimensions for specific windows
+  if (id === 'gifypet') {
+    if (window.innerWidth > 768) {
+      el.style.width = '310px';
+      el.style.height = '360px';
+    } else {
+      el.style.width = '';
+      el.style.height = '';
+    }
+  }
+
+  // ==== 🔲 SMART POSITIONING ====
   if (window.innerWidth > 768) {
-    // 🎯 Smart default positions based on screen size
+    const taskbar = document.querySelector('footer.taskbar');
+    const taskbarHeight = taskbar ? taskbar.offsetHeight : 0;
+
+    // Default position
+    let x = 100 + Math.floor(Math.random() * 60);
+    let y = 100 + Math.floor(Math.random() * 60);
+
     switch (id) {
+      case 'window-portfolio':
+        x = (window.innerWidth - el.offsetWidth) / 2;
+        y = 100;
+        break;
       case 'yume':
-        el.style.left = `${window.innerWidth * 0.75}px`;
-        el.style.top = `445px`;
+        x = window.innerWidth * 0.75;
+        y = 445;
         break;
       case 'guestbook':
-        el.style.left = `${window.innerWidth - el.offsetWidth - 20}px`; //
-        el.style.top = `20px`;
+        x = window.innerWidth - el.offsetWidth - 20;
+        y = 20;
         break;
       case 'window-shop':
-        el.style.left = `${window.innerWidth * 0.48}px`;
-        el.style.top = `${window.innerHeight * 0.02}px`;
+        x = window.innerWidth * 0.48;
+        y = window.innerHeight * 0.02;
         break;
       default:
-        el.style.left = `${100 + Math.floor(Math.random() * 60)}px`;
-        el.style.top = `${100 + Math.floor(Math.random() * 60)}px`;
         break;
     }
-    
+
+    // Clamp to screen
+    const maxLeft = window.innerWidth - el.offsetWidth - 20;
+    const maxTop = window.innerHeight - el.offsetHeight - taskbarHeight - 20;
+
+    el.style.left = `${Math.max(0, Math.min(x, maxLeft))}px`;
+    el.style.top = `${Math.max(0, Math.min(y, maxTop))}px`;
   } else {
     // 📱 Mobile: no positioning
     el.style.left = '';
     el.style.top = '';
   }
-}
-
 
   el.style.visibility = '';
   el.style.display = '';
 
-  // 🔧 Clean up inline styles on mobile
+  // Clean inline styles on mobile
   if (window.innerWidth <= 768) {
     el.style.removeProperty('left');
     el.style.removeProperty('top');
   }
 
+  // 📽️ Animation
   const openAnims = window.innerWidth <= 768
-  ? ['mobileFadeIn']
-  : ['zoomIn', 
-    'rotateIn', 
-    'slideInBottom', 
-    'crtPop', 
-    'glitchPop', 
-    'dropIn',
-    'vhsGlitchIn',
-+   'explodeIn'
-  ]
+    ? ['mobileFadeIn']
+    : ['zoomIn', 'rotateIn', 'slideInBottom', 'crtPop', 'glitchPop', 'dropIn', 'vhsGlitchIn', 'explodeIn'];
 
-const chosenOpen = openAnims[Math.floor(Math.random() * openAnims.length)];
+  const chosenOpen = openAnims[Math.floor(Math.random() * openAnims.length)];
+  el.classList.add('opening');
+  el.style.animationName = chosenOpen;
 
-el.classList.add('opening');
-el.style.animationName = chosenOpen;
-
-setTimeout(() => {
-  el.classList.remove('opening');
-  el.style.animationName = '';
-}, 350);
-
-bringToFront(el);
-bindDrag(el);
-
+  setTimeout(() => {
+    el.classList.remove('opening');
+    el.style.animationName = '';
+  }, 350);
 
   bringToFront(el);
   bindDrag(el);
   addToTaskbar(id);
 }
 
+
 function closeWindow(id) {
   const el = document.getElementById(id);
   if (!el) return;
 
-  if (window.innerWidth <= 768) {
-    el.classList.add('closing');
-    setTimeout(() => {
-      el.classList.remove('closing');
-      el.classList.add('hidden');
-    }, 200);
-  } else {
-    el.classList.add('hidden');
+  const isMobile = window.innerWidth <= 768;
+  const closeAnims = isMobile
+    ? [] // mobile uses class-based animation
+    : ['blackHoleOut', 'fadeOut', 'rotateOut', 'slideOutBottom', 'crtExit', 'shatterOut'];
+
+  el.classList.add('closing');
+
+  if (!isMobile) {
+    const chosenClose = closeAnims[Math.floor(Math.random() * closeAnims.length)];
+    el.style.animationName = chosenClose;
   }
+
+  setTimeout(() => {
+    el.classList.remove('closing');
+    el.classList.add('hidden');
+    if (!isMobile) el.style.animationName = '';
+  }, isMobile ? 200 : 300);
 
   removeFromTaskbar(id);
 
-  // 🔁 Revert to closed icon (copy from second one)
   const iconEl = document.querySelector(`.icon[data-window-id="${id}"] img`);
   if (iconEl && apps[id]?.icon) {
     iconEl.src = apps[id].icon;
   }
 }
 
+
+
 function minimizeWindow(id) {
   const el = document.getElementById(id);
   if (!el) return;
 
-  // 📱 On mobile: animate out, then hide
-  if (window.innerWidth <= 768) {
+  const isMobile = window.innerWidth <= 768;
+
+  if (isMobile) {
     el.classList.add('closing');
     setTimeout(() => {
       el.classList.remove('closing');
@@ -179,15 +184,17 @@ function minimizeWindow(id) {
     return;
   }
 
-  // 🖥 On desktop: minimize with classic animation
+  // 🖥 Desktop: slide down animation
   el.classList.add('minimizing');
+  el.style.animationName = 'slideToTaskbar';
+
   setTimeout(() => {
     el.classList.remove('minimizing');
+    el.style.animationName = '';
     el.classList.add('hidden');
   }, 300);
-
-  // ✅ Note: do NOT remove from taskbar — minimized apps stay
 }
+
 
 function addToTaskbar(id) {
   if (document.querySelector(`[data-app="${id}"]`)) return;
@@ -274,108 +281,6 @@ function bindDrag(win) {
   header.addEventListener('mousedown', onMouseDown);
   document.addEventListener('mousemove', onMouseMove);
   document.addEventListener('mouseup', onMouseUp);
-}
-
-// ===== Desktop Icon Logic =====
-function bindIconDrag(iconEl) {
-  let isDragging = false;
-  let startX, startY, offsetX, offsetY;
-
-  iconEl.addEventListener('mousedown', (e) => {
-    if (e.button !== 0) return;
-    e.preventDefault();
-
-    const rect = iconEl.getBoundingClientRect();
-    startX = e.clientX;
-    startY = e.clientY;
-    offsetX = e.clientX - rect.left;
-    offsetY = e.clientY - rect.top;
-
-    const onMouseMove = (e) => {
-      const dx = e.clientX - startX;
-      const dy = e.clientY - startY;
-
-      if (!isDragging && (Math.abs(dx) > 3 || Math.abs(dy) > 3)) {
-        isDragging = true;
-        iconEl.style.position = 'absolute';
-        iconEl.style.zIndex = 99;
-      }
-
-      if (isDragging) {
-        iconEl.style.left = `${e.clientX - offsetX}px`;
-        iconEl.style.top = `${e.clientY - offsetY}px`;
-      }
-    };
-
-    const onMouseUp = (e) => {
-      document.removeEventListener('mousemove', onMouseMove);
-      document.removeEventListener('mouseup', onMouseUp);
-
-      // Always open the window when the icon is clicked
-      const dx = e.clientX - startX;
-      const dy = e.clientY - startY;
-      const wasClick = Math.abs(dx) < 3 && Math.abs(dy) < 3;
-
-      if (wasClick) {
-        const windowId = iconEl.getAttribute('data-window-id');
-        if (windowId) openWindow(windowId);
-      }
-
-      isDragging = false;
-    };
-
-    document.addEventListener('mousemove', onMouseMove);
-    document.addEventListener('mouseup', onMouseUp);
-  });
-}
-
-function positionIcons() {
-  const iconSpacing = 108;
-  const columnSpacing = 120;
-  const startX = 20;
-  const bottomPadding = 20;
-
-  const taskbar = document.querySelector('footer.taskbar');
-  const taskbarHeight = taskbar ? taskbar.offsetHeight : 0;
-  const availableHeight = window.innerHeight - taskbarHeight - bottomPadding;
-
-  const iconIds = [
-    'chatbot',
-    'guestbook',
-    'window-shop',
-    'window-portfolio',
-    'oscillator',
-    'gifypet',
-    'numerology',
-    'yume',
-  ];
-
-  const leftColumn = iconIds.slice(0, 8); // first 8 icons in column 1
-  const rightColumn = iconIds.slice(8);   // gifypet in column 2
-
-  // Position left column centered
-  const totalHeightLeft = leftColumn.length * iconSpacing;
-  const startYLeft = Math.max((availableHeight - totalHeightLeft) / 2, 10);
-
-  leftColumn.forEach((id, index) => {
-    const el = document.querySelector(`.icon[data-window-id="${id}"]`);
-    if (el) {
-      el.style.left = `${startX}px`;
-      el.style.top = `${startYLeft + index * iconSpacing}px`;
-    }
-  });
-
-  // Position right column aligned with the 8th icon (index 7)
-  const alignToIndex = 7; // "window-portfolio"
-  const alignY = startYLeft + alignToIndex * iconSpacing;
-
-  rightColumn.forEach((id, index) => {
-    const el = document.querySelector(`.icon[data-window-id="${id}"]`);
-    if (el) {
-      el.style.left = `${startX + columnSpacing}px`;
-      el.style.top = `${alignY + index * iconSpacing}px`;
-    }
-  });
 }
 
 window.addEventListener('DOMContentLoaded', () => {

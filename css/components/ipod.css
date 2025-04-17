@@ -185,3 +185,17 @@
     cursor: grabbing;
   }
   
+  /* 📏 Desktop responsive iPod scaling */
+@media (min-width: 769px) and (max-width: 1024px) {
+  .ipod-nano-body {
+    transform: scale(0.9);
+    transform-origin: bottom right;
+  }
+}
+
+@media (min-width: 1025px) and (max-width: 1440px) {
+  .ipod-nano-body {
+    transform: scale(1);
+    transform-origin: bottom right;
+  }
+}

@@ -69,7 +69,7 @@ body {
 }
 
 .window-header {
-  background: #c0c0c0;
+  background: linear-gradient(to bottom, #a3b1c4, #6f7f94);
   padding: 6px 10px;
   font-family: 'Press Start 2P', monospace;
   font-size: 11px;
@@ -89,7 +89,7 @@ body {
 }
 
 .window.active-window .window-header {
-  background: linear-gradient(to bottom, #a3b1c4, #6f7f94);
+  background: linear-gradient(to bottom, #6e90c3, #3c4e6d);
 }
 
 .window-content {
@@ -134,8 +134,6 @@ body {
   box-shadow: inset 1px 1px 0 #fff;
 }
 
-/* ==== UTILS ==== */
-
 /* ==== LIGHTBOX ==== */
 .lightbox {
   position: fixed;
@@ -173,32 +171,11 @@ body {
   user-select: none;
 }
 
-/* ==== WINDOW-SHOP (iframe) ==== */
-#window-shop {
-  width: 700px;
-  height: 500px;
-  max-width: none;
-  max-height: none;
-}
-
-#window-shop .window-content {
-  flex: 1;
-  padding: 0;
-  overflow: hidden;
-}
-
-.iframe-window {
-  width: 100%;
-  height: 100%;
-  border: none;
-  background: white;
-  display: block;
-}
-
 .hidden {
   display: none !important;
 }
 
+/* ==== IPOD ==== */
 #fixed-ipod.hidden {
   display: none !important;
 }
@@ -217,263 +194,6 @@ body {
 
 .ipod-glow {
   animation: ipod-glow 2.2s infinite ease-in-out;
-}
-
-@media (min-width: 769px) {
-  #window-shop {
-    width: 500px;
-    height: 625px;
-    max-width: 500px;
-    max-height: 725px;
-  }
-
-  #window-shop .window-content {
-    height: calc(100% - 24px); /* accounts for header height */
-    overflow: hidden;
-    padding: 0 !important;
-  }
-}
-
-/* ==== RANDOMIZED WINDOW ANIMATIONS ==== */
-@keyframes zoomIn {
-  0% { transform: scale(0.7); opacity: 0; }
-  100% { transform: scale(1); opacity: 1; }
-}
-
-@keyframes rotateIn {
-  0% { transform: rotate(-15deg) scale(0.5); opacity: 0; }
-  100% { transform: rotate(0deg) scale(1); opacity: 1; }
-}
-
-@keyframes slideInBottom {
-  0% { transform: translateY(50px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
-}
-
-@keyframes crtPop {
-  0% { transform: scale(1.2); opacity: 0; filter: contrast(200%) saturate(0%); }
-  100% { transform: scale(1); opacity: 1; filter: none; }
-}
-
-@keyframes glitchPop {
-  0% { transform: scale(0.8) translate(0, 0); opacity: 0; }
-  20% { transform: scale(1.05) translate(2px, -2px); }
-  40% { transform: scale(0.95) translate(-2px, 2px); }
-  60% { transform: scale(1.02) translate(1px, -1px); }
-  80% { transform: scale(0.98) translate(-1px, 1px); }
-  100% { transform: scale(1) translate(0, 0); opacity: 1; }
-}
-
-@keyframes dropIn {
-  0% { transform: translateY(-200px); opacity: 0; }
-  100% { transform: translateY(0); opacity: 1; }
-}
-
-@keyframes vhsGlitchIn {
-  0% {
-    transform: scale(0.9) translateX(0);
-    opacity: 0;
-    filter: grayscale(100%) contrast(200%);
-  }
-  25% {
-    transform: scale(1.05) translateX(-5px);
-    filter: hue-rotate(30deg);
-  }
-  50% {
-    transform: scale(1.02) translateX(5px);
-    filter: hue-rotate(-20deg);
-  }
-  75% {
-    transform: scale(1.01);
-    filter: saturate(150%);
-  }
-  100% {
-    transform: scale(1);
-    opacity: 1;
-    filter: none;
-  }
-}
-
-@keyframes explodeIn {
-  0% {
-    transform: scale(0.1) rotate(180deg);
-    opacity: 0;
-    filter: brightness(500%) blur(5px);
-  }
-  100% {
-    transform: scale(1) rotate(0deg);
-    opacity: 1;
-    filter: none;
-  }
-}
-/* ==== CLOSE ANIMATIONS ==== */
-@keyframes blackHoleOut {
-  0% {
-    transform: scale(1) rotate(0deg);
-    opacity: 1;
-  }
-  100% {
-    transform: scale(0.05) rotate(720deg);
-    opacity: 0;
-    filter: blur(2px);
-  }
-}
-
-@keyframes fadeOut {
-  0% { opacity: 1; transform: scale(1); }
-  100% { opacity: 0; transform: scale(0.92); }
-}
-
-@keyframes rotateOut {
-  0% { opacity: 1; transform: rotate(0deg) scale(1); }
-  100% { opacity: 0; transform: rotate(-20deg) scale(0.8); }
-}
-
-@keyframes slideOutBottom {
-  0% { opacity: 1; transform: translateY(0); }
-  100% { opacity: 0; transform: translateY(60px); }
-}
-
-@keyframes crtExit {
-  0% { opacity: 1; filter: contrast(150%) saturate(120%); }
-  100% { opacity: 0; transform: scale(0.7); filter: grayscale(100%) blur(2px); }
-}
-
-@keyframes shatterOut {
-  0% {
-    opacity: 1;
-    transform: scale(1) rotate(0deg);
-    filter: none;
-  }
-  50% {
-    transform: scale(1.05) rotate(3deg);
-    filter: contrast(150%) grayscale(50%);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(0.3) rotate(30deg);
-    filter: blur(4px) brightness(0.5);
-  }
-}
-
-.window.opening {
-  animation-duration: 0.35s;
-  animation-fill-mode: both;
-}
-
-.window.closing {
-  animation-duration: 0.25s;
-  animation-fill-mode: both;
-}
-
-/* VHS OVERLAY */
-.vhs-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  pointer-events: none;
-  z-index: 99999;
-
-  background: 
-    repeating-linear-gradient(
-      to bottom,
-      rgba(255, 255, 255, 0.06) 0px,
-      rgba(255, 255, 255, 0.06) 1px,
-      transparent 1px,
-      transparent 3px
-    ),
-    repeating-linear-gradient(
-      to right,
-      rgba(255, 255, 255, 0.03) 0px,
-      rgba(0, 255, 255, 0.03) 1px,
-      transparent 1px,
-      transparent 2px
-    );
-    
-  animation: 
-    vhs-flicker 0.2s steps(2) infinite,
-    colorShift 0.8s infinite ease-in-out;
-  
-  mix-blend-mode: screen;
-  filter: contrast(150%) brightness(130%) blur(0.8px) saturate(200%);
-  opacity: 0.75;
-}
-
-@keyframes vhs-flicker {
-  0%, 100% {
-    opacity: 0.75;
-    transform: scaleX(1);
-  }
-  25% {
-    opacity: 0.95;
-    transform: scaleX(1.02);
-  }
-  50% {
-    opacity: 0.6;
-    transform: scaleX(0.98);
-  }
-  75% {
-    opacity: 0.85;
-    transform: scaleX(1.01);
-  }
-}
-
-@keyframes colorShift {
-  0% {
-    filter: hue-rotate(0deg) blur(1px);
-  }
-  50% {
-    filter: hue-rotate(20deg) blur(2px);
-  }
-  100% {
-    filter: hue-rotate(-10deg) blur(1px);
-  }
-}
-
-.floating-symbol {
-  position: fixed;
-  font-family: 'VT323', monospace;
-  font-size: 24px;
-  color: #ffffff;
-  text-shadow: 
-  0 0 4px #fff, 
-  0 0 8px #fff, 
-  0 0 16px #fff;
-  pointer-events: none;
-  z-index: 99998;
-  animation: floatSymbol linear infinite, glowPulse 2.5s ease-in-out infinite;
-  user-select: none;
-  opacity: 0.85;
-}
-
-
-
-@keyframes floatSymbol {
-  0% {
-    transform: translateY(100vh) rotate(0deg);
-    opacity: 0;
-  }
-  10% {
-    opacity: 0.2;
-  }
-  90% {
-    opacity: 0.2;
-  }
-  100% {
-    transform: translateY(-10vh) rotate(360deg);
-    opacity: 0;
-  }
-}
-
-@keyframes glowPulse {
-  0%, 100% {
-    text-shadow: 0 0 4px #00ffff, 0 0 8px #00ffff;
-  }
-  50% {
-    text-shadow: 0 0 8px #00ffff, 0 0 16px #00ffff;
-  }
 }
 
 
