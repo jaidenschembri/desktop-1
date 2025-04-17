@@ -15,13 +15,8 @@ if (window.innerWidth <= 768) {
     
     const ul = startMenu.querySelector('ul');
   
-    // Optional: Add a separator line
-    const divider = document.createElement('hr');
-    divider.style.border = 'none';
-    divider.style.borderTop = '1px solid #999';
-    divider.style.margin = '6px 0';
-    ul.appendChild(divider);
   
+    
     // Inject menu items
     Object.entries(apps).forEach(([id, title]) => {
       const li = document.createElement('li');

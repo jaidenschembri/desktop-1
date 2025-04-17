@@ -11,6 +11,9 @@ const yumeMessages = {
       "pixelated/swtchblade.gif",
       "pixelated/pills.jpg",
       "pixelated/randoms/thighholster.png",
+      "pixelated/landscapes/cemetery.gif",
+      "pixelated/landscapes/orangeroom.gif",
+      
     ],
     headerBgs: [
       "#a660c2",

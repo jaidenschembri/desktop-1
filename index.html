@@ -17,6 +17,7 @@
   <link rel="stylesheet" href="css/components/numerology.css" />
   <link rel="stylesheet" href="css/components/oscillator.css" />
   <link rel="stylesheet" href="css/components/yume.css" />
+  <link rel="stylesheet" href="css/components/tip.css" />
   <link rel="stylesheet" href="css/mobile.css" media="(max-width: 768px)" />
 
 </head>
@@ -37,11 +38,6 @@
   <div class="icon" data-window-id="numerology">
     <img src="pixelated/folder-icon.png" alt="numerology">
     <span>Numerology</span>
-  </div>
-
-  <div class="icon" data-window-id="tip">
-    <img src="pixelated/folder-icon.png" alt="tip">
-    <span>Tip Jar</span>
   </div>
 
   <div class="icon" data-window-id="guestbook">
@@ -153,37 +149,6 @@
   </div>
 </div>
 
-<div class="window hidden" id="tip">
-  <div class="window-header">
-     tip.jar
-    <div class="window-controls">
-      <button class="min-btn" onclick="minimizeWindow('tip')">🗕</button>
-      <button class="close-btn" onclick="closeWindow('tip')">❌</button>
-    </div>
-  </div>
-  <div class="window-content">
-    <button onclick="connectWallet()">🦊 Connect Wallet</button>
-    <div id="wallet-connection" style="margin-top: 5px;"></div>
-
-    <div id="tip-options" style="display:none; margin-top: 10px;">
-      <button onclick="sendTip(0.001)">Tip 0.001 ETH</button>
-      <button onclick="sendTip(0.005)">Tip 0.005 ETH</button>
-      <button onclick="sendTip(0.01)">Tip 0.01 ETH</button>
-    </div>
-
-    <hr style="margin: 12px 0; border: none; border-top: 1px dashed #888;" />
-
-    <div id="paypal-tip" style="text-align: center; font-size: 9px;">
-      <p>Prefer fiat reality?</p>
-      <a href="https://paypal.me/jaidenschembri" target="_blank" class="paypal-button">
-        <button>💳 Tip via PayPal</button>
-      </a>
-    </div>
-
-    <div id="tip-status" style="margin-top: 10px;"></div>
-  </div>
-</div>
-
 <div class="window hidden" id="guestbook">
   <div class="window-header">
     guestbook
@@ -287,7 +252,6 @@
   </div>
 </div>
 
-
 <div class="window hidden" id="gifypet">
   <div class="window-header">
     gifypet
@@ -387,9 +351,6 @@
     style="height: 24px; image-rendering: pixelated; position: relative; top: 1.75px;" />
 </button>
 
-
-    
-
     <div id="taskbar-clock" class="taskbar-clock">--:--</div>
   </div>
 </footer>
@@ -397,11 +358,22 @@
 <!-- 📂 Start Menu Dropdown -->
 <div id="start-menu" class="start-menu hidden">
   <ul>
-    <li onclick="setTheme('classic')">🖥 Classic Mode</li>
-    <li onclick="setTheme('mono')">🕶 Mono Mode</li>
-    <li onclick="setTheme('cyber')">🌐 Cyber Mode</li>
+    <li class="submenu-parent">
+      Themes ▸
+      <ul class="submenu" id="theme-submenu">
+        <li onclick="setTheme('classic')">🖥 Classic</li>
+        <li onclick="setTheme('mono')">🕶 Mono</li>
+        <li onclick="setTheme('cyber')">🌐 Cyber</li>
+      </ul>
+    </li>
+
+    <li class="mobile-only-divider">
+      <div class="menu-divider"></div>
+    </li>
   </ul>
 </div>
+
+
 
   <!-- Scripts -->
   <script src="script/desktop.js"></script>
@@ -414,7 +386,6 @@
   <script src="script/tip.js"></script>
   <script src="script/systemMessages.js"></script>
   <script src="script/mobile.js"></script>
-  <script src="script/footer.js"></script>
 
   <div id="lightbox" class="lightbox hidden">
     <span class="lightbox-close" onclick="closeLightbox()">×</span>
