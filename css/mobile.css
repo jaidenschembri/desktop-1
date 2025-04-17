@@ -1,14 +1,11 @@
 /* 📱 Base mobile layout — no transform */
 body {
-  width: 100vw;
-  min-height: 100vh;
   display: flex;
   flex-direction: column;
-  overflow-x: hidden;
-  overflow-y: auto;
-  background-size: cover;
-  padding-bottom: 60px; /* makes space for fixed taskbar */
+  box-sizing: border-box;
   font-family: 'Press Start 2P', monospace;
+  background-size: cover;
+  padding-bottom: 60px; /* needed for fixed taskbar */
 }
 
   /* ✅ Taskbar pinned to real bottom */
