@@ -132,7 +132,6 @@ body::-webkit-scrollbar,
   }
 }
 
-
 /* oscillator window */
 @media (max-width: 768px) {
   #oscillator {
@@ -241,15 +240,6 @@ body::-webkit-scrollbar,
 }
 
 @media (max-width: 768px) {
-
-  .window.closing {
-    opacity: 0;
-    transform: scale(0.96);
-    pointer-events: none;
-  }
-}
-
-@media (max-width: 768px) {
   #guestbook {
     max-height: 360px !important;
   }
@@ -257,24 +247,6 @@ body::-webkit-scrollbar,
   #guestbook .window-content {
     max-height: 320px;
     overflow-y: auto;
-  }
-}
-
-@media (max-width: 768px) {
-  .window {
-    transition: opacity 0.25s ease, transform 0.25s ease;
-    opacity: 1;
-    transform: scale(1);
-  }
-
-  .window.closing {
-    opacity: 0;
-    transform: scale(0.96);
-    pointer-events: none;
-  }
-
-  .window.restoring {
-    animation: restore 0.25s ease-out forwards;
   }
 }
 
@@ -317,4 +289,22 @@ body::-webkit-scrollbar,
 #start-menu {
   max-width: 100vw;
   overflow-x: hidden !important;
+}
+
+@keyframes mobileFadeIn {
+  0% { opacity: 0; transform: scale(0.96); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes mobileFadeOut {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.96); }
+}
+
+.window.opening {
+  animation: mobileFadeIn 0.25s ease-out forwards;
+}
+
+.window.closing {
+  animation: mobileFadeOut 0.2s ease-out forwards;
 }

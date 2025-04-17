@@ -42,65 +42,61 @@ function openWindow(id) {
   el.style.display = 'block';
 
   // 📱 On mobile, move newly opened window to the top of <body>
-if (window.innerWidth <= 768) {
-  const body = document.body;
-  if (el.parentNode === body) {
-    body.insertBefore(el, body.querySelector('.window')); // insert before first window
-  }
-}
-
-  
-
-// 🔁 Swap to open icon
-const iconEl = document.querySelector(`.icon[data-window-id="${id}"] img`);
-if (iconEl && apps[id]?.openIcon) {
-  iconEl.src = apps[id].openIcon;
-}
-
-if (id === 'gifypet') {
-  if (window.innerWidth > 768) {
-    el.style.width = '310px';
-    el.style.height = '360px';
-  } else {
-    el.style.width = '';
-    el.style.height = '';
-  }
-}
-
-// Positioning
-if (id === 'window-portfolio') {
-  const centeredLeft = (window.innerWidth - el.offsetWidth) / 2;
-  el.style.left = `${centeredLeft}px`;
-  el.style.top = '100px';
-} else {
-  if (window.innerWidth > 768) {
-    // 🎯 Smart default positions based on screen size
-    switch (id) {
-      case 'yume':
-        el.style.left = `${window.innerWidth * 0.75}px`;
-        el.style.top = `445px`;
-        break;
-      case 'guestbook':
-        el.style.left = `${window.innerWidth - el.offsetWidth - 20}px`; //
-        el.style.top = `20px`;
-        break;
-      case 'window-shop':
-        el.style.left = `${window.innerWidth * 0.48}px`;
-        el.style.top = `${window.innerHeight * 0.02}px`;
-        break;
-      default:
-        el.style.left = `${100 + Math.floor(Math.random() * 60)}px`;
-        el.style.top = `${100 + Math.floor(Math.random() * 60)}px`;
-        break;
+  if (window.innerWidth <= 768) {
+    const body = document.body;
+    if (el.parentNode === body) {
+      body.insertBefore(el, body.querySelector('.window')); // insert before first window
     }
-    
-  } else {
-    // 📱 Mobile: no positioning
-    el.style.left = '';
-    el.style.top = '';
   }
-}
 
+  // 🔁 Swap to open icon
+  const iconEl = document.querySelector(`.icon[data-window-id="${id}"] img`);
+  if (iconEl && apps[id]?.openIcon) {
+    iconEl.src = apps[id].openIcon;
+  }
+
+  // Special sizing for gifypet
+  if (id === 'gifypet') {
+    if (window.innerWidth > 768) {
+      el.style.width = '310px';
+      el.style.height = '360px';
+    } else {
+      el.style.width = '';
+      el.style.height = '';
+    }
+  }
+
+  // 🎯 Positioning
+  if (id === 'window-portfolio') {
+    const centeredLeft = (window.innerWidth - el.offsetWidth) / 2;
+    el.style.left = `${centeredLeft}px`;
+    el.style.top = '100px';
+  } else {
+    if (window.innerWidth > 768) {
+      switch (id) {
+        case 'yume':
+          el.style.left = `${window.innerWidth * 0.75}px`;
+          el.style.top = `445px`;
+          break;
+        case 'guestbook':
+          el.style.left = `${window.innerWidth - el.offsetWidth - 20}px`;
+          el.style.top = `20px`;
+          break;
+        case 'window-shop':
+          el.style.left = `${window.innerWidth * 0.48}px`;
+          el.style.top = `${window.innerHeight * 0.02}px`;
+          break;
+        default:
+          el.style.left = `${100 + Math.floor(Math.random() * 60)}px`;
+          el.style.top = `${100 + Math.floor(Math.random() * 60)}px`;
+          break;
+      }
+    } else {
+      // 📱 Mobile: no positioning
+      el.style.left = '';
+      el.style.top = '';
+    }
+  }
 
   el.style.visibility = '';
   el.style.display = '';
@@ -111,40 +107,54 @@ if (id === 'window-portfolio') {
     el.style.removeProperty('top');
   }
 
-  el.classList.add('restoring');
+  // ✨ Randomized animation logic
+  let openAnims = window.innerWidth <= 768
+  ? ['mobileFadeIn']
+  : ['zoomIn', 'rotateIn', 'slideInBottom', 'explodeIn', 'crtPop', 'vhsGlitchIn', 'glitchPop', 'dropIn', ];
+
+  const chosenOpen = openAnims[Math.floor(Math.random() * openAnims.length)];
+  el.classList.add('opening');
+  el.style.animationName = chosenOpen;
+
+  setTimeout(() => {
+    el.classList.remove('opening');
+    el.style.animationName = '';
+  }, 350);
 
   bringToFront(el);
   bindDrag(el);
-
-  setTimeout(() => {
-    el.classList.remove('restoring');
-  }, 250);
-
   addToTaskbar(id);
 }
+
 
 function closeWindow(id) {
   const el = document.getElementById(id);
   if (!el) return;
 
-  if (window.innerWidth <= 768) {
-    el.classList.add('closing');
-    setTimeout(() => {
-      el.classList.remove('closing');
-      el.classList.add('hidden');
-    }, 200);
-  } else {
-    el.classList.add('hidden');
-  }
+  let closeAnims = window.innerWidth <= 768
+  ? ['mobileFadeOut']
+  : ['fadeOut', 'rotateOut', 'blackHoleOut', 'slideOutBottom', 'crtExit', 'shatterOut'];
+
+const chosenClose = closeAnims[Math.floor(Math.random() * closeAnims.length)];
+
+el.classList.add('closing');
+el.style.animationName = chosenClose;
+
+setTimeout(() => {
+  el.classList.remove('closing');
+  el.style.animationName = '';
+  el.classList.add('hidden');
+}, 250);
 
   removeFromTaskbar(id);
 
-  // 🔁 Revert to closed icon (copy from second one)
+  // 🔁 Revert to closed icon
   const iconEl = document.querySelector(`.icon[data-window-id="${id}"] img`);
   if (iconEl && apps[id]?.icon) {
     iconEl.src = apps[id].icon;
   }
 }
+
 
 function minimizeWindow(id) {
   const el = document.getElementById(id);
@@ -511,3 +521,20 @@ function initIpodToggle() {
     setTimeout(initIpodToggle, 100);
   }
 }
+
+function triggerVHSOverlay(duration = 1000) {
+  const overlay = document.querySelector('.vhs-overlay');
+  if (!overlay) return;
+
+  overlay.classList.remove('hidden');
+
+  setTimeout(() => {
+    overlay.classList.add('hidden');
+  }, duration);
+}
+
+setInterval(() => {
+  if (Math.random() < 0.50) {
+    triggerVHSOverlay(1800);
+  }
+}, 8000); // runs every 8 seconds
