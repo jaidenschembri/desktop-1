@@ -27,9 +27,9 @@ body {
   /* 🧱 Add space for scroll content below */
   body::after {
     content: '';
-    display: block;
-    height: 48px;
+    display: none; /* or remove block entirely */
   }
+  
   
   /* 🪟 Windows flow down naturally */
   .window {
