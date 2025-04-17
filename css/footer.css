@@ -156,7 +156,7 @@ footer.taskbar {
     display: flex;
     align-items: center;
     justify-content: flex-start;
-    gap: 4px;
+    gap: 1px;
     width: 90px;
     height: 28px;
     background: #dcdcdc;
@@ -257,8 +257,8 @@ footer.taskbar {
   .submenu {
     display: none;
     position: absolute;
-    top: -70px;
-    left: 100%;
+    top: -50px;
+    left: 130px;
     background: #dcdcdc;
     border: 2px solid #999;
     box-shadow:
@@ -271,6 +271,16 @@ footer.taskbar {
     padding: 4px 0;
     width: 110px;
     z-index: 9999;
+  }
+
+  .submenu.open {
+    display: block;
+  }
+  
+  @media (min-width: 769px) {
+    .submenu-parent:hover .submenu {
+      display: block;
+    }
   }
   
   .submenu li {

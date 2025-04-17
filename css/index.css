@@ -135,9 +135,6 @@ body {
 }
 
 /* ==== UTILS ==== */
-.hidden {
-  display: none !important;
-}
 
 /* ==== LIGHTBOX ==== */
 .lightbox {
@@ -357,17 +354,6 @@ body {
     transform: scale(0.3) rotate(30deg);
     filter: blur(4px) brightness(0.5);
   }
-}
-
-/* ==== MOBILE === */
-@keyframes mobileFadeIn {
-  0% { opacity: 0; transform: scale(0.96); }
-  100% { opacity: 1; transform: scale(1); }
-}
-
-@keyframes mobileFadeOut {
-  0% { opacity: 1; transform: scale(1); }
-  100% { opacity: 0; transform: scale(0.96); }
 }
 
 .window.opening {

@@ -45,13 +45,6 @@ body {
   }
   
   /* 🧰 Desktop icons become horizontal rows */
-  .desktop-icons {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 12px;
-    padding: 10px;
-  }
   
   .desktop-area {
     flex: 1;
@@ -285,8 +278,7 @@ body::-webkit-scrollbar,
 .window,
 .window-content,
 .desktop-icons,
-.fixed-ipod,
-#start-menu {
+.fixed-ipod {
   max-width: 100vw;
   overflow-x: hidden !important;
 }
@@ -307,4 +299,8 @@ body::-webkit-scrollbar,
 
 .window.closing {
   animation: mobileFadeOut 0.2s ease-out forwards;
+}
+
+#start-menu {
+  overflow-x: visible !important;
 }
