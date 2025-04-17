@@ -15,8 +15,6 @@ if (window.innerWidth <= 768) {
     
     const ul = startMenu.querySelector('ul');
   
-  
-    
     // Inject menu items
     Object.entries(apps).forEach(([id, title]) => {
       const li = document.createElement('li');

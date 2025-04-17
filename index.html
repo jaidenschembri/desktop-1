@@ -358,6 +358,23 @@
 <!-- 📂 Start Menu Dropdown -->
 <div id="start-menu" class="start-menu hidden">
   <ul>
+    <!-- 💸 Tip Jar with Submenu -->
+    <li class="submenu-parent">
+      💸 Tip Jar ▸
+      <ul class="submenu tip-submenu">
+        <li onclick="connectWallet()">Wallet</li>
+        <li onclick="window.open('https://www.paypal.com/paypalme/jaidenschembri', '_blank')">PayPal</li>
+      </ul>
+    </li>
+    
+    
+
+    <!-- Divider -->
+    <li>
+      <div class="menu-divider"></div>
+    </li>
+
+    <!-- 🎨 Themes Submenu -->
     <li class="submenu-parent">
       Themes ▸
       <ul class="submenu" id="theme-submenu">
@@ -367,11 +384,13 @@
       </ul>
     </li>
 
+    <!-- 📱 Mobile Divider -->
     <li class="mobile-only-divider">
       <div class="menu-divider"></div>
     </li>
   </ul>
 </div>
+
 
 
 

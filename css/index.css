@@ -395,10 +395,7 @@ footer.taskbar {
   color: #fff;
 }
 
-.start-button:hover {
-  background: #c8c8c8;
-  border-color: #888;
-}
+
 
 .start-button img {
   width: 33px;
@@ -413,7 +410,7 @@ footer.taskbar {
 
 .start-menu {
   position: fixed;
-  bottom: 40px;
+  bottom: 42px;
   left: 12px;
   width: 130px;
   background: #dcdcdc;
@@ -486,7 +483,7 @@ footer.taskbar {
 .submenu {
   display: none;
   position: absolute;
-  top: -60px; /* 👈 nudge upward to align perfectly */
+  top: -70px; /* 👈 nudge upward to align perfectly */
   left: 100%; /* 📤 opens to the right */
   background: #dcdcdc;
   border: 2px solid #999;
@@ -515,6 +512,12 @@ footer.taskbar {
   background: #bfbfbf;
 }
 
+/* 🎯 Nudge Tip submenu lower so it lines up */
+.tip-submenu {
+  top: -10px !important;
+}
+
+
 .menu-divider {
   width: calc(100% - 5px);
   height: 2px;
@@ -535,6 +538,15 @@ footer.taskbar {
   background: transparent !important;
   cursor: default;
 }
+
+/* 🛡 Kill hover on dividers (desktop + mobile) */
+.start-menu li:has(.menu-divider):hover,
+.start-menu li.mobile-only-divider:hover {
+  background: transparent !important;
+  cursor: default !important;
+  box-shadow: none !important;
+}
+
 
 .taskbar-left {
   display: flex;
