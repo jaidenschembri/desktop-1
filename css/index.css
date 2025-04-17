@@ -575,3 +575,19 @@ footer.taskbar {
 .ipod-glow {
   animation: ipod-glow 2.2s infinite ease-in-out;
 }
+
+
+@media (min-width: 769px) {
+  #window-shop {
+    width: 500px;
+    height: 625px;
+    max-width: 500px;
+    max-height: 725px;
+  }
+
+  #window-shop .window-content {
+    height: calc(100% - 24px); /* accounts for header height */
+    overflow: hidden;
+    padding: 0 !important;
+  }
+}

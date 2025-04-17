@@ -18,6 +18,7 @@
   <link rel="stylesheet" href="css/components/oscillator.css" />
   <link rel="stylesheet" href="css/components/yume.css" />
   <link rel="stylesheet" href="css/components/tip.css" />
+  <link rel="stylesheet" href="css/components/shop.css" />
   <link rel="stylesheet" href="css/mobile.css" media="(max-width: 768px)" />
 
 </head>
@@ -303,19 +304,31 @@
   </div>
 </div>
 
-<!-- 🌐 Iframe Windows -->
 <div class="window hidden" id="window-shop">
   <div class="window-header">
-     shop
+    shop.exe
     <div class="window-controls">
       <button class="min-btn" onclick="minimizeWindow('window-shop')">🗕</button>
       <button class="close-btn" onclick="closeWindow('window-shop')">❌</button>
     </div>
   </div>
   <div class="window-content">
-    <iframe src="shop.html" class="iframe-window"></iframe>
+    <div class="shop-container">
+      <div class="shop-item">
+        <div class="shop-image-wrapper">
+          <img src="images/sayyestohvn.png" alt="NeoCore T-Shirt" class="shop-image" />
+        </div>
+                <div class="shop-details">
+          <h3 class="shop-title">say yes to heaven</h3>
+          <p class="shop-desc">100% cotton</p>
+          <div class="shop-price">$33.00 USD</div>
+          <div id="paypal-button-container" style="margin-top: 12px;"></div>
+        </div>
+      </div>      
+    </div>
   </div>
 </div>
+
 
 <!-- 🧭 Bottom Taskbar -->
 <footer class="taskbar">
@@ -350,7 +363,6 @@
     class="ipod-glow"
     style="height: 24px; image-rendering: pixelated; position: relative; top: 1.75px;" />
 </button>
-
     <div id="taskbar-clock" class="taskbar-clock">--:--</div>
   </div>
 </footer>
@@ -358,7 +370,6 @@
 <!-- 📂 Start Menu Dropdown -->
 <div id="start-menu" class="start-menu hidden">
   <ul>
-    <!-- 💸 Tip Jar with Submenu -->
     <li class="submenu-parent">
       💸 Tip Jar ▸
       <ul class="submenu tip-submenu">
@@ -366,15 +377,9 @@
         <li onclick="window.open('https://www.paypal.com/paypalme/jaidenschembri', '_blank')">PayPal</li>
       </ul>
     </li>
-    
-    
-
-    <!-- Divider -->
     <li>
       <div class="menu-divider"></div>
     </li>
-
-    <!-- 🎨 Themes Submenu -->
     <li class="submenu-parent">
       Themes ▸
       <ul class="submenu" id="theme-submenu">
@@ -383,18 +388,15 @@
         <li onclick="setTheme('cyber')">🌐 Cyber</li>
       </ul>
     </li>
-
-    <!-- 📱 Mobile Divider -->
     <li class="mobile-only-divider">
       <div class="menu-divider"></div>
     </li>
   </ul>
 </div>
 
-
-
-
   <!-- Scripts -->
+  <script src="https://www.paypal.com/sdk/js?client-id=AbQn-fDDUqd-D7sEm2zY8Q6XwdcI5JqEvq1bWhPjpp_s_8SIR8WBZXez36Z5FR0TDGhbqk3VaQA0BuNU&currency=USD"></script>
+
   <script src="script/desktop.js"></script>
   <script src="script/ipod.js"></script>
   <script src="script/guestbook.js"></script>
@@ -404,6 +406,7 @@
   <script src="script/oscillator.js"></script>
   <script src="script/tip.js"></script>
   <script src="script/systemMessages.js"></script>
+  <script src="script/shop.js"></script>
   <script src="script/mobile.js"></script>
 
   <div id="lightbox" class="lightbox hidden">

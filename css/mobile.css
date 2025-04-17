@@ -309,3 +309,12 @@ body::-webkit-scrollbar,
     margin-top: 6px;
   }
 }
+
+.window,
+.window-content,
+.desktop-icons,
+.fixed-ipod,
+#start-menu {
+  max-width: 100vw;
+  overflow-x: hidden !important;
+}
