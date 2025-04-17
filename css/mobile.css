@@ -289,3 +289,26 @@ body::-webkit-scrollbar,
     text-shadow: none !important;
   }
 }
+
+@media (max-width: 768px) {
+  #yume {
+    width: 94% !important;
+    max-width: 540px !important;
+    min-width: unset !important;
+  }
+
+  #yume .window-content {
+    flex-direction: column;
+    height: auto !important;
+  }
+
+  #yume img {
+    height: auto !important;
+    max-height: 100px;
+    object-fit: cover;
+  }
+
+  .yume-marquee-wrapper {
+    margin-top: 6px;
+  }
+}

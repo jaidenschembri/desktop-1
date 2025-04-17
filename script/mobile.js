@@ -2,7 +2,6 @@
 if (window.innerWidth <= 768) {
     const startMenu = document.getElementById('start-menu');
     const apps = {    
-      tip: 'Tip Jar', 
       oscillator: 'Oscillator',
       numerology: 'Numerology',     
       guestbook: 'Guestbook',
