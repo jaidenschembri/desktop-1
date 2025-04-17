@@ -44,16 +44,14 @@ body {
     margin-inline:auto;
   }
   
-  /* 🧰 Desktop icons become horizontal rows */
-  
-  .desktop-area {
-    flex: 1;
-    overflow-y: auto;
-    overflow-x: hidden;
-    position: relative;
-    z-index: 1;
+  @media (max-width: 768px) {
+    body:not(.theme-mono) .window:not(#yume) .window-header {
+      background: linear-gradient(to bottom, #6e90c3, #3c4e6d) !important;
+    }
   }
   
+  
+
   .desktop-icons {
     display: none !important;
   }
@@ -243,14 +241,7 @@ body::-webkit-scrollbar,
   }
 }
 
-@media (max-width: 768px) {
-  /* Force all window headers to look active — except Yume */
-  .window:not(#yume) .window-header {
-    background: linear-gradient(to bottom, #a3b1c4, #6f7f94) !important;
-    color: #fff !important;
-    text-shadow: none !important;
-  }
-}
+
 
 @media (max-width: 768px) {
   #yume {
