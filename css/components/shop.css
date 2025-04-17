@@ -102,23 +102,15 @@
   }
   
   #window-shop {
-    width: 700px;
-    height: 500px;
-    max-width: none;
-    max-height: none;
+    width: 500px;
+    height: 625px;
+    max-width: 500px;
+    max-height: 725px;
   }
-
-  @media (min-width: 769px) {
-    #window-shop {
-      width: 500px;
-      height: 625px;
-      max-width: 500px;
-      max-height: 725px;
-    }
   
-    #window-shop .window-content {
-      height: calc(100% - 24px); /* accounts for header height */
-      overflow: hidden;
-      padding: 0 !important;
-    }
+  #window-shop .window-content {
+    height: calc(100% - 24px); /* accounts for header */
+    overflow: hidden;
+    padding: 0 !important;
   }
+  

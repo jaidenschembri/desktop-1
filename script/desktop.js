@@ -136,7 +136,6 @@ function openWindow(id) {
   addToTaskbar(id);
 }
 
-
 function closeWindow(id) {
   const el = document.getElementById(id);
   if (!el) return;
@@ -166,8 +165,6 @@ function closeWindow(id) {
     iconEl.src = apps[id].icon;
   }
 }
-
-
 
 function minimizeWindow(id) {
   const el = document.getElementById(id);
@@ -286,6 +283,14 @@ function bindDrag(win) {
 window.addEventListener('DOMContentLoaded', () => {
   positionIcons();
   document.querySelectorAll('.icon').forEach(bindIconDrag);
+  // ——— External‑link icons ———
+document.querySelectorAll('.icon[data-external-url]').forEach(icon => {
+  icon.addEventListener('click', () => {
+    const url = icon.getAttribute('data-external-url');
+    window.open(url, '_blank');
+  });
+});
+
   initIpodToggle(); // ✅ already being called
 
   // 🪟 Auto-open these windows on load

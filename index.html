@@ -68,6 +68,12 @@
     <img src="pixelated/folder-icon.png" alt="yume">
     <span>Yume</span>
   </div>
+
+  <div class="icon" data-external-url="https://jaidenschembri.github.io/vrm-viewer/">
+    <img src="pixelated/icons/cat.png" alt="External Site">
+    <span>Jaid.exe</span>
+  </div>
+  
   
 </div>
 
@@ -371,6 +377,16 @@
 <!-- 📂 Start Menu Dropdown -->
 <div id="start-menu" class="start-menu hidden">
   <ul>
+    <!-- 1️⃣ New button at the top -->
+    <li onclick="window.open('https://jaidenschembri.github.io/vrm-viewer/', '_blank')">
+      Launch Jaid.exe
+    </li>
+    <!-- 2️⃣ Divider (optional) -->
+    <li>
+      <div class="menu-divider"></div>
+    </li>
+
+    <!-- existing Tip Jar submenu -->
     <li class="submenu-parent">
       Tip Jar ▸
       <ul class="submenu tip-submenu">
@@ -378,9 +394,12 @@
         <li onclick="window.open('https://www.paypal.com/paypalme/jaidenschembri', '_blank')">PayPal</li>
       </ul>
     </li>
+
     <li>
       <div class="menu-divider"></div>
     </li>
+
+    <!-- existing Themes submenu -->
     <li class="submenu-parent">
       Themes ▸
       <ul class="submenu" id="theme-submenu">
@@ -389,11 +408,13 @@
         <li onclick="setTheme('cyber')">🌐 Cyber</li>
       </ul>
     </li>
+
     <li class="mobile-only-divider">
       <div class="menu-divider"></div>
     </li>
   </ul>
 </div>
+
 
 <div class="vhs-overlay hidden"></div>
 
