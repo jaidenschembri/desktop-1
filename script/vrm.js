@@ -1,79 +1,70 @@
-// script/vrm.js
+// vrm.js — legacy version (no modules, GH Pages safe)
+
 const canvas = document.querySelector('#vrm-canvas');
 const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
-renderer.setSize(canvas.width, canvas.height);
+renderer.setSize(canvas.clientWidth, canvas.clientHeight);
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.shadowMap.enabled = true;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 
 const scene = new THREE.Scene();
-const camera = new THREE.PerspectiveCamera(35, canvas.width / canvas.height, 0.1, 100);
-camera.position.set(0, 0.9, 2);
+const camera = new THREE.PerspectiveCamera(35, canvas.clientWidth / canvas.clientHeight, 0.1, 100);
+camera.position.set(0, 1.4, 2);
 
-const light = new THREE.DirectionalLight(0xffffff, 1.2);
-light.position.set(1.5, 3, 2);
-light.castShadow = true;
-scene.add(light);
+scene.add(new THREE.AmbientLight(0xffffff, 0.6));
 
-scene.add(new THREE.AmbientLight(0xffffff, 0.4));
-scene.add(new THREE.DirectionalLight(0x88ccff, 0.3).position.set(-2, 1, -1));
+const dirLight = new THREE.DirectionalLight(0xffffff, 1.0);
+dirLight.position.set(1, 3, 2);
+dirLight.castShadow = true;
+scene.add(dirLight);
 
-let vrm = null;
-let clock = new THREE.Clock();
-let headBone = null;
+let currentVrm = null;
+const clock = new THREE.Clock();
 
 const loader = new THREE.GLTFLoader();
-loader.register((parser) => new THREE.VRMLoaderPlugin(parser));
-loader.load('characters/kurabu.vrm', (gltf) => {
+loader.load('characters/kurabu.vrm', function (gltf) {
   THREE.VRMUtils.removeUnnecessaryJoints(gltf.scene);
-  vrm = gltf.userData.vrm;
-  scene.add(vrm.scene);
 
-  const leftUpperArm = vrm.humanoid.getNormalizedBoneNode('leftUpperArm');
-  const rightUpperArm = vrm.humanoid.getNormalizedBoneNode('rightUpperArm');
-  const leftLowerArm = vrm.humanoid.getNormalizedBoneNode('leftLowerArm');
-  const rightLowerArm = vrm.humanoid.getNormalizedBoneNode('rightLowerArm');
+  THREE.VRM.from(gltf).then(function (vrm) {
+    scene.add(vrm.scene);
+    currentVrm = vrm;
 
-  if (leftUpperArm && rightUpperArm && leftLowerArm && rightLowerArm) {
-    leftUpperArm.rotation.z = THREE.MathUtils.degToRad(-65);
-    rightUpperArm.rotation.z = THREE.MathUtils.degToRad(65);
-    leftLowerArm.rotation.z = THREE.MathUtils.degToRad(-15);
-    rightLowerArm.rotation.z = THREE.MathUtils.degToRad(15);
-  }
+    console.log('✅ GLTF loaded:', vrm);
 
-  if (vrm.lookAt) vrm.lookAt.target = camera;
+    // Set up basic pose
+    const leftUpperArm = vrm.humanoid.getBoneNode(THREE.VRMSchema.HumanoidBoneName.LeftUpperArm);
+    const rightUpperArm = vrm.humanoid.getBoneNode(THREE.VRMSchema.HumanoidBoneName.RightUpperArm);
+    const leftLowerArm = vrm.humanoid.getBoneNode(THREE.VRMSchema.HumanoidBoneName.LeftLowerArm);
+    const rightLowerArm = vrm.humanoid.getBoneNode(THREE.VRMSchema.HumanoidBoneName.RightLowerArm);
 
-  vrm.scene.traverse(obj => {
-    if (obj.isMesh) {
-      obj.castShadow = true;
-      obj.receiveShadow = true;
-      if (Array.isArray(obj.material)) {
-        obj.material.forEach(mat => mat.map && (mat.map.encoding = THREE.sRGBEncoding));
-      } else if (obj.material?.map) {
-        obj.material.map.encoding = THREE.sRGBEncoding;
-      }
-    }
+    if (leftUpperArm) leftUpperArm.rotation.z = THREE.Math.degToRad(-65);
+    if (rightUpperArm) rightUpperArm.rotation.z = THREE.Math.degToRad(65);
+    if (leftLowerArm) leftLowerArm.rotation.z = THREE.Math.degToRad(-15);
+    if (rightLowerArm) rightLowerArm.rotation.z = THREE.Math.degToRad(15);
+
+    animate();
   });
-
-  window.vrm = vrm;
-  animate();
 });
-
-window.animateMouth = (shape) => {
-  if (!vrm || !vrm.expressionManager) return;
-  ['aa', 'ih', 'ou', 'ee', 'oh'].forEach(s => vrm.expressionManager.setValue(s, 0.0));
-  if (shape) vrm.expressionManager.setValue(shape, 1.0);
-};
 
 function animate() {
   requestAnimationFrame(animate);
-  const delta = clock.getDelta();
-  if (vrm) {
-    vrm.update?.(delta);
-    vrm.lookAt?.update?.();
-
-    const t = performance.now() * 0.001;
-    vrm.scene.position.y = 0.01 * Math.sin(t * 1.5);
+  const deltaTime = clock.getDelta();
+  if (currentVrm) {
+    currentVrm.update(deltaTime);
+    currentVrm.scene.position.y = 0.01 * Math.sin(performance.now() * 0.0015);
   }
   renderer.render(scene, camera);
 }
+
+// ✅ External mouth control
+window.animateMouth = function (shape) {
+  if (!currentVrm || !currentVrm.blendShapeProxy) return;
+  const proxy = currentVrm.blendShapeProxy;
+
+  const keys = ['aa', 'ih', 'ou', 'ee', 'oh'];
+  keys.forEach(k => proxy.setValue(THREE.VRM.blendShapePresetName[k.toUpperCase()], 0.0));
+
+  if (shape) {
+    proxy.setValue(THREE.VRM.blendShapePresetName[shape.toUpperCase()], 1.0);
+  }
+};
