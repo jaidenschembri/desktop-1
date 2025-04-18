@@ -101,3 +101,20 @@
   border: 2px solid rgba(255,255,255,0.25);
 }
 
+@media (min-width: 769px) {
+  /* desktop: hide any overflow on the window-content wrapper */
+  #chatbot .window-content {
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    /* preserve your existing padding if you need it */
+    padding: 10px;
+  }
+
+  /* let the chatbot-box fill the container and not overflow */
+  #chatbot .chatbot-box {
+    flex: 1 1 auto;
+    min-height: 0;    /* crucial so it can shrink and inner scroll works */
+    overflow: hidden; /* just in case */
+  }
+}
