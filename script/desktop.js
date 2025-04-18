@@ -282,6 +282,7 @@ function bindDrag(win) {
 
 window.addEventListener('DOMContentLoaded', () => {
   positionIcons();
+
   document.querySelectorAll('.icon').forEach(bindIconDrag);
   // ——— External‑link icons ———
 document.querySelectorAll('.icon[data-external-url]').forEach(icon => {
