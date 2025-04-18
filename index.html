@@ -337,6 +337,18 @@
   </div>
 </div>
 
+<!-- 🎀 VRM Character -->
+<canvas id="vrm-canvas" style="
+  position: fixed;
+  bottom: 60px;
+  right: 12px;
+  width: 260px;
+  height: 400px;
+  z-index: 20;
+  pointer-events: none;
+"></canvas>
+
+
 <!-- 🧭 Bottom Taskbar -->
 <footer class="taskbar">
   <div class="taskbar-left">
@@ -415,7 +427,6 @@
   </ul>
 </div>
 
-
 <div class="vhs-overlay hidden"></div>
 
   <!-- Scripts -->
@@ -431,6 +442,12 @@
   <script src="script/systemMessages.js"></script>
   <script src="script/shop.js"></script>
   <script src="script/mobile.js"></script>
+  <script src="script/vrm.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.159.0/build/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.159.0/examples/js/loaders/GLTFLoader.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@pixiv/three-vrm@2.0.3/lib/three-vrm.js"></script>
+  <script src="script/vrm.js"></script>
+
 
   <div id="lightbox" class="lightbox hidden">
     <span class="lightbox-close" onclick="closeLightbox()">×</span>
