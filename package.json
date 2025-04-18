@@ -1,0 +1,32 @@
+{
+  "name": "neocity",
+  "version": "1.0.0",
+  "description": "",
+  "main": "vite.config.js",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "deploy": "gh-pages -d dist",
+    "fullsend": "git add . && git commit -m \"🚀 deploy\" && git push origin main && npm run build && npm run deploy"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jaidenschembri/desktop.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jaidenschembri/desktop/issues"
+  },
+  "homepage": "https://jaidenschembri.github.io/desktop/",
+  "dependencies": {
+    "@pixiv/three-vrm": "^1.0.10",
+    "three": "^0.151.3"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0",
+    "vite": "^5.4.18"
+  }
+}

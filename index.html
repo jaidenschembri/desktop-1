@@ -73,6 +73,12 @@
     <img src="pixelated/icons/cat.png" alt="External Site">
     <span>Jaid.exe</span>
   </div>
+
+  <div class="icon" data-window-id="vrm-window">
+    <img src="pixelated/icons/cat.png" alt="jaid.exe">
+    <span>jaid.exe</span>
+  </div>
+  
   
   
 </div>
@@ -337,6 +343,20 @@
   </div>
 </div>
 
+<div class="window hidden" id="vrm-window">
+  <div class="window-header">
+    jaid.exe
+    <div class="window-controls">
+      <button class="min-btn" onclick="minimizeWindow('vrm-window')">🗕</button>
+      <button class="close-btn" onclick="closeWindow('vrm-window')">❌</button>
+    </div>
+  </div>
+  <div class="window-content" style="height: 480px; padding: 0;">
+    <canvas id="vrm-canvas" style="width: 100%; height: 100%;"></canvas>
+  </div>
+</div>
+
+
 <!-- 🧭 Bottom Taskbar -->
 <footer class="taskbar">
   <div class="taskbar-left">
@@ -430,8 +450,9 @@
   <script src="script/systemMessages.js"></script>
   <script src="script/shop.js"></script>
   <script src="script/mobile.js"></script>
- 
-  
+  <script type="module" src="/script/vrm.js"></script>
+  <script type="module" src="/script/vrmChat.js"></script>
+
   <div id="lightbox" class="lightbox hidden">
     <span class="lightbox-close" onclick="closeLightbox()">×</span>
     <img id="lightbox-img" src="" alt="Full Image" />
