@@ -173,7 +173,6 @@ body::-webkit-scrollbar,
 
 @media (max-width: 768px) {
 
-
   #chatbot .window-content {
     max-height: none;
     height: auto;
