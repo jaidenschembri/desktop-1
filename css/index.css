@@ -196,31 +196,5 @@ body {
   animation: ipod-glow 2.2s infinite ease-in-out;
 }
 
-/* 🧱 Force custom VRM window sizing */
-#vrm-window {
-  position: absolute !important;
-  width: 530px !important;
-  height: 400px !important;
-  max-width: none !important;
-  max-height: none !important;
-  min-width: unset !important;
-  min-height: unset !important;
-}
-
-#vrm-window .window-content {
-  width: 100% !important;
-  height: 100% !important;
-  padding: 0 !important;
-  overflow: hidden !important;
-}
-
-#vrm-window iframe {
-  width: 100% !important;
-  height: 100% !important;
-  display: block;
-  border: none !important;
-}
-
-
 
 

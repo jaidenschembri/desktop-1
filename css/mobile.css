@@ -172,12 +172,18 @@ body::-webkit-scrollbar,
 /*chatbot */ 
 
 @media (max-width: 768px) {
-  #chatbot {
-    max-height: 400px;
-  }
+
 
   #chatbot .window-content {
-    max-height: 360px;
+    max-height: none;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+  }
+
+  .chatbot-box {
+    flex: 1;
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -185,15 +191,14 @@ body::-webkit-scrollbar,
 
   .chat-display {
     flex: 1;
+    min-height: 0;
+    max-height: none;
     overflow-y: auto;
-    padding-right: 4px;
-  }
-
-  .chat-controls {
-    flex-shrink: 0;
-    margin-top: 8px;
+    padding-right: 6px;
+    max-height: 220px;
   }
 }
+
 
 /* window */
 
