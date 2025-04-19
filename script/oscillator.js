@@ -46,15 +46,18 @@
     const maxFreq = 2000;
     const clamped = Math.max(minFreq, Math.min(freq, maxFreq));
   
-    // 📈 Use logarithmic scale to boost mid/high ranges
     const logMin = Math.log(minFreq);
     const logMax = Math.log(maxFreq);
     const logFreq = Math.log(clamped);
     const t = (logFreq - logMin) / (logMax - logMin);
   
-    const hue = 360 * t; // full rainbow spin
-    return `hsl(${Math.floor(hue)}, ${80 + Math.random() * 20}%, ${60 + Math.random() * 10}%)`;
+    const hue = (t * 360 + Math.random() * 20) % 360; // small hue jump
+    const sat = 90 + Math.random() * 10;
+    const light = 55 + Math.random() * 15;
+  
+    return `hsl(${Math.floor(hue)}, ${sat}%, ${light}%)`;
   }
+  
   
 
   function updateGlow(freq) {
@@ -78,7 +81,12 @@
       windowEl.style.border = `2px solid ${color}`;
     }
     if (ipodWheel) {
-      ipodWheel.style.boxShadow = `0 0 24px ${color}, 0 0 48px ${color}`;
+      const pulse = 12 + Math.sin(Date.now() * 0.008) * 12;
+ipodWheel.style.boxShadow = `
+  0 0 ${pulse}px ${color},
+  0 0 ${pulse * 2}px ${color}
+`;
+
     }
     if (ipodBody) {
       ipodBody.style.boxShadow = `inset 0 0 8px ${color}, 0 0 18px ${color}`;
