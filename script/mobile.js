@@ -9,8 +9,7 @@ if (window.innerWidth <= 768) {
     gifypet: 'Gifypet',
     yume: 'Yume',
     chatbot: 'Chatbot',
-    'window-portfolio': 'Portfolio',
-    'fake-exchange': 'Fake Exchange',
+    'window-portfolio': 'Archive',
   };
 
   const ul = startMenu.querySelector('ul');

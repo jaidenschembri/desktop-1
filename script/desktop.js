@@ -11,8 +11,6 @@ const apps = {
   guestbook: { title: 'Guestbook', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
   'window-shop': { title: 'Shop', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
   'window-portfolio': { title: 'Portfolio', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
-  'fake-exchange': { title: 'The Market', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
-
 };
 
 let zCounter = 100;
@@ -93,6 +91,11 @@ function openWindow(id) {
         x = window.innerWidth * 0.48;
         y = window.innerHeight * 0.02;
         break;
+        case 'chatbot':
+          x = window.innerWidth * 0.20;
+          y = window.innerHeight * 0.02;
+          break;
+        
       default:
         break;
     }
@@ -300,6 +303,7 @@ document.querySelectorAll('.icon[data-external-url]').forEach(icon => {
     'window-shop',
     'guestbook',
     'yume',
+    'chatbot',
     // add any others like 'oscillator', 'window-portfolio', etc.
   ];
 

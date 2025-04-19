@@ -331,3 +331,23 @@ footer.taskbar {
     box-shadow: none !important;
   }
   
+  /* === iPod Toggle Button === */
+#ipod-toggle-btn {
+  background: none;
+  border: none;
+  padding: 0 4px;
+  margin-right: 6px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  margin-bottom: 4px;
+}
+
+#ipod-toggle-btn img {
+  height: 24px;
+  image-rendering: pixelated;
+  position: relative;
+  top: 1.75px;
+}

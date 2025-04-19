@@ -13,6 +13,11 @@ const yumeMessages = {
       "pixelated/randoms/thighholster.png",
       "pixelated/landscapes/cemetery.gif",
       "pixelated/landscapes/orangeroom.gif",
+      'pixelated/landscapes/wonderful_land_107.gif',
+      'pixelated/landscapes/wonderful_land_82.gif',
+      'pixelated/landscapes/wonderful_land_74.gif',
+      'pixelated/landscapes/wonderful_land_69.gif',
+      'pixelated/landscapes/wonderful_land_64.gif',
       
     ],
     headerBgs: [
@@ -30,13 +35,6 @@ const yumeMessages = {
       "#ff0000"
     ],
     imageFilters: [
-      "grayscale(1)",
-      "contrast(1.5)",
-      "sepia(1)",
-      "hue-rotate(90deg)",
-      "saturate(2)",
-      "invert(1)",
-      "drop-shadow(0 0 4px magenta)",
       "none"
     ]
   };

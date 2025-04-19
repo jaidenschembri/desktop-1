@@ -67,11 +67,6 @@
     <img src="pixelated/folder-icon.png" alt="yume">
     <span>Yume</span>
   </div>
-
-  <div class="icon" data-window-id="fake-exchange">
-    <img src="pixelated/folder-icon.png" alt="yume">
-    <span>The Market</span>
-  </div>
   
 </div>
 
@@ -101,7 +96,7 @@
 
  <div class="window hidden" id="chatbot">
   <div class="window-header">
-  chatbot
+  CHATBOT
     <div class="window-controls">
       <button class="close-btn" onclick="closeWindow('chatbot')" title="Close">
         <img src="pixelated/icons/close-icon.png" alt="Close" />
@@ -120,7 +115,7 @@
 
 <div class="window hidden" id="oscillator">
   <div class="window-header">
-    oscillator
+    OSCILLATOR
     <div class="window-controls">
       <button class="close-btn" onclick="closeWindow('oscillator')" title="Close">
         <img src="pixelated/icons/close-icon.png" alt="Close" />
@@ -150,7 +145,7 @@
 
 <div class="window hidden" id="numerology">
   <div class="window-header">
-  numerology.exe
+  NUMEROLOGY
   <div class="window-controls">
     <button class="close-btn" onclick="closeWindow('numerology')" title="Close">
       <img src="pixelated/icons/close-icon.png" alt="Close" />
@@ -168,7 +163,7 @@
 
 <div class="window hidden" id="guestbook">
   <div class="window-header">
-    guestbook
+    GUESTBOOK
     <div class="window-controls">
       <button class="close-btn" onclick="closeWindow('guestbook')" title="Close">
         <img src="pixelated/icons/close-icon.png" alt="Close" />
@@ -190,7 +185,7 @@
 
 <div class="window hidden" id="window-portfolio">
   <div class="window-header">
-    archive
+    ARCHIVE
     <div class="window-controls">
       <button class="close-btn" onclick="closeWindow('window-portfolio')" title="Close">
         <img src="pixelated/icons/close-icon.png" alt="Close" />
@@ -260,7 +255,7 @@
 
 <div class="window hidden" id="gifypet">
   <div class="window-header">
-    gifypet
+    GIFYPET
     <div class="window-controls">
       <button class="close-btn" onclick="closeWindow('gifypet')" title="Close">
         <img src="pixelated/icons/close-icon.png" alt="Close" />
@@ -280,7 +275,7 @@
 
 <div class="window hidden" id="yume">
   <div class="window-header">
-    yume
+    YUME
     <div class="window-controls">
       <button class="refresh-btn" onclick="loadSystemMessage()" title="Refresh">🔁</button>
       <button class="close-btn" onclick="closeWindow('yume')" title="Close">
@@ -311,7 +306,7 @@
 
 <div class="window hidden" id="window-shop">
   <div class="window-header">
-    shop.exe
+    SHOP
     <div class="window-controls">
       <button class="close-btn" onclick="closeWindow('window-shop')" title="Close">
         <img src="pixelated/icons/close-icon.png" alt="Close" />
@@ -334,45 +329,6 @@
   </div>
 </div>
 
-<div class="window hidden" id="fake-exchange" style="width: 640px; height: 420px;">
-  <div class="window-header">
-    NeoCity Exchange
-    <div class="window-controls">
-      <button class="close-btn" onclick="closeWindow('fake-exchange')" title="Close">
-        <img src="pixelated/icons/close-icon.png" alt="Close" />
-      </button>
-    </div>
-  </div>
-
-  <div class="window-content"
-    style="font-family: 'VT323', monospace; background: #111; color: #00ffff; padding: 12px; overflow-y: auto; max-height: calc(100% - 24px);">
-    
-    <div class="exchange-coin" style="margin-bottom: 20px;">
-      <h3 style="margin: 0 0 4px;">
-        $VIBES <span style="color: #999;">| Price: $<span class="price-vibes">420.69</span></span>
-      </h3>
-      <canvas id="chart-vibes" width="580" height="100"
-        style="background: #000; border: 1px solid #333; margin-bottom: 6px;"></canvas>
-      <button onclick="sendTip('vibes')"
-        style="background: #000; border: 1px solid #00ffff; color: #00ffff; padding: 4px 8px;">Buy</button>
-    </div>
-
-    <div class="exchange-coin">
-      <h3 style="margin: 0 0 4px;">
-        $MILADY <span style="color: #999;">| Price: $<span class="price-milady">666.00</span></span>
-      </h3>
-      <canvas id="chart-milady" width="580" height="100"
-        style="background: #000; border: 1px solid #333; margin-bottom: 6px;"></canvas>
-      <button onclick="sendTip('milady')"
-        style="background: #000; border: 1px solid #ff99ff; color: #ff99ff; padding: 4px 8px;">Buy</button>
-    </div>
-
-  </div>
-</div>
-
-
-
-
 <!-- 🧭 Bottom Taskbar -->
 <footer class="taskbar">
   <div class="taskbar-left">
@@ -385,6 +341,13 @@
     <!-- ⬛ Dynamically injected app buttons -->
     <div class="taskbar-apps" id="taskbar-apps"></div>
   </div>
+
+  <!-- 🎧 Move this button OUTSIDE of taskbar-right-box -->
+  <!-- 🎧 Cleaned-up iPod toggle -->
+<button id="ipod-toggle-btn" title="Toggle iPod">
+  <img src="pixelated/music_5.gif" alt="Toggle iPod" class="ipod-glow" />
+</button>
+
 
   <!-- 🛠 Right-side Tray -->
   <div class="taskbar-right-box">
@@ -400,15 +363,10 @@
       </a>
     </div>
     <div class="taskbar-divider"></div>
-    <button id="ipod-toggle-btn" title="Toggle iPod" 
-    style="background: none; border: none; padding: 0; margin-right: 2px; cursor: pointer;">
-  <img src="pixelated/music_5.gif" alt="Toggle iPod" 
-    class="ipod-glow"
-    style="height: 24px; image-rendering: pixelated; position: relative; top: 1.75px;" />
-</button>
     <div id="taskbar-clock" class="taskbar-clock">--:--</div>
   </div>
 </footer>
+
 
 <!-- 📂 Start Menu Dropdown -->
 <div id="start-menu" class="start-menu hidden">
