@@ -15,18 +15,17 @@
   overflow: hidden; /* no scroll here, chat-display will scroll */
   height: 100%;
   padding: 10px;
+  padding-bottom: 6px;
 }
 
 .chatbot-box {
   flex: 1;
   display: flex;
   flex-direction: column;
-  background: rgba(255, 255, 255, 0.6);
+  background: transparent;
   backdrop-filter: blur(6px);
-  border-radius: 12px;
   font-family: 'VT323', monospace;
   color: #333;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
   overflow: hidden;
   min-height: 0;
 }
@@ -71,6 +70,7 @@
   gap: 8px;
   margin-top: 10px;
   flex-shrink: 0;
+  padding: 10px 10px 4px 10px;
 }
 
 .chat-controls input[type="text"] {
