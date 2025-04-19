@@ -70,20 +70,19 @@ body {
 
 .window-header {
   background: linear-gradient(to bottom, #a3b1c4, #6f7f94);
-  padding: 2px 6px; /* ⬅️ shrink vertical + horizontal padding */
-  font-family: 'Press Start 2P', monospace;
-  font-size: 9px; /* ⬅️ slightly smaller text */
+  padding: 2px 6px;
+  font-family: 'DOSVGA', monospace !important;
+  font-size: 14px !important;
   border-bottom: 1px solid #666;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  height: 15px; /* ⬅️ force consistent height */
+  height: 18px;
   position: relative;
-  top: 0;
   z-index: 10;
   pointer-events: auto;
   box-shadow:
-    inset -1px -1px 0 #fff, 
+    inset -1px -1px 0 #fff,
     inset 1px 1px 0 #000,
     0 1px 2px rgba(0, 0, 0, 0.5);
 }
@@ -99,25 +98,41 @@ body {
 }
 
 /* ==== WINDOW CONTROLS ==== */
+.window-controls {
+  display: flex;
+  align-items: center;
+}
+
 .window-controls button {
   border: 2px outset #dcdcdc;
   background: #e0e0e0;
   color: #000;
-  padding: 0 3.5px;
+  padding: 0 4px;
   cursor: pointer;
   line-height: 1;
   font-family: 'DOSVGA', monospace;
-  height: 18px; /* ensures consistent sizing */
-  min-width: 20px; /* keeps icon width tight */
+  height: 18px;
+  min-width: 20px;
   box-sizing: border-box;
-  margin-bottom: 1px; /* slight gap between buttons */
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .window-controls button img {
   width: 100%;
   height: auto;
   image-rendering: pixelated;
   display: block;
 }
+
+/* ✅ Move this specific button */
+.close-btn {
+  margin-left: 10px; /* this will push it right */
+}
+
+
+
 
 .window-controls button:hover {
   background: #c8c8c8;
