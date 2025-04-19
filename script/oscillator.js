@@ -42,28 +42,55 @@
   }
 
   function getChakraColor(freq) {
-    const t = (Math.max(20, Math.min(freq, 2000)) - 20) / 1980;
-    return `hsl(${t * 270}, 100%, 60%)`;
+    const minFreq = 20;
+    const maxFreq = 2000;
+    const clamped = Math.max(minFreq, Math.min(freq, maxFreq));
+  
+    // 📈 Use logarithmic scale to boost mid/high ranges
+    const logMin = Math.log(minFreq);
+    const logMax = Math.log(maxFreq);
+    const logFreq = Math.log(clamped);
+    const t = (logFreq - logMin) / (logMax - logMin);
+  
+    const hue = 360 * t; // full rainbow spin
+    return `hsl(${Math.floor(hue)}, ${80 + Math.random() * 20}%, ${60 + Math.random() * 10}%)`;
   }
+  
 
   function updateGlow(freq) {
     const { scope, header, windowEl, ipodWheel } = getDOM();
-    if (!scope || !header || !windowEl) return;
-
-    const intensity = Math.min(1, (freq - 20) / 1980);
-    const glow = Math.floor(intensity * 80);
+    const ipodBody = document.querySelector(".ipod-nano-body");
+    const ipodScreen = document.querySelector(".ipod-screen");
+  
     const color = getChakraColor(freq);
-
-    scope.style.boxShadow = `0 0 ${glow}px ${color}`;
-    header.style.background = color;
-    header.style.boxShadow = `0 0 12px ${color}`;
-    windowEl.style.boxShadow = `0 0 ${glow * 2}px ${color}`;
-    windowEl.style.borderColor = color;
-
+    const glow = 60;
+  
+    // log target hit for debug
+    console.log("🌈 Applying glow color:", color);
+  
+    if (scope) scope.style.boxShadow = `0 0 ${glow}px ${color}`;
+    if (header) {
+      header.style.backgroundColor = color;
+      header.style.boxShadow = `0 0 12px ${color}`;
+    }
+    if (windowEl) {
+      windowEl.style.boxShadow = `0 0 ${glow}px ${color}`;
+      windowEl.style.border = `2px solid ${color}`;
+    }
     if (ipodWheel) {
-      ipodWheel.style.boxShadow = `0 0 18px ${color}, 0 0 48px ${color}`;
+      ipodWheel.style.boxShadow = `0 0 24px ${color}, 0 0 48px ${color}`;
+    }
+    if (ipodBody) {
+      ipodBody.style.boxShadow = `inset 0 0 8px ${color}, 0 0 18px ${color}`;
+      ipodBody.style.borderColor = color;
+    }
+    if (ipodScreen) {
+      ipodScreen.style.setProperty("background-color", color, "important");
+      ipodScreen.style.boxShadow = `inset 0 0 12px rgba(0,0,0,0.2), 0 0 14px ${color}`;
     }
   }
+  
+  
 
   function fadeGlow() {
     const { scope, header, windowEl, ipodWheel } = getDOM();
@@ -99,7 +126,7 @@
 
       ctx.lineWidth = 2;
       ctx.strokeStyle = color;
-      ctx.shadowColor = color;
+      ctx.shadowBlur = 32 + Math.sin(Date.now() * 0.01) * 16;
       ctx.shadowBlur = 18;
 
       ctx.beginPath();
