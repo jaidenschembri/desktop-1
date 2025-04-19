@@ -217,5 +217,23 @@ body {
   animation: ipod-glow 2.2s infinite ease-in-out;
 }
 
+#fake-exchange {
+  width: 640px;
+  height: 420px;
+  max-width: none;
+  max-height: none;
+}
+
+.exchange-coin h3 {
+  font-size: 18px;
+  color: #fff;
+  text-shadow: 0 0 2px #00ffff;
+}
+.exchange-coin button:hover {
+  background: #111;
+  border-color: #fff;
+  color: #fff;
+  cursor: pointer;
+}
 
 

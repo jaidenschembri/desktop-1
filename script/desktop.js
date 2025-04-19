@@ -11,6 +11,8 @@ const apps = {
   guestbook: { title: 'Guestbook', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
   'window-shop': { title: 'Shop', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
   'window-portfolio': { title: 'Portfolio', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
+  'fake-exchange': { title: 'The Market', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
+
 };
 
 let zCounter = 100;
@@ -470,3 +472,5 @@ s.style.textShadow = `0 0 4px ${chosen}, 0 0 8px ${chosen}`;
 setInterval(() => {
   if (Math.random() < 0.7) spawnFloatingSymbol(); // 70% chance every time
 }, 5000); // every 4 seconds
+
+

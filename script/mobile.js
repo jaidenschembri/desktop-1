@@ -10,6 +10,7 @@ if (window.innerWidth <= 768) {
     yume: 'Yume',
     chatbot: 'Chatbot',
     'window-portfolio': 'Portfolio',
+    'fake-exchange': 'Fake Exchange',
   };
 
   const ul = startMenu.querySelector('ul');

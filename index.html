@@ -68,9 +68,9 @@
     <span>Yume</span>
   </div>
 
-  <div class="icon" data-external-url="https://jaidenschembri.github.io/vrm-viewer/">
-    <img src="pixelated/icons/cat.png" alt="External Site">
-    <span>jaid.exe</span>
+  <div class="icon" data-window-id="fake-exchange">
+    <img src="pixelated/folder-icon.png" alt="yume">
+    <span>The Market</span>
   </div>
   
 </div>
@@ -334,6 +334,45 @@
   </div>
 </div>
 
+<div class="window hidden" id="fake-exchange" style="width: 640px; height: 420px;">
+  <div class="window-header">
+    NeoCity Exchange
+    <div class="window-controls">
+      <button class="close-btn" onclick="closeWindow('fake-exchange')" title="Close">
+        <img src="pixelated/icons/close-icon.png" alt="Close" />
+      </button>
+    </div>
+  </div>
+
+  <div class="window-content"
+    style="font-family: 'VT323', monospace; background: #111; color: #00ffff; padding: 12px; overflow-y: auto; max-height: calc(100% - 24px);">
+    
+    <div class="exchange-coin" style="margin-bottom: 20px;">
+      <h3 style="margin: 0 0 4px;">
+        $VIBES <span style="color: #999;">| Price: $<span class="price-vibes">420.69</span></span>
+      </h3>
+      <canvas id="chart-vibes" width="580" height="100"
+        style="background: #000; border: 1px solid #333; margin-bottom: 6px;"></canvas>
+      <button onclick="sendTip('vibes')"
+        style="background: #000; border: 1px solid #00ffff; color: #00ffff; padding: 4px 8px;">Buy</button>
+    </div>
+
+    <div class="exchange-coin">
+      <h3 style="margin: 0 0 4px;">
+        $MILADY <span style="color: #999;">| Price: $<span class="price-milady">666.00</span></span>
+      </h3>
+      <canvas id="chart-milady" width="580" height="100"
+        style="background: #000; border: 1px solid #333; margin-bottom: 6px;"></canvas>
+      <button onclick="sendTip('milady')"
+        style="background: #000; border: 1px solid #ff99ff; color: #ff99ff; padding: 4px 8px;">Buy</button>
+    </div>
+
+  </div>
+</div>
+
+
+
+
 <!-- 🧭 Bottom Taskbar -->
 <footer class="taskbar">
   <div class="taskbar-left">
@@ -434,5 +473,16 @@
     <img id="lightbox-img" src="" alt="Full Image" />
   </div>
   
+  <div id="qr-modal" class="hidden" style="position: fixed; top: 0; left: 0; 
+  width: 100vw; height: 100vh; background: rgba(0,0,0,0.85); 
+  display: flex; justify-content: center; align-items: center; z-index: 99999; flex-direction: column;">
+  <img id="qr-code" src="" alt="QR Code" style="width: 200px; height: 200px; margin-bottom: 12px;" />
+  <button onclick="document.getElementById('qr-modal').classList.add('hidden')" 
+    style="font-family: 'VT323', monospace; background: #111; color: #fff; border: 1px solid #aaa; padding: 8px 12px;">
+    Close
+  </button>
+</div>
+
+
 </body>
 </html>

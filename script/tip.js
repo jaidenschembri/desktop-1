@@ -43,3 +43,67 @@ function toggleTipDropdown() {
       document.getElementById("tip-status").innerText = "❌ Tip cancelled or failed.";
     }
   }
+
+  const solanaWallet = "A96xCDmUox8D3hbCNSGXJ6wgMGbB7vV8MxYWGG8EHiae"; // 👈 replace with your wallet
+
+function sendTip(coin) {
+  const amount = 0.0069;
+  const label = encodeURIComponent(`Buy ${coin}`);
+  const message = encodeURIComponent(`NeoCity ${coin.toUpperCase()} tip`);
+  const url = `solana:${solanaWallet}?amount=${amount}&label=${label}&message=${message}`;
+
+  const qrCode = document.getElementById('qr-code');
+  const qrModal = document.getElementById('qr-modal');
+
+  // Generate QR code image
+  const encoded = encodeURIComponent(url);
+  qrCode.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encoded}`;
+  qrModal.classList.remove('hidden');
+}
+
+function animateFakeChart(canvasId, priceClass, startPrice, color) {
+  const canvas = document.getElementById(canvasId);
+  if (!canvas) return;
+
+  const ctx = canvas.getContext("2d");
+  const data = new Array(100).fill(startPrice);
+
+  function draw() {
+    // Fake price mutation
+    const last = data[data.length - 1];
+    const next = last + (Math.random() * 10 - 5);
+    data.push(Math.max(1, next));
+    if (data.length > 100) data.shift();
+
+    // Draw line
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.beginPath();
+    ctx.moveTo(0, canvas.height - data[0]);
+
+    const scaleY = canvas.height / Math.max(...data);
+    const scaleX = canvas.width / data.length;
+
+    data.forEach((val, i) => {
+      const x = i * scaleX;
+      const y = canvas.height - val * scaleY;
+      ctx.lineTo(x, y);
+    });
+
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.shadowColor = color;
+    ctx.shadowBlur = 6;
+    ctx.stroke();
+
+    // Update fake price text
+    const lastPrice = data[data.length - 1].toFixed(2);
+    document.querySelector(`.${priceClass}`).textContent = lastPrice;
+
+    requestAnimationFrame(draw);
+  }
+
+  draw();
+}
+
+animateFakeChart("chart-vibes", "price-vibes", 420.69, "#00ffff");
+animateFakeChart("chart-milady", "price-milady", 666.00, "#ff99ff");
