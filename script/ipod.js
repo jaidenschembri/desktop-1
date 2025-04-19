@@ -48,5 +48,10 @@ function changeVolume(delta) {
 
 audio.addEventListener('ended', nextTrack);
 
+audio.addEventListener('pause', () => {
+  window.dispatchEvent(new CustomEvent('ipodPaused'));
+});
+
+
 // Initial track on load (autoplay off)
 loadTrack(currentTrack, false);

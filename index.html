@@ -119,23 +119,33 @@
 </div>
 
 <div class="window hidden" id="oscillator">
-  <div class="window-header" id="oscillator-header">
-  oscillator
+  <div class="window-header">
+    oscillator
     <div class="window-controls">
       <button class="close-btn" onclick="closeWindow('oscillator')" title="Close">
         <img src="pixelated/icons/close-icon.png" alt="Close" />
+      </button>
     </div>
   </div>
-  <div class="window-content">
-    <div id="oscillator-box">
-      <label for="frequencyInput">Frequency:</label>
-      <input id="frequencyInput" type="range" min="20" max="2000" value="440" />
-      <span id="frequencyValue">440 Hz</span><br /><br />
-      <canvas id="oscilloscope" width="560" height="140"></canvas>
+  <div class="window-content oscillator-clean">
+    <label for="frequencyInput">Frequency:</label>
+    <input id="frequencyInput" type="range" min="20" max="2000" value="440" />
+    <span id="frequencyValue">440 Hz</span>
+  
+    <!-- 🎧 Visualizer Mode Toggle -->
+    <label id="visualizerToggleLabel">
+      <input type="checkbox" id="visualizerToggle" />
+      Visualizer Mode 🎧
+    </label>
+  
+    <canvas id="oscilloscope" width="560" height="90"></canvas>
+  
+    <div class="oscillator-controls">
       <button id="startButton">Start</button>
       <button id="stopButton" disabled>Stop</button>
     </div>
-  </div>    
+  </div>
+  
 </div>
 
 <div class="window hidden" id="numerology">
