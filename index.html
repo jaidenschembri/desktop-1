@@ -2,6 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
+  <link rel="manifest" href="manifest.json" />
+<meta name="theme-color" content="#0000ff" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="NeoCity" />
+<meta name="msapplication-TileColor" content="#000000" />
+
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>NeoCity Desktop</title>
 
@@ -310,6 +317,9 @@
   <img src="pixelated/music_5.gif" alt="Toggle iPod" class="ipod-glow" />
 </button>
 
+<button id="install-btn" style="display:none;" onclick="triggerInstall()">Install</button>
+
+
 
   <!-- 🛠 Right-side Tray -->
   <div class="taskbar-right-box">
@@ -401,6 +411,37 @@
       </div>
     </div>
   </div>
+  
+  <script>
+    if ("serviceWorker" in navigator) {
+      window.addEventListener("load", () => {
+        navigator.serviceWorker.register("./service-worker.js")
+          .then(reg => console.log("✅ Service Worker registered:", reg.scope))
+          .catch(err => console.error("❌ Service Worker error:", err));
+      });
+    }
+  
+    // Optional: mobile install prompt
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const btn = document.getElementById("install-btn");
+      if (btn) btn.style.display = "block";
+    });
+  
+    function triggerInstall() {
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then(choice => {
+          if (choice.outcome === 'accepted') {
+            console.log("📲 Installed!");
+          }
+          deferredPrompt = null;
+        });
+      }
+    }
+  </script>
   
   
 </body>

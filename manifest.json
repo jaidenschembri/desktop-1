@@ -1,0 +1,28 @@
+{
+    "name": "NeoCity Mobile",
+    "short_name": "NeoCity",
+    "start_url": "./index.html",
+    "display": "standalone",
+    "background_color": "#000000",
+    "theme_color": "#0000ff",
+    "orientation": "portrait",
+    "scope": "./",
+    "icons": [
+      {
+        "src": "pixelated/icons8-windows-96.png",
+        "sizes": "96x96",
+        "type": "image/png"
+      },
+      {
+        "src": "pixelated/icons8-windows-192.png",
+        "sizes": "192x192",
+        "type": "image/png"
+      },
+      {
+        "src": "pixelated/icons8-windows-512.png",
+        "sizes": "512x512",
+        "type": "image/png"
+      }
+    ]
+  }
+  
