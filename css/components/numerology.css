@@ -9,11 +9,6 @@
     overflow: hidden;
   }
   
-  #numerology.window.active-window .window-header {
-    background: linear-gradient(to bottom, #a3b1c4, #6f7f94);
-  }
-  
-  
   /* ==== Main Window Content ==== */
   #numerology .window-content {
     display: flex;
