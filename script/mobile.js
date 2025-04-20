@@ -10,6 +10,7 @@ if (window.innerWidth <= 768) {
     yume: 'Yume',
     chatbot: 'Chatbot',
     'window-portfolio': 'Archive',
+    
   };
 
   const ul = startMenu.querySelector('ul');

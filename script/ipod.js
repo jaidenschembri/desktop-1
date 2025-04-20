@@ -8,7 +8,9 @@ const playlist = [
   { title: 'Welcome To The Black Parade', src: 'mp3s/Welcome To The Black Parade.mp3' },
   { title: 'Summit', src: 'mp3s/Skrillex - Summit (feat. Ellie Goulding) [Video by Pilerats].mp3' },
   { title: '54321', src: 'mp3s/A Rocket To The Moon - 54321 [HD].mp3' },
-  { title: 'Im God', src: 'mp3s/Imgod.mp3' }
+  { title: 'Im God', src: 'mp3s/Imgod.mp3' },
+  { title: 'Dance Inside', src: 'mp3s/Dance Inside.mp3' },
+
 ];
 
 let currentTrack = 0;
