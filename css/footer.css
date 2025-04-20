@@ -351,3 +351,18 @@ footer.taskbar {
   position: relative;
   top: 1.75px;
 }
+
+.install-pwa {
+  background: #e0e0e0;
+  font-family: 'DOSVGA', monospace;
+  font-size: 12px;
+  width: auto;
+  padding: 4px 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.install-pwa:hover {
+  background: #ccc;
+}

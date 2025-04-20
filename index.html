@@ -317,9 +317,10 @@
   <img src="pixelated/music_5.gif" alt="Toggle iPod" class="ipod-glow" />
 </button>
 
-<button id="install-btn" style="display:none;" onclick="triggerInstall()">Install</button>
-
-
+<button id="install-btn" title="Install App" class="taskbar-button install-pwa" style="display: none;">
+  <img src="pixelated/icons8-windows-24.png" alt="Install" class="taskbar-icon-img" />
+  <span>Install</span>
+</button>
 
   <!-- 🛠 Right-side Tray -->
   <div class="taskbar-right-box">
@@ -427,20 +428,25 @@
       e.preventDefault();
       deferredPrompt = e;
       const btn = document.getElementById("install-btn");
-      if (btn) btn.style.display = "block";
+      if (btn) btn.style.display = "flex";
     });
   
     function triggerInstall() {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then(choice => {
-          if (choice.outcome === 'accepted') {
-            console.log("📲 Installed!");
-          }
-          deferredPrompt = null;
-        });
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    deferredPrompt.userChoice.then(choice => {
+      if (choice.outcome === "accepted") {
+        console.log("📲 Installed!");
+        const btn = document.getElementById("install-btn");
+        if (btn) btn.style.display = "none"; // hide after install
+      } else {
+        console.log("❌ Install dismissed.");
       }
-    }
+      deferredPrompt = null;
+    });
+  }
+}
+
   </script>
   
   
