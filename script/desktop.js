@@ -74,21 +74,21 @@ function openWindow(id) {
     let y = 100 + Math.floor(Math.random() * 60);
 
     switch (id) {
-      case 'window-portfolio':
-        x = (window.innerWidth - el.offsetWidth) / 2;
-        y = 100;
-        break;
       case 'guestbook':
         x = window.innerWidth - el.offsetWidth - 20;
         y = 20;
         break;
       case 'window-shop':
-        x = window.innerWidth * 0.48;
+        x = window.innerWidth * 0.20;
         y = window.innerHeight * 0.02;
         break;
         case 'chatbot':
-          x = window.innerWidth * 0.20;
+          x = window.innerWidth * 0.47;
           y = window.innerHeight * 0.02;
+          break;
+          case 'oscillator':
+          x = window.innerWidth * 0.53;
+          y = window.innerHeight * 0.55;
           break;
         
       default:
@@ -300,6 +300,7 @@ window.addEventListener('DOMContentLoaded', () => {
 
   const windowsToOpen = [
     'window-shop',
+    'oscillator',
     'guestbook',
     'chatbot',
   ];
