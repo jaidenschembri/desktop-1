@@ -7,11 +7,9 @@ const apps = {
   ipod: { title: 'iPod', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
   gifypet: { title: 'Gifypet', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
   numerology: { title: 'Numerology', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
-  yume: { title: 'Yume', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
   guestbook: { title: 'Guestbook', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
   'window-shop': { title: 'Shop', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
   'window-portfolio': { title: 'Portfolio', icon: 'pixelated/folder-icon.png', openIcon: 'pixelated/icons/folder-icon-open.png' },
-
 };
 
 let zCounter = 100;
@@ -79,10 +77,6 @@ function openWindow(id) {
       case 'window-portfolio':
         x = (window.innerWidth - el.offsetWidth) / 2;
         y = 100;
-        break;
-      case 'yume':
-        x = window.innerWidth * 0.75;
-        y = 445;
         break;
       case 'guestbook':
         x = window.innerWidth - el.offsetWidth - 20;
@@ -286,30 +280,43 @@ function bindDrag(win) {
 }
 
 window.addEventListener('DOMContentLoaded', () => {
+  // 🖌️ Restore saved theme (classic fallback)
+  const savedTheme = localStorage.getItem('neocity-theme') || 'classic';
+  setTheme(savedTheme);
+
   positionIcons();
 
   document.querySelectorAll('.icon').forEach(bindIconDrag);
+
   // ——— External‑link icons ———
-document.querySelectorAll('.icon[data-external-url]').forEach(icon => {
-  icon.addEventListener('click', () => {
-    const url = icon.getAttribute('data-external-url');
-    window.open(url, '_blank');
+  document.querySelectorAll('.icon[data-external-url]').forEach(icon => {
+    icon.addEventListener('click', () => {
+      const url = icon.getAttribute('data-external-url');
+      window.open(url, '_blank');
+    });
   });
-});
 
-  initIpodToggle(); // ✅ already being called
+  initIpodToggle();
 
-  // 🪟 Auto-open these windows on load
   const windowsToOpen = [
     'window-shop',
     'guestbook',
-    'yume',
     'chatbot',
-    // add any others like 'oscillator', 'window-portfolio', etc.
   ];
 
   windowsToOpen.forEach(id => openWindow(id));
+
+  // ✅ Allow clicking anywhere in window to activate
+  document.querySelectorAll('.window').forEach(win => {
+    win.addEventListener('mousedown', () => {
+      if (!win.classList.contains('active-window')) {
+        bringToFront(win);
+      }
+    });
+  });
 });
+
+
 
 // Re-run on resize
 window.addEventListener('resize', () => {
@@ -413,12 +420,6 @@ document.addEventListener('click', (e) => {
   }
 });
 
-function setTheme(mode) {
-  document.body.classList.remove('theme-classic', 'theme-mono', 'theme-cyber');
-  document.body.classList.add(`theme-${mode}`);
-  startMenu.classList.add('hidden');
-}
-
 function initIpodToggle() {
   if (window.innerWidth <= 768) {
     const ipod = document.getElementById('fixed-ipod');
@@ -478,4 +479,12 @@ setInterval(() => {
   if (Math.random() < 0.7) spawnFloatingSymbol(); // 70% chance every time
 }, 5000); // every 4 seconds
 
+function setTheme(theme) {
+  const body = document.body;
+  body.classList.remove('theme-classic', 'theme-mono', 'theme-cyber', 'theme-win98');
+  body.classList.add(`theme-${theme}`);
+
+  // Optional: store user preference in localStorage
+  localStorage.setItem('neocity-theme', theme);
+}
 

@@ -7,10 +7,8 @@ if (window.innerWidth <= 768) {
     guestbook: 'Guestbook',
     'window-shop': 'Shop',
     gifypet: 'Gifypet',
-    yume: 'Yume',
     chatbot: 'Chatbot',
     'window-portfolio': 'Archive',
-    
   };
 
   const ul = startMenu.querySelector('ul');
