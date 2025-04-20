@@ -338,10 +338,12 @@
     <li class="submenu-parent">
       Tip Jar ▸
       <ul class="submenu tip-submenu">
-        <li onclick="connectWallet()">Wallet</li>
+        <li onclick="connectWallet()">Wallet (ETH)</li>
         <li onclick="window.open('https://www.paypal.com/paypalme/jaidenschembri', '_blank')">PayPal</li>
+        <li onclick="toggleQRTip()">QR Tip (Mobile)</li>
       </ul>
     </li>
+    
 
     <li>
       <div class="menu-divider"></div>
@@ -350,8 +352,8 @@
     <li class="submenu-parent">
       Theme ▸
       <ul class="submenu">
-        <li onclick="setTheme('classic')">🖥 Classic</li>
-        <li onclick="setTheme('win98')">💾 Windows 98</li>
+        <li onclick="setTheme('classic')">Windows93</li>
+        <li onclick="setTheme('win98')">Windows 98</li>
       </ul>
     </li>
     
@@ -380,6 +382,26 @@
     <span class="lightbox-close" onclick="closeLightbox()">×</span>
     <img id="lightbox-img" src="" alt="Full Image" />
   </div>
+
+  <div id="qr-tip-popup" class="hidden qr-popup">
+    <div class="qr-header">
+      <span>Scan to Tip</span>
+      <button onclick="document.getElementById('qr-tip-popup').classList.add('hidden')">✕</button>
+    </div>
+    <div class="qr-content">
+      <div>
+        <strong>ETH:</strong>
+        <img src="images/ETHEREUM.png" alt="ETH QR" />
+        <code>0x07017175ac2e3Fe581B7E9B0e89f038166d39c98</code>
+      </div>
+      <div>
+        <strong>SOL:</strong>
+        <img src="images/SOLANA.png" alt="SOL QR" />
+        <code>A96xCDmUox8D3hbCNSGXJ6wgMGbB7vV8MxYWGG8EHiae</code>
+      </div>
+    </div>
+  </div>
+  
   
 </body>
 </html>

@@ -257,7 +257,7 @@ footer.taskbar {
   .submenu {
     display: none;
     position: absolute;
-    top: -45px;
+    top: -25px;
     left: 130px;
     background: #dcdcdc;
     border: 2px solid #999;

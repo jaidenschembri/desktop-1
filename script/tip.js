@@ -43,3 +43,9 @@ function toggleTipDropdown() {
       document.getElementById("tip-status").innerText = "❌ Tip cancelled or failed.";
     }
   }
+
+  function toggleQRTip() {
+    const popup = document.getElementById("qr-tip-popup");
+    popup.classList.toggle("hidden");
+  }
+  
