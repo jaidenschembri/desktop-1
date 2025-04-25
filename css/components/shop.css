@@ -216,3 +216,14 @@
     color: #000;
   }
   
+  @media (max-width: 768px) {
+  .shop-container {
+    padding: 0 12px; /* gives horizontal breathing room */
+  }
+
+  .shop-item {
+    width: 100%;
+    padding: 10px 8px; /* side padding inside the item too */
+    box-sizing: border-box;
+  }
+}
