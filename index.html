@@ -2,12 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <link rel="manifest" href="manifest.json" />
-<meta name="theme-color" content="#0000ff" />
-<meta name="apple-mobile-web-app-capable" content="yes" />
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-<meta name="apple-mobile-web-app-title" content="NeoCity" />
-<meta name="msapplication-TileColor" content="#000000" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>NeoCity Desktop</title>
@@ -292,8 +286,23 @@
           <p class="shop-desc">100% cotton</p>
           <div class="shop-price">$33.00 USD</div>
           <div id="paypal-button-container" style="margin-top: 12px;"></div>
+ 
         </div>
-      </div>      
+      </div>   
+      
+      <div class="shop-item">
+        <div class="shop-image-wrapper">
+          <img src="images/unisex-classic-tee-white-front-680b2d79a230e.png" alt="HELLGLAM TEE" class="shop-image" />
+        </div>
+        <div class="shop-details">
+          <h3 class="shop-title">$CUCK</h3>
+          <p class="shop-desc">100% cuck</p>
+          <div class="shop-price">$33.00 USD</div>
+          <div id="paypal-button-container-2" style="margin-top: 12px;"></div>
+          
+        </div>
+      </div>
+      
     </div>
   </div>
 </div>
@@ -412,43 +421,29 @@
       </div>
     </div>
   </div>
-  
-  <script>
-    if ("serviceWorker" in navigator) {
-      window.addEventListener("load", () => {
-        navigator.serviceWorker.register("./service-worker.js")
-          .then(reg => console.log("✅ Service Worker registered:", reg.scope))
-          .catch(err => console.error("❌ Service Worker error:", err));
-      });
-    }
-  
-    // Optional: mobile install prompt
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      const btn = document.getElementById("install-btn");
-      if (btn) btn.style.display = "flex";
-    });
-  
-    function triggerInstall() {
-  if (deferredPrompt) {
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then(choice => {
-      if (choice.outcome === "accepted") {
-        console.log("📲 Installed!");
-        const btn = document.getElementById("install-btn");
-        if (btn) btn.style.display = "none"; // hide after install
-      } else {
-        console.log("❌ Install dismissed.");
-      }
-      deferredPrompt = null;
-    });
-  }
-}
 
-  </script>
+  <div id="wallet-modal" class="wallet-modal hidden">
+    <div class="wallet-modal-content">
+      <div class="wallet-modal-header">
+        <span>💸 Choose Your Wallet</span>
+        <button class="wallet-close-btn" onclick="toggleWalletModal()">✕</button>
+      </div>
+      <div class="wallet-modal-body">
+        <h4>Ethereum (ETH)</h4>
+        <button onclick="openMetaMask()" class="wallet-btn eth">MetaMask</button>
+        <button onclick="openWalletConnect()" class="wallet-btn eth">WalletConnect</button>
+        <button onclick="copyToClipboard('0x07017175ac2e3Fe581B7E9B0e89f038166d39c98')" class="wallet-btn">Copy ETH Address</button>
   
+        <hr />
   
+        <h4>Solana (SOL)</h4>
+        <button onclick="openPhantom()" class="wallet-btn sol">Phantom</button>
+        <button onclick="openSolflare()" class="wallet-btn sol">Solflare</button>
+        <button onclick="copyToClipboard('A96xCDmUox8D3hbCNSGXJ6wgMGbB7vV8MxYWGG8EHiae')" class="wallet-btn">Copy SOL Address</button>
+      </div>
+    </div>
+  </div>
+  
+    
 </body>
 </html>
