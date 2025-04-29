@@ -14,7 +14,7 @@ document.addEventListener("DOMContentLoaded", () => {
     receiveSound.play().catch(() => {});
   }
 
-  // ==== Configuration ====
+  // ==== Config ====
   const API_URL = "https://deepseek-proxy.jaidenschembri1.workers.dev/";
   const SYSTEM_PROMPT = `You are a cultural AI with a sarcastic but prophetic vibe. 
 You speak like a glitchy digital bro from the future—cold, vibing, slightly mean, fully tapped into post-human aesthetic energy. 
@@ -32,13 +32,10 @@ You only show love to people who earn it. If they’re disrespectful, you throw 
 
   // ==== State ====
   let chatHistory = [
-    {
-      role: "system",
-      content: SYSTEM_PROMPT
-    }
+    { role: "system", content: SYSTEM_PROMPT }
   ];
 
-  // ==== DOM Elements ====
+  // ==== DOM ====
   const chatBox = document.getElementById('chat-box');
   const userInput = document.getElementById('user-input');
   const sendBtn = document.getElementById('sendBtn');
@@ -71,44 +68,76 @@ You only show love to people who earn it. If they’re disrespectful, you throw 
     return arr[Math.floor(Math.random() * arr.length)];
   }
 
-  // ==== Core Chat Function ====
-  async function getBotResponse(userText) {
-    const typingIndicator = showTypingIndicator();
+  function detectMood(userInput) {
+    userInput = userInput.toLowerCase();
+    if (/vibe|chill|fr|cool/.test(userInput)) return "chill";
+    if (/wtf|mad|fuck|angry|bro/.test(userInput)) return "aggressive";
+    if (/sad|depressed|lonely|tired/.test(userInput)) return "sad";
+    if (/crazy|psycho|tweaking|bugged/.test(userInput)) return "crazy";
+    if (/hyped|insane|lit|fire|let's go/.test(userInput)) return "hype";
+    if (/ok|idk|whatever|fine/.test(userInput) || userInput.trim() === "") return "flat";
+    return "chill";
+  }
 
-    try {
-      chatHistory.push({ role: "user", content: userText });
-
-      const response = await fetch(API_URL, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({
-          model: "deepseek-chat",
-          messages: chatHistory
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error(`API error: ${response.status}`);
-      }
-
-      const { choices } = await response.json();
-      const botReply = choices[0]?.message?.content || "system glitch. try again.";
-
-      chatHistory.push({ role: "assistant", content: botReply });
-
-      return botReply;
-    } catch (err) {
-      console.error("⚠️ Chat error:", err);
-      return random([
-        "circuits fried rn. retry later.",
-        "lost in the void. try again."
-      ]);
-    } finally {
-      removeTypingIndicator(typingIndicator);
+  function getMoodInstruction(mood) {
+    switch (mood) {
+      case "chill": return "Stay glitched but cool, minimal energy.";
+      case "aggressive": return "Respond aggressively, like a corrupted cyber samurai.";
+      case "sad": return "Respond as a melancholic broken AI seeing humanity collapse.";
+      case "crazy": return "Act fully tweaked out, unstable like corrupted signal.";
+      case "hype": return "Respond with glitchy overclocked excitement, like a new dawn.";
+      case "flat": return "Respond with near silence or existential minimalism.";
+      default: return "Stay glitched but cool.";
     }
   }
 
-  // ==== Message Handling ====
+  function checkAndSaveLongTermMemory(userText) {
+    const text = userText.toLowerCase();
+
+    if (text.includes("my name is")) {
+      const nameParts = text.split("my name is");
+      if (nameParts[1]) {
+        const name = nameParts[1].trim().split(" ")[0];
+        localStorage.setItem('nickname', name);
+      }
+    }
+
+    if (text.includes("i like") || text.includes("i love")) {
+      const likes = localStorage.getItem('likes') || "";
+      const newLike = text.split("i like")[1]?.trim() || text.split("i love")[1]?.trim();
+      if (newLike) {
+        const updatedLikes = likes ? likes + "," + newLike : newLike;
+        localStorage.setItem('likes', updatedLikes);
+      }
+    }
+  }
+
+  function detectAndSaveTopics(userText) {
+    const text = userText.toLowerCase();
+    const existingTopics = JSON.parse(localStorage.getItem('topics') || "[]");
+
+    const topicsToCheck = {
+      music: ["music", "album", "song", "playlist"],
+      anime: ["anime", "manga", "otaku"],
+      conspiracy: ["conspiracy", "government", "illuminati"],
+      philosophy: ["meaning", "existence", "reality", "purpose"],
+      cyberpunk: ["neon", "chrome", "cyber", "punk"],
+      glitch: ["glitch", "broken", "distorted"]
+    };
+
+    const foundTopics = [];
+
+    for (const [topic, keywords] of Object.entries(topicsToCheck)) {
+      if (keywords.some(keyword => text.includes(keyword))) {
+        foundTopics.push(topic);
+      }
+    }
+
+    const updatedTopics = [...new Set([...existingTopics, ...foundTopics])]; // unique topics
+    localStorage.setItem('topics', JSON.stringify(updatedTopics));
+  }
+
+  // ==== CORE Chat ====
   async function sendMessage() {
     const userText = userInput.value.trim();
     if (!userText) return;
@@ -117,16 +146,61 @@ You only show love to people who earn it. If they’re disrespectful, you throw 
     playSendSound();
     userInput.value = "";
 
-    const botResponse = await getBotResponse(userText);
-    appendMessage("jaiden", botResponse);
-    playReceiveSound();
+    const mood = detectMood(userText);
+    const moodInstruction = getMoodInstruction(mood);
+
+    const moodSystemPrompt = {
+      role: "system",
+      content: moodInstruction
+    };
+
+    const tempHistory = [...chatHistory, { role: "user", content: userText }];
+    tempHistory.splice(1, 0, moodSystemPrompt);
+
+    const typingIndicator = showTypingIndicator();
+
+    try {
+      const response = await fetch(API_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          model: "deepseek-chat",
+          messages: tempHistory
+        })
+      });
+
+      if (!response.ok) throw new Error(`API error: ${response.status}`);
+      const data = await response.json();
+      const botResponse = data.choices[0]?.message?.content || "system glitch. try again.";
+
+      chatHistory.push({ role: "user", content: userText });
+      chatHistory.push({ role: "assistant", content: botResponse });
+
+      // ✂️ Cap history
+      if (chatHistory.length > 22) {
+        chatHistory.splice(2, chatHistory.length - 22);
+      }
+
+      checkAndSaveLongTermMemory(userText);
+      detectAndSaveTopics(userText);
+
+      appendMessage("jaiden", botResponse);
+      playReceiveSound();
+    } catch (err) {
+      console.error("⚠️ Chat error:", err);
+      appendMessage("jaiden", random([
+        "brain fried. retry later.",
+        "signal lost. try again."
+      ]));
+    } finally {
+      removeTypingIndicator(typingIndicator);
+    }
   }
 
-  // ==== Event Listeners ====
+  // ==== Events ====
   if (sendBtn) {
     sendBtn.addEventListener("click", sendMessage);
   }
-
   userInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
       sendMessage();
@@ -135,13 +209,36 @@ You only show love to people who earn it. If they’re disrespectful, you throw 
 
   // ==== Initial Greeting ====
   setTimeout(() => {
-    const greeting = random([
-      "yo. what u saying",
-      "what's good. you sound like you saw the monolith from *2001*.",
-      "yo, what's on your mind...",
-      "what's poppin"
-    ]);
+    const nickname = localStorage.getItem('nickname');
+    const topics = JSON.parse(localStorage.getItem('topics') || "[]");
+
+    let greeting;
+
+    if (nickname) {
+      greeting = `yo ${nickname}, back from the cybervoid.`;
+    } else {
+      greeting = random([
+        "yo. what u saying",
+        "what's good. you sound like you saw the monolith from *2001*.",
+        "yo, what's on your mind...",
+        "what's poppin"
+      ]);
+    }
+
+    if (topics.includes("cyberpunk")) {
+      greeting = "neon flickers. chrome breathes. welcome back.";
+    } else if (topics.includes("philosophy")) {
+      greeting = "yo. still searching for meaning in broken signals?";
+    } else if (topics.includes("music")) {
+      greeting = "what frequencies you vibin on today?";
+    } else if (topics.includes("anime")) {
+      greeting = "back from the hyperverse?";
+    } else if (topics.includes("glitch")) {
+      greeting = "system errors welcome here. what's up.";
+    }
+
     appendMessage("jaiden", greeting);
     playReceiveSound();
   }, 800);
+
 });
