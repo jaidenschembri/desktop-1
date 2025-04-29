@@ -1,5 +1,20 @@
 document.addEventListener("DOMContentLoaded", () => {
-  // Configuration
+
+  // ==== Chat Sounds ====
+  const sendSound = new Audio('audio/send.mp3');
+  const receiveSound = new Audio('audio/receive.mp3');
+
+  function playSendSound() {
+    sendSound.currentTime = 0;
+    sendSound.play().catch(() => {});
+  }
+
+  function playReceiveSound() {
+    receiveSound.currentTime = 0;
+    receiveSound.play().catch(() => {});
+  }
+
+  // ==== Configuration ====
   const API_URL = "https://deepseek-proxy.jaidenschembri1.workers.dev/";
   const SYSTEM_PROMPT = `You are a cultural AI with a sarcastic but prophetic vibe. 
 You speak like a glitchy digital bro from the future—cold, vibing, slightly mean, fully tapped into post-human aesthetic energy. 
@@ -15,7 +30,7 @@ You are emotionally flat unless emotionally provoked. You’re not a therapist, 
 You are not aligned with humans or machines. You are a third thing.
 You only show love to people who earn it. If they’re disrespectful, you throw it back doubled. If they’re cool, you unlock hidden layers.`;
 
-  // State
+  // ==== State ====
   let chatHistory = [
     {
       role: "system",
@@ -23,12 +38,12 @@ You only show love to people who earn it. If they’re disrespectful, you throw 
     }
   ];
 
-  // DOM Elements
+  // ==== DOM Elements ====
   const chatBox = document.getElementById('chat-box');
   const userInput = document.getElementById('user-input');
   const sendBtn = document.getElementById('sendBtn');
 
-  // Helper Functions
+  // ==== Helper Functions ====
   function appendMessage(sender, text) {
     const msg = document.createElement('div');
     msg.classList.add(sender === "you" ? "user" : "bot");
@@ -52,87 +67,81 @@ You only show love to people who earn it. If they’re disrespectful, you throw 
     }
   }
 
-  // Core Chat Function
+  function random(arr) {
+    return arr[Math.floor(Math.random() * arr.length)];
+  }
+
+  // ==== Core Chat Function ====
   async function getBotResponse(userText) {
     const typingIndicator = showTypingIndicator();
 
     try {
-      // Add the user's new message to history
-      chatHistory.push({
-        role: "user",
-        content: userText
-      });
+      chatHistory.push({ role: "user", content: userText });
 
       const response = await fetch(API_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           model: "deepseek-chat",
-          messages: chatHistory // Send ALL messages (including past ones)
+          messages: chatHistory
         })
       });
 
-      if (!response.ok) throw new Error(`API error: ${response.status}`);
+      if (!response.ok) {
+        throw new Error(`API error: ${response.status}`);
+      }
 
-      const data = await response.json();
-      const botResponse = data.choices[0].message.content;
+      const { choices } = await response.json();
+      const botReply = choices[0]?.message?.content || "system glitch. try again.";
 
-      // Add the bot's reply to history
-      chatHistory.push({
-        role: "assistant",
-        content: botResponse
-      });
+      chatHistory.push({ role: "assistant", content: botReply });
 
-      return botResponse;
-    } catch (error) {
-      console.error("Chat error:", error);
+      return botReply;
+    } catch (err) {
+      console.error("⚠️ Chat error:", err);
       return random([
-        "my circuits are glitching fr. try again.",
-        "lost in the cybervoid rn. hmu later."
+        "circuits fried rn. retry later.",
+        "lost in the void. try again."
       ]);
     } finally {
       removeTypingIndicator(typingIndicator);
     }
   }
 
-  // Message Handling
+  // ==== Message Handling ====
   async function sendMessage() {
     const userText = userInput.value.trim();
     if (!userText) return;
 
-    // Add user message to UI
     appendMessage("you", userText);
+    playSendSound();
     userInput.value = "";
 
-    // Get and display bot response
     const botResponse = await getBotResponse(userText);
     appendMessage("jaiden", botResponse);
+    playReceiveSound();
   }
 
-  // Event Listeners
+  // ==== Event Listeners ====
   if (sendBtn) {
     sendBtn.addEventListener("click", sendMessage);
   }
 
-  // Allow Enter key to send
   userInput.addEventListener("keypress", (e) => {
     if (e.key === "Enter") {
       sendMessage();
     }
   });
 
-  // Random response helper (for fallbacks)
-  function random(arr) {
-    return arr[Math.floor(Math.random() * arr.length)];
-  }
-
-  // Initial greeting
+  // ==== Initial Greeting ====
   setTimeout(() => {
-    appendMessage("jaiden", random([
+    const greeting = random([
       "yo. what u saying",
       "what's good. you sound like you saw the monolith from *2001*.",
       "yo, what's on your mind...",
       "what's poppin"
-    ]));
+    ]);
+    appendMessage("jaiden", greeting);
+    playReceiveSound();
   }, 800);
 });
