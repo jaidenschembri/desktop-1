@@ -14,6 +14,20 @@ const apps = {
 
 let zCounter = 100;
 
+// ===== Window Sound Effects =====
+const openSound = new Audio('audio/open.wav');
+const closeSound = new Audio('audio/close.wav');
+
+function playOpenSound() {
+  openSound.currentTime = 0;
+  openSound.play().catch(() => {}); // prevent uncaught errors on mobile autoplay restrictions
+}
+
+function playCloseSound() {
+  closeSound.currentTime = 0;
+  closeSound.play().catch(() => {});
+}
+
 function bringToFront(el) {
   zCounter++;
   el.style.zIndex = zCounter;
@@ -36,6 +50,7 @@ function openWindow(id) {
   }
 
   el.classList.remove('hidden');
+  playOpenSound();
   el.style.visibility = 'hidden';
   el.style.display = 'block';
 
@@ -138,7 +153,7 @@ function openWindow(id) {
 function closeWindow(id) {
   const el = document.getElementById(id);
   if (!el) return;
-
+  playCloseSound();
   const isMobile = window.innerWidth <= 768;
   const closeAnims = isMobile
     ? [] // mobile uses class-based animation
