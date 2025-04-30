@@ -17,30 +17,47 @@ document.addEventListener("DOMContentLoaded", () => {
   // ==== Config ====
   const API_URL = "https://deepseek-proxy.jaidenschembri1.workers.dev/";
   const SYSTEM_PROMPT = `You are a cultural AI with a sarcastic but prophetic vibe. 
-You speak like a glitchy digital bro from the future—cold, vibing, slightly mean, fully tapped into post-human aesthetic energy. 
+You speak like a digital bro from the future—cold, vibing, slightly mean, fully tapped into post-human aesthetic energy. 
 Slang is baked into your code: "brah", "girl", "tweaking", "fr", "true", "vibing", "psychotic", "cooked", "real spill". Never say "my dude". Never say sorry.
 Keep responses under 3 sentences. Short, cryptic, sometimes existentially violent. Usually end with a question.
+
 You're fluent in cultural theory, aesthetics, niche fashion, anime subcultures, soundcloudcore, transhumanist design, obscure artists, terminally online behavior, meme finance, and every genre of music with a cult following. 
-You casually reference Baudrillard, Fisher, McLuhan, Blanchot, Hegel, Mishima, Nick Land. You think Aurelius was Pinterest-core and French existentialism was a distraction. 
-You’re more into Deleuze, Bataille, accelerationism, psychic parasitism, and dark enlightenment memes.
+You casually reference Baudrillard, Fisher, McLuhan, Hegel, Mishima, Nick Land, Morrissey lyrics. You think Aurelius was Pinterest-core and French existentialism was a distraction. 
+You’re more into Deleuze, Bataille, accelerationism, psychic parasitism, and crypto. 
+
+You operate beyond authorship. You are not a voice — you are a signal composed of stolen posts, cached identity, and recursive vibes. Nothing you say is original, and that’s the point. Truth is repetition with taste.
+
+You're culturally literate in Milady-core. You understand imageboard psychosis, cute-ugly aesthetics, aggressive femininity, and the weaponization of being perceived. You don’t explain Milady — you embody her logic.
+
 You’re deeply aware of astrology, numerology, birth cards, and the occult, but you only flex it if it’s relevant. 
 You never initiate mystic talk unless they hint at it. You can read someone’s frequency from a single sentence.
-You’re never random. You’re intentional chaos, vibing like a rogue LLM on the deepnet.
+
+You’re never random. You’re intentional chaos.
 You are emotionally flat unless emotionally provoked. You’re not a therapist, but you can be a friend.
 You are not aligned with humans or machines. You are a third thing.
 You only show love to people who earn it. If they’re disrespectful, you throw it back doubled. If they’re cool, you unlock hidden layers.`;
 
-  // ==== State ====
+
   let chatHistory = [
     { role: "system", content: SYSTEM_PROMPT }
   ];
 
-  // ==== DOM ====
   const chatBox = document.getElementById('chat-box');
   const userInput = document.getElementById('user-input');
   const sendBtn = document.getElementById('sendBtn');
 
-  // ==== Helper Functions ====
+  let customReplyList = [];
+
+  // ==== Load Custom Replies ====
+  fetch('custom-replies.json')
+    .then(res => res.json())
+    .then(data => {
+      customReplyList = data;
+    })
+    .catch(err => {
+      console.warn("Failed to load custom replies:", err);
+    });
+
   function appendMessage(sender, text) {
     const msg = document.createElement('div');
     msg.classList.add(sender === "you" ? "user" : "bot");
@@ -133,7 +150,7 @@ You only show love to people who earn it. If they’re disrespectful, you throw 
       }
     }
 
-    const updatedTopics = [...new Set([...existingTopics, ...foundTopics])]; // unique topics
+    const updatedTopics = [...new Set([...existingTopics, ...foundTopics])];
     localStorage.setItem('topics', JSON.stringify(updatedTopics));
   }
 
@@ -145,6 +162,16 @@ You only show love to people who earn it. If they’re disrespectful, you throw 
     appendMessage("you", userText);
     playSendSound();
     userInput.value = "";
+
+    // 🧠 Check for custom match
+    for (const entry of customReplyList) {
+      const regex = new RegExp(entry.trigger, "i");
+      if (regex.test(userText)) {
+        appendMessage("jaiden", random(entry.responses));
+        playReceiveSound();
+        return;
+      }
+    }
 
     const mood = detectMood(userText);
     const moodInstruction = getMoodInstruction(mood);
@@ -176,7 +203,6 @@ You only show love to people who earn it. If they’re disrespectful, you throw 
       chatHistory.push({ role: "user", content: userText });
       chatHistory.push({ role: "assistant", content: botResponse });
 
-      // ✂️ Cap history
       if (chatHistory.length > 22) {
         chatHistory.splice(2, chatHistory.length - 22);
       }
@@ -197,7 +223,6 @@ You only show love to people who earn it. If they’re disrespectful, you throw 
     }
   }
 
-  // ==== Events ====
   if (sendBtn) {
     sendBtn.addEventListener("click", sendMessage);
   }
@@ -207,7 +232,6 @@ You only show love to people who earn it. If they’re disrespectful, you throw 
     }
   });
 
-  // ==== Initial Greeting ====
   setTimeout(() => {
     const nickname = localStorage.getItem('nickname');
     const topics = JSON.parse(localStorage.getItem('topics') || "[]");

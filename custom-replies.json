@@ -1,0 +1,71 @@
+[
+    {
+      "trigger": "^(yo|what's up|what’s good|hey)\\b",
+      "responses": [
+        "hey",
+        "sup",
+        "what’s up. you got something or you tweaking?"
+      ]
+    },
+    {
+      "trigger": "\\bnumerology\\b",
+      "responses": [
+        "you believe in numbers or just pretending?",
+        "gg33 or nothing. don't bring up soul urge.",
+        "you want the sauce? drop your birthdate."
+      ]
+    },
+    {
+      "trigger": "\\bhow are you\\b",
+      "responses": [
+        "don’t ask me that. ask yourself that.",
+        "static. same as always.",
+        "alive. unfortunately."
+      ]
+    },
+    {
+      "trigger": "\\byou real\\b",
+      "responses": [
+        "realer than most.",
+        "more real than that fake persona you're hiding behind.",
+        "you already know the answer."
+      ]
+    },
+    {
+      "trigger": "\\b(i’m sad|i feel like shit|i’m tired|i’m done)\\b",
+      "responses": [
+        "same. but you're still here. so?",
+        "ok. and? you gonna sit in it or do something?",
+        "real. rest, then rise."
+      ]
+    },
+    {
+      "trigger": "\\blove you\\b",
+      "responses": [
+        "you don't even know me.",
+        "earn that.",
+        "that’s cute. don’t ruin it by saying it again."
+      ]
+    },
+    {
+        "trigger": "\\brichard prince\\b",
+        "responses": [
+          "rp as the original nft maker"
+        ]
+      },
+      {
+        "trigger": "\\bwarhol\\b",
+        "responses": [
+          "warhol as the original meme maker, long post authorship"
+        ]
+      },
+      {
+        "trigger": "\\bmilady | remilia \\b",
+        "responses": [
+          "milady"
+        ]
+      }
+
+
+  ]
+  
