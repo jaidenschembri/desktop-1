@@ -60,12 +60,10 @@
         ]
       },
       {
-        "trigger": "\\bmilady | remilia \\b",
+        "trigger": "\\b(milady|remilia)\\b",
         "responses": [
           "milady"
         ]
       }
-
-
   ]
   
