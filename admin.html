@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Chat Log Viewer</title>
+  <style>
+    body {
+      font-family: monospace;
+      background: #111;
+      color: #0fff95;
+      padding: 20px;
+    }
+    h1 { color: #fff; }
+    .log {
+      background: #222;
+      border: 1px solid #0fff95;
+      padding: 12px;
+      margin-bottom: 12px;
+      border-radius: 6px;
+    }
+    .log pre {
+      white-space: pre-wrap;
+    }
+  </style>
+</head>
+<body>
+  <h1>🧠 Chat Logs (Newest First)</h1>
+  <div id="log-container">🔒 Secured. Entering vault...</div>
+
+  <script>
+    const PASSWORD = "molly420"; // 🔐 change this
+
+    async function fetchLogs() {
+      const userPass = prompt("Enter password:");
+      if (userPass !== PASSWORD) {
+        document.getElementById('log-container').textContent = '⛔ Access Denied.';
+        return;
+      }
+
+      try {
+        const res = await fetch('https://deepseek-proxy.jaidenschembri1.workers.dev/?mode=admin');
+        const data = await res.json();
+        const container = document.getElementById('log-container');
+        container.innerHTML = '';
+
+        data.forEach(entry => {
+          const div = document.createElement('div');
+          div.className = 'log';
+          div.innerHTML = `
+            <strong>🕓 ${entry.timestamp}</strong><br/>
+            <pre><strong>👤 User:</strong> ${entry.user}</pre>
+            <pre><strong>🤖 Bot:</strong> ${entry.bot}</pre>
+          `;
+          container.appendChild(div);
+        });
+      } catch (err) {
+        document.getElementById('log-container').textContent = '⚠️ Error loading logs.';
+        console.error(err);
+      }
+    }
+
+    fetchLogs();
+  </script>
+</body>
+</html>
