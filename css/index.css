@@ -1,10 +1,14 @@
+/* ===== NEOCITY - DESKTOP STYLES ===== */
+/* Main desktop styling for the Neocity desktop environment */
+
+/* ===== FONTS ===== */
 @font-face {
   font-family: 'DOSVGA';
   src: url('../fonts/Perfect\ DOS\ VGA\ 437\ Win.ttf') format('truetype');
   font-display: swap;
 }
 
-/* ==== GLOBAL RESET ==== */
+/* ===== GLOBAL RESET & BASE STYLES ===== */
 body {
   margin: 0;
   font-family: 'Press Start 2P', monospace;
@@ -13,7 +17,7 @@ body {
   overflow: hidden;
 }
 
-/* ==== DESKTOP ICONS ==== */
+/* ===== DESKTOP ICONS ===== */
 .desktop-icons {
   position: absolute;
   top: 0;
@@ -35,22 +39,22 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  line-height: 2.5; /* tighter spacing */
+  line-height: 2.5;
 }
 
 .icon img {
   width: 125px;
   height: 125px;
-  margin-bottom: 0px; /* override any spacing */
+  margin-bottom: 0px;
   display: block;
 }
 
 .icon span {
-  margin-top: -30px; /* pull the text closer to the icon */
-  pointer-events: none; /* optional: let clicks pass through */
+  margin-top: -30px;
+  pointer-events: none;
 }
 
-/* ==== WINDOWS ==== */
+/* ===== WINDOWS ===== */
 .window {
   position: absolute;
   top: 100px;
@@ -88,7 +92,8 @@ body {
 }
 
 .window.active-window .window-header {
-  background: linear-gradient(to right, #000080, #0000ff);}
+  background: linear-gradient(to right, #000080, #0000ff);
+}
 
 .window-content {
   padding: 10px;
@@ -96,7 +101,7 @@ body {
   color: white;
 }
 
-/* ==== WINDOW CONTROLS ==== */
+/* ===== WINDOW CONTROLS ===== */
 .window-controls {
   display: flex;
   align-items: center;
@@ -125,16 +130,15 @@ body {
   display: block;
 }
 
-/* ✅ Move this specific button */
 .close-btn {
-  margin-left: 10px; /* this will push it right */
+  margin-left: 10px;
 }
 
 .window-controls button:hover {
   background: #c8c8c8;
 }
 
-/* ===== Retro Scrollbar Styling ===== */
+/* ===== SCROLLBAR STYLING ===== */
 ::-webkit-scrollbar {
   width: 16px;
   height: 16px;
@@ -151,7 +155,7 @@ body {
   box-shadow: inset 1px 1px 0 #fff;
 }
 
-/* ==== LIGHTBOX ==== */
+/* ===== LIGHTBOX SYSTEM ===== */
 .lightbox {
   position: fixed;
   top: 0;
@@ -188,11 +192,12 @@ body {
   user-select: none;
 }
 
+/* ===== UTILITY CLASSES ===== */
 .hidden {
   display: none !important;
 }
 
-/* ==== IPOD ==== */
+/* ===== IPOD STYLING ===== */
 #fixed-ipod.hidden {
   display: none !important;
 }
@@ -213,9 +218,10 @@ body {
   animation: ipod-glow 2.0s infinite ease-in-out;
 }
 
-/* === WINDOWS 98 THEME === */
+/* ===== THEME STYLES ===== */
+/* Windows 98 Theme */
 body.theme-win98 {
-  background-image: url('../images/windows.jpg'); /* your Win98 bg */
+  background-image: url('../images/windows.jpg');
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
@@ -241,14 +247,16 @@ body.theme-win98 {
     0 0 8px #4979c355;
 }
 
+/* Classic Theme */
 body.theme-classic .window-header {
-  background: linear-gradient(to bottom, #b0c4de, #708090); /* ← your new inactive gradient */
+  background: linear-gradient(to bottom, #b0c4de, #708090);
 }
 
 body.theme-classic .window.active-window .window-header {
-  background: linear-gradient(to right, #000080, #0000ff); /* keep or tweak active style */
+  background: linear-gradient(to right, #000080, #0000ff);
 }
 
+/* ===== QR CODE POPUP ===== */
 .qr-popup {
   position: fixed;
   bottom: 60px;

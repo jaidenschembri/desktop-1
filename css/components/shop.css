@@ -1,218 +1,207 @@
-.shop-container {
-    height: 100%;
-    width: 100%;
-    background: #ffffff;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0;
-    box-sizing: border-box;
-  }
-  
-  .shop-item {
-    width: 100%;
-    text-align: center;
-    padding: 10px;
-    box-sizing: border-box;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-  }
-  
-  .shop-image {
-    width: 100%;
-    max-width: 350px;
-    height: auto;
-    margin-bottom: 8px;
-  }
-  
-  .shop-image-wrapper {
-    position: relative;
-    display: inline-block;
-    z-index: 0;
-    margin-bottom: 8px;
-    filter: drop-shadow(0 0 12px #d0f0ff)
-            drop-shadow(0 0 28px #aeeeff)
-            drop-shadow(0 0 64px #ffffff);
-    animation: glow-pulse-wrapper 2s ease-in-out infinite;
-  }
-  
-  @keyframes glow-pulse-wrapper {
-    0% {
-      filter: drop-shadow(0 0 12px #d0f0ff)
-              drop-shadow(0 0 24px #aeeeff)
-              drop-shadow(0 0 48px #ffffff);
-    }
-    50% {
-      filter: drop-shadow(0 0 20px #ffffff)
-              drop-shadow(0 0 36px #c8f5ff)
-              drop-shadow(0 0 72px #e6fcff);
-    }
-    100% {
-      filter: drop-shadow(0 0 12px #d0f0ff)
-              drop-shadow(0 0 24px #aeeeff)
-              drop-shadow(0 0 48px #ffffff);
-    }
-  }
-  
+/* ===== SHOP COMPONENT ===== */
+/* Styling for the shop window and product display */
 
-  .shop-title {
-    font-size: 14px;
-    color: #000000;
-    margin: 4px 0;
-    font-family: 'DOSVGA', monospace;
+/* ===== WINDOW CONTAINER ===== */
+#window-shop {
+  width: 500px;
+  height: 600px;
+  max-width: 500px;
+  max-height: 725px;
+}
+
+#window-shop .window-content {
+  flex: 1;
+  padding: 0 !important;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 24px); /* accounts for header */
+}
+
+/* ===== SHOP LAYOUT ===== */
+.shop-container {
+  height: 100%;
+  width: 100%;
+  background: #ffffff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.shop-item {
+  width: 100%;
+  text-align: center;
+  padding: 10px;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* ===== PRODUCT IMAGE ===== */
+.shop-image-wrapper {
+  position: relative;
+  display: inline-block;
+  z-index: 0;
+  margin-bottom: 8px;
+  filter: drop-shadow(0 0 12px #d0f0ff)
+          drop-shadow(0 0 28px #aeeeff)
+          drop-shadow(0 0 64px #ffffff);
+  animation: glow-pulse-wrapper 2s ease-in-out infinite;
+}
+
+.shop-image {
+  width: 100%;
+  max-width: 350px;
+  height: auto;
+  margin-bottom: 8px;
+}
+
+@keyframes glow-pulse-wrapper {
+  0% {
+    filter: drop-shadow(0 0 12px #d0f0ff)
+            drop-shadow(0 0 24px #aeeeff)
+            drop-shadow(0 0 48px #ffffff);
   }
-  
-  .shop-desc {
-    font-size: 10px;
-    color: #000000;
+  50% {
+    filter: drop-shadow(0 0 20px #ffffff)
+            drop-shadow(0 0 36px #c8f5ff)
+            drop-shadow(0 0 72px #e6fcff);
   }
-  
-  .shop-price {
-    font-size: 12px;
-    color: #ffcc00;
-    font-weight: bold;
-    margin: 6px 0;
+  100% {
+    filter: drop-shadow(0 0 12px #d0f0ff)
+            drop-shadow(0 0 24px #aeeeff)
+            drop-shadow(0 0 48px #ffffff);
   }
-  
-  .shop-buy-btn {
-    font-family: 'DOSVGA', monospace;
-    font-size: 12px;
-    padding: 4px 10px;
-    border: 2px solid #999;
-    box-shadow:
+}
+
+/* ===== PRODUCT INFO ===== */
+.shop-title {
+  font-size: 14px;
+  color: #000000;
+  margin: 4px 0;
+  font-family: 'DOSVGA', monospace;
+}
+
+.shop-desc {
+  font-size: 10px;
+  color: #000000;
+}
+
+.shop-price {
+  font-size: 12px;
+  color: #ffcc00;
+  font-weight: bold;
+  margin: 6px 0;
+}
+
+/* ===== BUY BUTTON ===== */
+.shop-buy-btn {
+  font-family: 'DOSVGA', monospace;
+  font-size: 12px;
+  padding: 4px 10px;
+  border: 2px solid #999;
+  box-shadow:
     inset -1px -1px 0 #fff,
     inset 1px 1px 0 #666,
     2px 2px 0 #444;
-    color: #000;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  
-  .shop-buy-btn:hover {
-    background: #c8c8c8;
-  }
+  color: #000;
+  cursor: pointer;
+  transition: background 0.2s;
+}
 
-  #window-shop .window-content {
-    flex: 1;
-    padding: 0 !important;
-    overflow: hidden;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  #window-shop {
-    width: 500px;
-    height: 600px;
-    max-width: 500px;
-    max-height: 725px;
-  }
-  
-  #window-shop .window-content {
-    height: calc(100% - 24px); /* accounts for header */
-    overflow: hidden;
-    padding: 0 !important;
-  }
-  
-  .wallet-buttons {
-    margin-top: 10px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-  }
-  
-  .wallet-btn {
-    font-family: 'DOSVGA', monospace;
-    font-size: 11px;
-    padding: 6px 12px;
-    background: #111;
-    color: #0fff95;
-    border: 2px solid #0fff95;
-    border-radius: 3px;
-    cursor: pointer;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    transition: all 0.2s ease;
-    box-shadow:
-      inset 0 0 0px #0fff95,
-      0 0 4px #0fff95,
-      0 0 8px #0fff9533;
-  }
-  
-  .wallet-btn:hover {
-    background: #0fff95;
-    color: #000;
-    box-shadow:
-      0 0 4px #0fff95,
-      0 0 12px #0fff95aa;
-  }
+.shop-buy-btn:hover {
+  background: #c8c8c8;
+}
 
-  .wallet-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: rgba(0,0,0,0.85);
-    z-index: 99999;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-  }
-  
-  .wallet-modal.hidden {
-    display: none;
-  }
-  
-  .wallet-modal-content {
-    background: #111;
-    border: 2px solid #0fff95;
-    padding: 20px;
-    border-radius: 8px;
-    max-width: 360px;
-    width: 90%;
-    font-family: 'DOSVGA', monospace;
-    color: #0fff95;
-    box-shadow: 0 0 8px #0fff95aa;
-  }
-  
-  .wallet-modal-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-  }
-  
-  .wallet-modal-body h4 {
-    margin: 10px 0 6px;
-    font-size: 12px;
-    color: #fff;
-  }
-  
-  .wallet-close-btn {
-    background: none;
-    border: none;
-    color: #0fff95;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  .wallet-btn {
-    display: block;
-    width: 100%;
-    margin: 6px 0;
-    padding: 8px 10px;
-    background: #000;
-    color: #0fff95;
-    border: 1px solid #0fff95;
-    text-transform: uppercase;
-    font-size: 11px;
-    cursor: pointer;
-    transition: background 0.2s;
-  }
-  
-  .wallet-btn:hover {
-    background: #0fff95;
-    color: #000;
-  }
+/* ===== WALLET SECTION ===== */
+.wallet-buttons {
+  margin-top: 10px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.wallet-btn {
+  font-family: 'DOSVGA', monospace;
+  font-size: 11px;
+  padding: 6px 12px;
+  background: #111;
+  color: #0fff95;
+  border: 2px solid #0fff95;
+  border-radius: 3px;
+  cursor: pointer;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+  box-shadow:
+    inset 0 0 0px #0fff95,
+    0 0 4px #0fff95,
+    0 0 8px #0fff9533;
+  display: block;
+  width: 100%;
+  margin: 6px 0;
+  padding: 8px 10px;
+}
+
+.wallet-btn:hover {
+  background: #0fff95;
+  color: #000;
+  box-shadow:
+    0 0 4px #0fff95,
+    0 0 12px #0fff95aa;
+}
+
+/* ===== WALLET MODAL ===== */
+.wallet-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.85);
+  z-index: 99999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.wallet-modal.hidden {
+  display: none;
+}
+
+.wallet-modal-content {
+  background: #111;
+  border: 2px solid #0fff95;
+  padding: 20px;
+  border-radius: 8px;
+  max-width: 360px;
+  width: 90%;
+  font-family: 'DOSVGA', monospace;
+  color: #0fff95;
+  box-shadow: 0 0 8px #0fff95aa;
+}
+
+.wallet-modal-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.wallet-modal-body h4 {
+  margin: 10px 0 6px;
+  font-size: 12px;
+  color: #fff;
+}
+
+.wallet-close-btn {
+  background: none;
+  border: none;
+  color: #0fff95;
+  font-size: 16px;
+  cursor: pointer;
+}
   

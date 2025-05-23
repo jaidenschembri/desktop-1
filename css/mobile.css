@@ -1,4 +1,7 @@
-/* 📱 Base mobile layout — no transform */
+/* ===== MOBILE STYLES - NEOCITY ===== */
+/* Mobile-specific styles that override desktop layout */
+
+/* ===== CORE LAYOUT ===== */
 body {
   display: flex;
   flex-direction: column;
@@ -6,44 +9,70 @@ body {
   font-family: 'Press Start 2P', monospace;
   background-size: cover;
   padding-bottom: 60px; /* needed for fixed taskbar */
+  scrollbar-width: none;       /* Firefox */
+  -ms-overflow-style: none;    /* IE/Edge */
+  overflow-y: scroll;
 }
 
-  /* ✅ Taskbar pinned to real bottom */
-  footer.taskbar {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 48px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 10px;
-    z-index: 9999;
-    box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
-  }
-  
-  /* 🧱 Add space for scroll content below */
-  body::after {
-    content: '';
-    display: none; /* or remove block entirely */
-  }
-  
-  /* 🪟 Windows flow down naturally */
-  .window {
-    position: static !important;
-    width: 94% !important;
-    max-width: 540px;
-    margin: 6px auto;
-    height: auto !important;
-    box-shadow: none !important;
-    border: 2px solid #444;
-    border-radius: 6px;
-    margin-inline:auto;
-  }
-  
- @media (max-width: 768px) {
+body::after {
+  content: '';
+  display: none; /* placeholder for scroll content */
+}
+
+/* ===== SCROLLBAR HANDLING ===== */
+/* Hide scrollbars visually while keeping functionality */
+html, body {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  overflow-y: scroll;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.window::-webkit-scrollbar,
+.desktop-wrapper::-webkit-scrollbar,
+.window-stack::-webkit-scrollbar {
+  display: none;
+  width: 0 !important;
+  height: 0 !important;
+  background: transparent !important;
+}
+
+/* ===== TASKBAR ===== */
+footer.taskbar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 48px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 10px;
+  z-index: 9999;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.3);
+}
+
+.taskbar-apps {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* ===== WINDOW CORE STYLES ===== */
+.window {
+  position: static !important;
+  width: 94% !important;
+  max-width: 540px;
+  margin: 6px auto;
+  height: auto !important;
+  box-shadow: none !important;
+  border: 2px solid #444;
+  border-radius: 6px;
+  margin-inline: auto;
+}
+
+@media (max-width: 768px) {
   .window .window-header {
     background: linear-gradient(to right, #000080, #0000ff) !important;
     color: white !important;
@@ -55,78 +84,72 @@ body {
   }
 }
 
-  .desktop-icons {
-    display: none !important;
-  }
-  
-  .taskbar-apps {
-    opacity: 0;
-    pointer-events: none;
-  }
-  
-  #tip,
-  #chatbot,
-  #numerology,
-  #window-portfolio,
-  #window-shop,
-  #guestbook,
-  #gifypet,
-  #yume {
-    width: 94% !important;
-    max-width: 540px;
-    margin: 6px auto;
-    height: auto !important;
-  }
-
-/* 🔇 Hide scrollbar visuals but keep scrolling behavior */
-body::-webkit-scrollbar,
-.window::-webkit-scrollbar {
-  width: 0px;
-  background: transparent;
+.desktop-icons {
+  display: none !important;
 }
 
-body {
-  scrollbar-width: none;       /* Firefox */
-  -ms-overflow-style: none;    /* IE/Edge */
+/* ===== WINDOW ANIMATIONS ===== */
+@keyframes mobileFadeIn {
+  0% { opacity: 0; transform: scale(0.96); }
+  100% { opacity: 1; transform: scale(1); }
 }
 
-body::-webkit-scrollbar {
-  display: none;               /* Chrome/Safari/Opera */
+@keyframes mobileFadeOut {
+  0% { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(0.96); }
 }
 
-/* 💣 Global scrollbar nuke for mobile */
-
-html, body {
-  scrollbar-width: none;           /* Firefox */
-  -ms-overflow-style: none;        /* IE/Edge */
-  overflow-y: scroll;
+.window.opening {
+  animation: mobileFadeIn 0.25s ease-out forwards;
 }
 
-html::-webkit-scrollbar,
-body::-webkit-scrollbar,
-.window::-webkit-scrollbar,
-.desktop-wrapper::-webkit-scrollbar,
-.window-stack::-webkit-scrollbar {
-  display: none;                   /* Chrome, Safari, Opera */
-  width: 0 !important;
-  height: 0 !important;
-  background: transparent !important;
+.window.closing {
+  animation: mobileFadeOut 0.2s ease-out forwards;
 }
- /* ipod window */
+
+/* ===== SPECIFIC WINDOW STYLES ===== */
+/* Common window size settings */
+#tip,
+#chatbot,
+#numerology,
+#window-portfolio,
+#window-shop,
+#guestbook,
+#gifypet,
+#yume {
+  width: 94% !important;
+  max-width: 540px;
+  margin: 6px auto;
+  height: auto !important;
+}
+
+/* Prevent content overflow */
+.window,
+.window-content,
+.desktop-icons,
+.fixed-ipod {
+  max-width: 100vw;
+  overflow-x: hidden !important;
+}
+
+/* Allow start menu to overflow properly */
+#start-menu {
+  overflow-x: visible !important;
+}
+
+/* ===== IPOD WINDOW ===== */
 @media (max-width: 768px) {
   #fixed-ipod:not(.visible) {
     display: none !important;
   }
-}
-
-@media (max-width: 768px) {
+  
   #fixed-ipod {
     transform: scale(0.8);
     transform-origin: bottom right;
   }
 }
 
-/* oscillator window */
+/* ===== OSCILLATOR WINDOW ===== */
 @media (max-width: 768px) {
   #oscillator {
     max-height: 270px;
@@ -143,7 +166,7 @@ body::-webkit-scrollbar,
   }
 }
 
-/* numerology */ 
+/* ===== NUMEROLOGY WINDOW ===== */
 @media (max-width: 768px) {
   #numerology {
     max-height: 400px;
@@ -156,15 +179,13 @@ body::-webkit-scrollbar,
     overflow: hidden;
   }
 
-  /* Target the result area */
   #numerology-output {
     flex: 1;
     overflow-y: auto;
-    padding-right: 4px; /* avoids scrollbar overlap */
+    padding-right: 4px;
     margin-top: 10px;
   }
 
-  /* Optional: make sure input/button stay compact */
   #numerology .form-row {
     display: flex;
     gap: 8px;
@@ -172,8 +193,7 @@ body::-webkit-scrollbar,
   }
 }
 
-/*chatbot */ 
-
+/* ===== CHATBOT WINDOW ===== */
 @media (max-width: 768px) {
   #chatbot {
     height: 520px !important;
@@ -203,7 +223,7 @@ body::-webkit-scrollbar,
   }
 }
 
-/* window */
+/* ===== PORTFOLIO WINDOW ===== */
 @media (max-width: 768px) {
   #window-portfolio {
     max-height: 400px;
@@ -216,6 +236,7 @@ body::-webkit-scrollbar,
   }
 }
 
+/* ===== GIFYPET WINDOW ===== */
 @media (max-width: 768px) {
   #gifypet {
     width: 240px !important;
@@ -237,6 +258,7 @@ body::-webkit-scrollbar,
   }
 }
 
+/* ===== GUESTBOOK WINDOW ===== */
 @media (max-width: 768px) {
   #guestbook {
     max-height: 360px !important;
@@ -248,6 +270,7 @@ body::-webkit-scrollbar,
   }
 }
 
+/* ===== YUME WINDOW ===== */
 @media (max-width: 768px) {
   #yume {
     width: 94% !important;
@@ -271,46 +294,8 @@ body::-webkit-scrollbar,
   }
 }
 
-.window,
-.window-content,
-.desktop-icons,
-.fixed-ipod {
-  max-width: 100vw;
-  overflow-x: hidden !important;
-}
-
-@keyframes mobileFadeIn {
-  0% { opacity: 0; transform: scale(0.96); }
-  100% { opacity: 1; transform: scale(1); }
-}
-
-@keyframes mobileFadeOut {
-  0% { opacity: 1; transform: scale(1); }
-  100% { opacity: 0; transform: scale(0.96); }
-}
-
-.window.opening {
-  animation: mobileFadeIn 0.25s ease-out forwards;
-}
-
-.window.closing {
-  animation: mobileFadeOut 0.2s ease-out forwards;
-}
-#start-menu {
-  overflow-x: visible !important;
-}
-
-  body.theme-win98 .window.active-window .window-header {
-    background: linear-gradient(to right, #ff00a8, #00d7ff) !important;
-    color: #fff;
-    border-bottom: 0.05px solid #fff;
-    box-shadow:
-      inset 0 -1px 0 #fff,
-      inset 0 1px 0 #000,
-      0 0 4px #00d7ffaa;
-  }
-
-
+/* ===== THEME OVERRIDES ===== */
+/* Windows 98 theme for mobile */
 @media (max-width: 768px) {
   body.theme-win98 .window .window-header {
     background: linear-gradient(to right, #ff00a8, #00d7ff) !important;
@@ -318,6 +303,16 @@ body::-webkit-scrollbar,
     font-family: 'DOSVGA', monospace;
     font-size: 13px;
     border-bottom: 2px solid #fff;
+    box-shadow:
+      inset 0 -1px 0 #fff,
+      inset 0 1px 0 #000,
+      0 0 4px #00d7ffaa;
+  }
+  
+  body.theme-win98 .window.active-window .window-header {
+    background: linear-gradient(to right, #ff00a8, #00d7ff) !important;
+    color: #fff;
+    border-bottom: 0.05px solid #fff;
     box-shadow:
       inset 0 -1px 0 #fff,
       inset 0 1px 0 #000,

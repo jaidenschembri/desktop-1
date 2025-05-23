@@ -82,8 +82,8 @@
   border: none;
   border-radius: 5px;
   padding: 6px 12px;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 11px;
+  font-family: 'vt323', monospace;
+  font-size: 16px;
   text-transform: uppercase;
   font-weight: bold;
   cursor: pointer;
@@ -106,8 +106,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
-  font-family: 'Orbitron', sans-serif;
-  font-size: 11px;
+  font-family: 'vt323', monospace;
+  font-size: 17px;
   text-transform: uppercase;
   margin-top: 6px;
   user-select: none;

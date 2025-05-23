@@ -1,4 +1,7 @@
-/* === Portfolio Window === */
+/* ===== PORTFOLIO COMPONENT ===== */
+/* Styling for the portfolio window and gallery */
+
+/* ===== WINDOW CONTAINER ===== */
 #window-portfolio {
   position: absolute;
   left: 50%;
@@ -7,18 +10,17 @@
   height: 600px;
   max-width: none;
   max-height: none;
-  overflow: auto; /* lets content scroll if it overflows */
+  overflow: auto;
   display: flex;
   flex-direction: column;
   background: #e0e0e0;
   border: 2px solid #999;
-  box-shadow: 4px 4px 0 #000;
   z-index: 100;
   box-sizing: border-box;
   pointer-events: auto;
 }
 
-/* === Header stays stuck at top === */
+/* ===== WINDOW HEADER ===== */
 .window-header {
   background: #c0c0c0;
   padding: 6px 10px;
@@ -32,20 +34,17 @@
   top: 0;
   z-index: 10;
   pointer-events: auto;
-  .window-header {
-    cursor: move !important;
-  }
-  
+  cursor: move !important;
 }
 
-/* === Scrollable Content === */
+/* ===== WINDOW CONTENT ===== */
 .window-content {
   flex: 1;
   overflow-y: scroll;
   box-sizing: border-box;
 }
 
-/* === Inner Portfolio Layout === */
+/* ===== PORTFOLIO LAYOUT ===== */
 .portfolio-window {
   padding: 10px;
   font-family: 'Press Start 2P', monospace;
@@ -53,7 +52,7 @@
   color: white;
 }
 
-/* === Section Styling === */
+/* ===== PORTFOLIO SECTIONS ===== */
 .section {
   margin-bottom: 32px;
 }
@@ -67,32 +66,12 @@
   padding-bottom: 6px;
 }
 
-/* === Grid Layout === */
-.gallery-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
-  gap: 14px;
-}
-
-.gallery-grid img {
-  width: 100%;
-  height: 140px;
-  object-fit: cover;
-  border: none;
-  background: none;
-  image-rendering: auto;
-  transition: transform 0.2s ease, box-shadow 0.2s;
-}
-
-.gallery-grid img:hover {
-  transform: scale(1.03);
-  box-shadow: 0 0 6px #fff3;
-}
+/* ===== GALLERY GRID ===== */
 .gallery-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
   gap: 16px;
-  place-items: center; /* centers images horizontally */
+  place-items: center;
 }
 
 .gallery-grid img {
@@ -100,7 +79,7 @@
   max-height: 140px;
   width: auto;
   height: auto;
-  object-fit: contain; /* 👈 show whole image without cropping */
+  object-fit: contain;
   padding: 2px;
   transition: transform 0.2s ease, box-shadow 0.2s;
 }

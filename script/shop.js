@@ -1,15 +1,32 @@
-// shop.js (corrected)
+/**
+ * NEOCITY SHOP
+ * Handles payment processing and wallet integrations
+ */
+
 document.addEventListener('DOMContentLoaded', () => {
-  if (window.paypal) {
-    const items = [
+  // ===== CONFIGURATION =====
+  const SHOP_CONFIG = {
+    items: [
       {
         containerId: 'paypal-button-container-2',
         value: '35.00',
         description: 'CUCK tee'
       }
-    ];
+    ],
+    wallets: {
+      ethereum: '0x07017175ac2e3Fe581B7E9B0e89f038166d39c98',
+      solana: 'A96xCDmUox8D3hbCNSGXJ6wgMGbB7vV8MxYWGG8EHiae'
+    }
+  };
 
-    items.forEach(item => {
+  // ===== PAYPAL INTEGRATION =====
+  function initializePayPal() {
+    if (!window.paypal) {
+      console.warn('⚠️ PayPal SDK not loaded');
+      return;
+    }
+
+    SHOP_CONFIG.items.forEach(item => {
       const container = document.getElementById(item.containerId);
       if (container && !container.hasChildNodes()) {
         paypal.Buttons({
@@ -39,50 +56,76 @@ document.addEventListener('DOMContentLoaded', () => {
         }).render(`#${item.containerId}`);
       }
     });
-  } else {
-    console.warn('⚠️ PayPal SDK not loaded');
   }
 
-  // ==== Wallet Payment Methods ====
+  // ===== WALLET PAYMENT METHODS =====
+  /**
+   * Open payment link in MetaMask
+   */
+  window.openMetaMask = function() {
+    const addr = SHOP_CONFIG.wallets.ethereum;
+    window.open(`https://metamask.app.link/send/${addr}`, "_blank");
+  };
 
+  /**
+   * Open generic WalletConnect
+   */
+  window.openWalletConnect = function() {
+    window.open("https://walletconnect.com/", "_blank");
+  };
+
+  /**
+   * Open payment link in Phantom wallet
+   */
+  window.openPhantom = function() {
+    const addr = SHOP_CONFIG.wallets.solana;
+    window.open(`https://phantom.app/ul/send?recipient=${addr}&reference=shop_payment`, "_blank");
+  };
+
+  /**
+   * Open payment link in Solflare wallet
+   */
+  window.openSolflare = function() {
+    const addr = SHOP_CONFIG.wallets.solana;
+    window.open(`https://solflare.com/send?recipient=${addr}`, "_blank");
+  };
+
+  /**
+   * Pay with Ethereum through a wallet link
+   * @param {string} address - Ethereum address
+   */
   window.payWithETH = function(address) {
     const link = `https://metamask.app.link/send/${address}`;
     window.open(link, '_blank');
   };
 
+  /**
+   * Pay with Solana through a wallet link
+   * @param {string} address - Solana address
+   */
   window.payWithSOL = function(address) {
     const link = `https://phantom.app/ul/send?recipient=${address}&reference=shop_payment`;
     window.open(link, '_blank');
   };
 
+  /**
+   * Toggle wallet selection modal visibility
+   */
   window.toggleWalletModal = function() {
     const modal = document.getElementById("wallet-modal");
     modal.classList.toggle("hidden");
   };
 
-  window.openMetaMask = function() {
-    const addr = "0x07017175ac2e3Fe581B7E9B0e89f038166d39c98";
-    window.open(`https://metamask.app.link/send/${addr}`, "_blank");
-  };
-
-  window.openWalletConnect = function() {
-    window.open("https://walletconnect.com/", "_blank");
-  };
-
-  window.openPhantom = function() {
-    const addr = "A96xCDmUox8D3hbCNSGXJ6wgMGbB7vV8MxYWGG8EHiae";
-    window.open(`https://phantom.app/ul/send?recipient=${addr}&reference=shop_payment`, "_blank");
-  };
-
-  window.openSolflare = function() {
-    const addr = "A96xCDmUox8D3hbCNSGXJ6wgMGbB7vV8MxYWGG8EHiae";
-    window.open(`https://solflare.com/send?recipient=${addr}`, "_blank");
-  };
-
+  /**
+   * Copy text to clipboard
+   * @param {string} text - Text to copy
+   */
   window.copyToClipboard = function(text) {
     navigator.clipboard.writeText(text).then(() => {
       alert("Copied to clipboard!");
     });
   };
 
+  // Initialize PayPal on page load
+  initializePayPal();
 });

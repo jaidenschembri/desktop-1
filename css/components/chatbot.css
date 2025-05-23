@@ -1,3 +1,7 @@
+/* ===== CHATBOT COMPONENT ===== */
+/* Styling for the chat interface window */
+
+/* ===== WINDOW CONTAINER ===== */
 #chatbot.window {
   width: 520px;
   height: 480px;
@@ -18,6 +22,7 @@
   padding-bottom: 6px;
 }
 
+/* ===== CHAT LAYOUT ===== */
 .chatbot-box {
   flex: 1;
   display: flex;
@@ -43,6 +48,7 @@
   backdrop-filter: blur(4px);
 }
 
+/* ===== MESSAGE BUBBLES ===== */
 .chat-display .user {
   align-self: flex-end;
   background: #ffd6fa;
@@ -65,6 +71,7 @@
   line-height: 1.4;
 }
 
+/* ===== INPUT CONTROLS ===== */
 .chat-controls {
   display: flex;
   gap: 8px;
